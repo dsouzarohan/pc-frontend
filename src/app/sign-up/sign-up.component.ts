@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
-import DateTimeFormat = Intl.DateTimeFormat;
-import DateTimeFormat = Intl.DateTimeFormat;
-import DateTimeFormat = Intl.DateTimeFormat;
-import DateTimeFormat = Intl.DateTimeFormat;
 
 
 @Component({
