@@ -1,0 +1,31 @@
+//.pc-signup-card{
+//  width: 90%;
+//  margin: auto;
+//}
+
+.pc-radio-group{
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.pc-radio-button{
+  margin: 7px;
+}
+
+.pc-stepper-next-button{
+  margin-top: 10px;
+}
+
+
+//////////////////
+
+form{
+  display: inline-flex;
+  flex-direction: column;
+}
+
+mat-form-field{
+  margin: 5px 0px;
+}
+
+

@@ -1,0 +1,111 @@
+<div class="container">
+  <form (ngSubmit)="onSubmit()">
+    <mat-horizontal-stepper>
+      <!--The whole sign up form-->
+
+      <mat-step [stepControl]="typeFormGroup">
+        <!--The type step-->
+
+        <ng-template
+          matStepLabel
+          class="pc-mat-step-label">Who are you?</ng-template>
+
+        <form
+          [formGroup]="typeFormGroup">
+          <!--The type form in the step-->
+
+          <mat-radio-group
+            matInput
+            formControlName="type"
+            class="pc-radio-group">
+
+            <mat-radio-button
+              *ngFor="let type of types"
+              [value]="type"
+              class="pc-radio-button">
+              {{ type }}
+            </mat-radio-button>
+
+          </mat-radio-group>
+
+          <div>
+            <button class="pc-stepper-next-button" mat-button matStepperNext>Next</button>
+          </div>
+
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="personalFormGroup">
+        <!--This is the personal details step-->
+
+        <ng-template
+          matStepLabel
+          class="pc-mat-step-label">Personal</ng-template>
+
+        <form
+          [formGroup]="personalFormGroup"
+        >
+          <!--This is the personal detail form in the step-->
+
+          <mat-form-field>
+
+            <input
+            matInput
+            placeholder="First Name"
+            formControlName="firstName"
+            #firstName>
+
+            <mat-error
+              *ngIf="!firstName.valid">
+              Incorrect name
+            </mat-error>
+
+
+          </mat-form-field>
+
+          <mat-form-field>
+
+            <input
+            matInput
+            formControlName="lastName"
+            placeholder="Last Name"
+            #lastName>
+
+            <mat-error *ngIf="!lastName.valid">
+              Incorrect name
+            </mat-error>
+
+          </mat-form-field>
+
+          <mat-form-field>
+
+            <input
+            matInput
+            placeholder="Middle name"
+            #middleName
+            formControlName="middleName">
+
+            <mat-error *ngIf="!middleName.valid">Incorrect name</mat-error>
+
+          </mat-form-field>
+
+          <mat-form-field>
+            <input
+              matInput
+              #dateOfBirth
+              formControlName="dateOfBirth"
+              [matDatepicker]="picker"
+              placeholder="Date of birth">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <!--todo: Complete the whole form-->
+
+        </form>
+
+      </mat-step>
+
+    </mat-horizontal-stepper>
+  </form>
+</div>
