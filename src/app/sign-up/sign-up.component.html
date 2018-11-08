@@ -1,14 +1,14 @@
 <div class="container">
   <form (ngSubmit)="onSubmit()">
-    <mat-horizontal-stepper>
+    <mat-horizontal-stepper
+    linear='false'>
+
+      <!--todo: change linear to true after completion-->
+
       <!--The whole sign up form-->
 
-      <mat-step [stepControl]="typeFormGroup">
+      <mat-step [stepControl]="typeFormGroup" label="Who are you?">
         <!--The type step-->
-
-        <ng-template
-          matStepLabel
-          class="pc-mat-step-label">Who are you?</ng-template>
 
         <form
           [formGroup]="typeFormGroup">
@@ -17,6 +17,7 @@
           <mat-radio-group
             matInput
             formControlName="type"
+            #typeGroup
             class="pc-radio-group">
 
             <mat-radio-button
@@ -26,21 +27,19 @@
               {{ type }}
             </mat-radio-button>
 
+            <mat-error *ngIf="!typeFormGroup.valid && typeFormGroup.touched">Please select a type</mat-error>
+
           </mat-radio-group>
 
-          <div>
-            <button class="pc-stepper-next-button" mat-button matStepperNext>Next</button>
+          <div class="pc-stepper-buttons">
+            <button mat-button matStepperNext>NEXT</button>
           </div>
 
         </form>
       </mat-step>
 
-      <mat-step [stepControl]="personalFormGroup">
+      <mat-step [stepControl]="personalFormGroup" label="Personal">
         <!--This is the personal details step-->
-
-        <ng-template
-          matStepLabel
-          class="pc-mat-step-label">Personal</ng-template>
 
         <form
           [formGroup]="personalFormGroup"
@@ -95,14 +94,181 @@
               #dateOfBirth
               formControlName="dateOfBirth"
               [matDatepicker]="picker"
+              [max]="maxDate"
               placeholder="Date of birth">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="!dateOfBirth.valid">Required</mat-error>
           </mat-form-field>
+
+          <mat-radio-group
+            matInput
+            placeHolder = "Gender"
+            formControlName="gender"
+            class="pc-radio-group"
+            required
+          >
+
+            <mat-label>
+              Gender
+            </mat-label>
+
+            <mat-radio-button
+            *ngFor="let gender of genders"
+            class="pc-radio-button"
+            [value]="gender"
+            >
+              {{ gender }}
+            </mat-radio-button>
+
+            <mat-error *ngIf="!personalFormGroup.get('gender').valid &&
+            personalFormGroup.get('gender').touched">Please select a value</mat-error>
+
+          </mat-radio-group>
 
           <!--todo: Complete the whole form-->
 
+          <div class="pc-stepper-buttons">
+            <button
+              mat-button
+              matStepperPrevious>
+              PREVIOUS
+            </button>
+
+            <button
+              mat-button=""
+              matStepperNext>
+              NEXT
+            </button>
+          </div>
+
         </form>
+
+      </mat-step>
+
+      <mat-step [stepControl]="contactFormGroup" label="Contact">
+        <!--Contact form step-->
+        <form [formGroup]="contactFormGroup">
+          <!--Contact form-->
+
+          <mat-form-field>
+
+            <input
+            matInput
+            #mobileNumber
+            formControlName="mobileNumber"
+            placeholder="Mobile Number">
+
+            <mat-error *ngIf="!mobileNumber.valid">Incorrect mobile number</mat-error>
+
+          </mat-form-field>
+
+          <mat-form-field>
+
+            <input
+            matInput
+            #alternateMobileNumber
+            formControlName="alternateMobileNumber"
+            placeholder="Alternate mobile number">
+
+            <mat-error
+            *ngIf="!alternateMobileNumber.valid">
+              Incorrect number
+            </mat-error>
+
+          </mat-form-field>
+
+          <mat-form-field>
+
+            <input
+            matInput
+            #email
+            formControlName="email"
+            placeholder="Email">
+
+          </mat-form-field>
+
+        </form>
+
+        <div class="pc-stepper-buttons">
+          <button
+            mat-button
+            matStepperPrevious
+          >PREVIOUS</button>
+
+          <button
+            mat-button
+            matStepperNext>NEXT</button>
+        </div>
+
+      </mat-step>
+
+      <mat-step [stepControl]="credentialFormGroup" label="Credentials">
+        <!--Credential form step, here the form will also be submitted to the server-->
+
+        <form [formGroup]="credentialFormGroup">
+          <!--Credential form, here, the whole form i.e the sign up form will be submitted-->
+
+          <mat-form-field>
+
+            <input
+            matInput
+            readonly
+            [value]="contactFormGroup.get('email').value"
+            placeholder="Email">
+
+            <mat-hint>
+              The email you chose in the previous step will be your login credential.
+            </mat-hint>
+
+          </mat-form-field>
+
+          <mat-form-field>
+
+            <input
+              matInput
+              type="password"
+              #password
+              formControlName="password"
+              placeholder="Password">
+
+            <mat-hint>Your password should be alphanumeric and of length 8-15 characters<br>It should consist of at least one number and uppercase character</mat-hint>
+
+            <mat-error *ngIf="!password.valid">Incorrect password</mat-error>
+
+          </mat-form-field>
+
+          <mat-form-field>
+
+            <input
+              matInput
+              type="confirmPassword"
+              formControlName="confirmPassword"
+              #confirmPassword
+              placeholder="Confirm Password"
+            >
+
+            <mat-error></mat-error>
+
+          </mat-form-field>
+
+        </form>
+
+        <div class="pc-stepper-buttons">
+
+          <button
+          mat-button
+          matStepperNext>
+            PREVIOUS
+          </button>
+
+          <button
+          mat-button
+          >
+            JOIN
+          </button>
+
+        </div>
 
       </mat-step>
 

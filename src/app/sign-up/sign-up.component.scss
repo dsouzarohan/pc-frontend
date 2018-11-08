@@ -12,7 +12,7 @@
   margin: 7px;
 }
 
-.pc-stepper-next-button{
+.pc-stepper-buttons{
   margin-top: 10px;
 }
 
@@ -20,12 +20,16 @@
 //////////////////
 
 form{
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
 }
 
 mat-form-field{
   margin: 5px 0px;
+}
+
+mat-label{
+  margin: 10px 0px;
 }
 
 
