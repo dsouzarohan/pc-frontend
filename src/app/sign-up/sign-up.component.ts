@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {SignUpService} from './sign-up.service';
 
 
 @Component({
@@ -13,8 +14,6 @@ export class SignUpComponent implements OnInit {
   The following are the form groups that are logical
   divisions of the entire sign up form
    */
-
-  @ViewChild('confirmPassword') confirmPassword: ElementRef;
 
   private signUpForm: FormGroup;
 
@@ -36,7 +35,10 @@ export class SignUpComponent implements OnInit {
 
   private maxDate: Date;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private signUpService: SignUpService
+  ) {}
 
   ngOnInit() {
 
@@ -84,23 +86,22 @@ export class SignUpComponent implements OnInit {
         Validators.required,
         Validators.email
       ]]
-    })
+    });
 
     this.credentialFormGroup = this.formBuilder.group({
-      email: ['', [
-        Validators.required,
+      email: [this.contactFormGroup.get('email').value, [
         Validators.email
       ]],
       password: ['',[
         Validators.required,
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,15}$/),
-        this.passwordMatch.bind(this)
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,15}$/)
       ]],
       confirmPassword: ['',[
         Validators.required,
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,15}$/),
-        this.passwordMatch.bind(this)
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,15}$/)
       ]]
+    },{
+      validator: SignUpComponent.passwordMatch
     });
 
     //Main sign up form
@@ -114,22 +115,22 @@ export class SignUpComponent implements OnInit {
 
   }
 
-  passwordMatch(passwordControl: FormControl): {[key: string]: boolean}{
+  static passwordMatch(abstractControl: AbstractControl): {[key: string]: boolean}{
 
-    //todo: fix the error of cannot read 'get' caused by the two lines below and complete the form
+    let password= abstractControl.get('password').value;
+    let confirmPassword = abstractControl.get('confirmPassword').value;
 
-    let password = this.credentialFormGroup.get('password').value;
-    // let confirmPassword = this.credentialFormGroup.get('confirmPassword').value;
+    console.log(abstractControl);
 
-    // if(password === confirmPassword){
-    //   return null;
-    // }
+    if(password === confirmPassword){
+      return null;
+    }
 
     return {'Passwords do not match': true};
   }
 
   onSubmit(){
-    console.log(this.credentialFormGroup);
+    this.signUpService.createUser(this.signUpForm.value);
   }
 
 }

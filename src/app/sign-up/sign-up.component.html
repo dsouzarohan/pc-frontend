@@ -1,6 +1,6 @@
 <div class="container">
   <form (ngSubmit)="onSubmit()">
-    <mat-horizontal-stepper
+    <mat-vertical-stepper
     linear='false'>
 
       <!--todo: change linear to true after completion-->
@@ -126,8 +126,6 @@
 
           </mat-radio-group>
 
-          <!--todo: Complete the whole form-->
-
           <div class="pc-stepper-buttons">
             <button
               mat-button
@@ -215,6 +213,7 @@
             matInput
             readonly
             [value]="contactFormGroup.get('email').value"
+            formControlName="email"
             placeholder="Email">
 
             <mat-hint>
@@ -234,6 +233,8 @@
 
             <mat-hint>Your password should be alphanumeric and of length 8-15 characters<br>It should consist of at least one number and uppercase character</mat-hint>
 
+            <!--todo: fix the overlapping hint on the next form field-->
+
             <mat-error *ngIf="!password.valid">Incorrect password</mat-error>
 
           </mat-form-field>
@@ -242,13 +243,13 @@
 
             <input
               matInput
-              type="confirmPassword"
+              type="password"
               formControlName="confirmPassword"
               #confirmPassword
               placeholder="Confirm Password"
             >
 
-            <mat-error></mat-error>
+            <mat-error *ngIf="credentialFormGroup.hasError('Passwords do not match')">The passwords do not match</mat-error>
 
           </mat-form-field>
 
@@ -272,6 +273,6 @@
 
       </mat-step>
 
-    </mat-horizontal-stepper>
+    </mat-vertical-stepper>
   </form>
 </div>
