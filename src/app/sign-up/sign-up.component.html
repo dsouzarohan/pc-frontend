@@ -134,7 +134,7 @@
             </button>
 
             <button
-              mat-button=""
+              mat-button
               matStepperNext>
               NEXT
             </button>
@@ -184,20 +184,22 @@
             formControlName="email"
             placeholder="Email">
 
+            <mat-error *ngIf="!email.valid">Invalid email address</mat-error>
+
           </mat-form-field>
 
+          <div class="pc-stepper-buttons">
+            <button
+              mat-button
+              matStepperPrevious
+            >PREVIOUS</button>
+
+            <button
+              mat-button
+              matStepperNext>NEXT</button>
+          </div>
+
         </form>
-
-        <div class="pc-stepper-buttons">
-          <button
-            mat-button
-            matStepperPrevious
-          >PREVIOUS</button>
-
-          <button
-            mat-button
-            matStepperNext>NEXT</button>
-        </div>
 
       </mat-step>
 
@@ -231,7 +233,8 @@
               formControlName="password"
               placeholder="Password">
 
-            <mat-hint>Your password should be alphanumeric and of length 8-15 characters<br>It should consist of at least one number and uppercase character</mat-hint>
+            <mat-hint>Your password should be alphanumeric and of length 8-15 characters. It should consist of at least one number and uppercase character</mat-hint>
+            <!--todo: Shorten the input hint-->
 
             <!--todo: fix the overlapping hint on the next form field-->
 
@@ -251,6 +254,8 @@
 
             <mat-error *ngIf="credentialFormGroup.hasError('Passwords do not match')">The passwords do not match</mat-error>
 
+            <!--todo: passwords do not match error not triggered by error in the main password box-->
+
           </mat-form-field>
 
         </form>
@@ -264,8 +269,12 @@
           </button>
 
           <button
-          mat-button
-          >
+          mat-button>
+
+          <!--[disabled]="!signUpForm.valid"-->
+          <!---->
+          <!--&gt;-->
+
             JOIN
           </button>
 

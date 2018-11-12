@@ -3,6 +3,8 @@
 //  margin: auto;
 //}
 
+//todo: add all styles that are global to global stylings
+
 .pc-radio-group{
   display: inline-flex;
   flex-direction: column;
@@ -25,7 +27,7 @@ form{
 }
 
 mat-form-field{
-  margin: 5px 0px;
+  margin: 15px 0px;
 }
 
 mat-label{

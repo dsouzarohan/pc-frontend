@@ -120,7 +120,7 @@ export class SignUpComponent implements OnInit {
     let password= abstractControl.get('password').value;
     let confirmPassword = abstractControl.get('confirmPassword').value;
 
-    console.log(abstractControl);
+    // console.log(abstractControl);
 
     if(password === confirmPassword){
       return null;
@@ -130,7 +130,15 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit(){
-    this.signUpService.createUser(this.signUpForm.value);
+    this.signUpService.createUser(this.signUpForm.value)
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
 }
