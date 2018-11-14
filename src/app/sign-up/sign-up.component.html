@@ -165,12 +165,12 @@
 
             <input
             matInput
-            #alternateMobileNumber
-            formControlName="alternateMobileNumber"
+            #alternateNumber
+            formControlName="alternateNumber"
             placeholder="Alternate mobile number">
 
             <mat-error
-            *ngIf="!alternateMobileNumber.valid">
+            *ngIf="!alternateNumber.valid">
               Incorrect number
             </mat-error>
 
@@ -185,6 +185,25 @@
             placeholder="Email">
 
             <mat-error *ngIf="!email.valid">Invalid email address</mat-error>
+            <mat-error *ngIf="contactFormGroup.hasError('Email exists')">Email already exists</mat-error>
+
+            <!--todo: only one error should be seen at a time-->
+
+          </mat-form-field>
+
+          <mat-form-field>
+
+            <textarea
+              matInput
+              #address
+              formControlName="address"
+              placeholder="Address"
+              maxlength="250"
+            ></textarea>
+
+            <mat-error *ngIf="!address.valid">Required</mat-error>
+
+            <!--todo: change the layout to another form group with fields-->
 
           </mat-form-field>
 

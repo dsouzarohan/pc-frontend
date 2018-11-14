@@ -1,6 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {SignUpService} from './sign-up.service';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -81,10 +83,14 @@ export class SignUpComponent implements OnInit {
         Validators.required,
         Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10}$/)
       ]],
-      alternateMobileNumber: ['',Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10}$/)],
+      alternateNumber: ['',Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10}$/)],
       email: ['',[
         Validators.required,
         Validators.email
+      ], this.emailExists.bind(this)
+      ],
+      address: ['',[
+        Validators.required
       ]]
     });
 
@@ -129,7 +135,37 @@ export class SignUpComponent implements OnInit {
     return {'Passwords do not match': true};
   }
 
+  emailExists(emailControl: FormControl): Observable<any> {
+
+    console.log('Email val called');
+
+    const email = emailControl.value;
+
+    return this.signUpService.emailExists(email).pipe(
+      map(response => {
+
+
+
+        console.log(emailControl);
+        console.log(response);
+
+        if(!(<any> response).emailExists){
+          return null;
+        }
+
+        return {'Email exists': true};
+
+      })
+    );
+
+    return null;
+  }
+
   onSubmit(){
+
+    //Setting email in credentials to the email used in contact
+    this.credentialFormGroup.get('email').setValue(this.contactFormGroup.get('email').value);
+
     this.signUpService.createUser(this.signUpForm.value)
       .subscribe(
         response => {
