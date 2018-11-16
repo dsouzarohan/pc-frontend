@@ -1,13 +1,17 @@
 <div class="container">
   <form (ngSubmit)="onSubmit()">
+
     <mat-vertical-stepper
-    linear='false'>
+    linear=true>
 
       <!--todo: change linear to true after completion-->
 
       <!--The whole sign up form-->
 
       <mat-step [stepControl]="typeFormGroup" label="Who are you?">
+
+        <!--todo: add a new input for the uid or the stream and uid-->
+
         <!--The type step-->
 
         <form
