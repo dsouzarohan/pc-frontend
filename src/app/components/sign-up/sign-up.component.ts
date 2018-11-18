@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {SignUpService} from './sign-up.service';
+import {AuthService} from '../../services/auth.service';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
@@ -39,7 +39,7 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private signUpService: SignUpService
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -141,7 +141,7 @@ export class SignUpComponent implements OnInit {
 
     const email = emailControl.value;
 
-    return this.signUpService.emailExists(email).pipe(
+    return this.authService.emailExists(email).pipe(
       map(response => {
 
 
@@ -166,7 +166,7 @@ export class SignUpComponent implements OnInit {
     //Setting email in credentials to the email used in contact
     this.credentialFormGroup.get('email').setValue(this.contactFormGroup.get('email').value);
 
-    this.signUpService.createUser(this.signUpForm.value)
+    this.authService.createUser(this.signUpForm.value)
       .subscribe(
         response => {
           console.log(response);

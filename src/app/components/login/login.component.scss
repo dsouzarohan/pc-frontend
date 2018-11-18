@@ -1,0 +1,22 @@
+.flex-container{
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  height: 100%;
+  margin: auto 0px;
+}
+
+mat-card-title, mat-card-subtitle{
+  width: 100%;
+  text-align: center;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+}
+
+form > *{
+  margin: 0px 20px;
+}

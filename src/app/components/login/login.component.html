@@ -1,0 +1,42 @@
+<div class="flex-container">
+  <mat-card>
+
+    <mat-card-title>Welcome to PocketClass</mat-card-title>
+    <mat-card-subtitle>Login</mat-card-subtitle>
+
+    <form (ngSubmit)="onLoginSubmit()"
+          [formGroup]="credentials"
+          class="form-group">
+
+
+      <mat-form-field>
+
+        <input
+          matInput
+          #email
+          formControlName="email"
+          placeholder="Email"
+          email>
+
+      </mat-form-field>
+
+      <mat-form-field>
+
+        <input
+          matInput
+          #password
+          formControlName="password"
+          placeholder="Password"
+          type="password">
+
+      </mat-form-field>
+
+      <button
+        [disabled]="!credentials.valid"
+        mat-button>
+        LOGIN
+      </button>
+
+    </form>
+  </mat-card>
+</div>

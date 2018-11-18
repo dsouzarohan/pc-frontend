@@ -2,7 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { LoginComponent } from './components/login/login.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
@@ -20,10 +22,15 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
+import {AuthInterceptor} from './interceptors/auth.interceptor';
+import { HomeComponent } from './components/home/home.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    SignUpComponent
+    SignUpComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     AppRoutingModule,
@@ -41,7 +48,13 @@ import { AppRoutingModule } from './app-routing.module';
     MatNativeDateModule,
     HttpClientModule
   ],
-  providers: [HttpClient],
+  providers: [HttpClient,
+    {
+      provide: 'HTTP_INTERCEPTORS',
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
