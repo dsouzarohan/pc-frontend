@@ -52,7 +52,9 @@ export class SignUpComponent implements OnInit {
     //Form Groups
 
     this.typeFormGroup = this.formBuilder.group({
-      'type': ['', Validators.required]
+      'type': ['Student', Validators.required],
+      'uid': ['', Validators.required],
+      'stream': ['', Validators.required]
     });
 
     this.personalFormGroup = this.formBuilder.group({
@@ -84,7 +86,7 @@ export class SignUpComponent implements OnInit {
         Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10}$/)
       ]],
       alternateNumber: ['',Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10}$/)],
-      email: ['',[
+      email: [null,[
         Validators.required,
         Validators.email
       ], this.emailExists.bind(this)
@@ -119,6 +121,14 @@ export class SignUpComponent implements OnInit {
       credentials: this.credentialFormGroup
     });
 
+  }
+
+  private onUserTypeChange(){
+    if(this.typeFormGroup.get('type').value !== 'Student'){
+      this.typeFormGroup.get('stream').disable();
+    } else {
+      this.typeFormGroup.get('stream').enable();
+    }
   }
 
   static passwordMatch(abstractControl: AbstractControl): {[key: string]: boolean}{
@@ -165,6 +175,8 @@ export class SignUpComponent implements OnInit {
 
     //Setting email in credentials to the email used in contact
     this.credentialFormGroup.get('email').setValue(this.contactFormGroup.get('email').value);
+
+    console.log(this.signUpForm.value);
 
     this.authService.createUser(this.signUpForm.value)
       .subscribe(

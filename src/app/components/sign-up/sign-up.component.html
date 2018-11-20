@@ -22,7 +22,8 @@
             matInput
             formControlName="type"
             #typeGroup
-            class="pc-radio-group">
+            class="pc-radio-group"
+            (change)="onUserTypeChange()">
 
             <mat-radio-button
               *ngFor="let type of types"
@@ -31,9 +32,37 @@
               {{ type }}
             </mat-radio-button>
 
-            <mat-error *ngIf="!typeFormGroup.valid && typeFormGroup.touched">Please select a type</mat-error>
+            <mat-error *ngIf="!typeFormGroup.get('type').valid">Please select a type</mat-error>
 
           </mat-radio-group>
+
+          <mat-form-field>
+
+            <input
+            matInput
+            formControlName="uid"
+            #uid
+            placeholder="UID">
+
+            <mat-hint>Enter the unique identification number provided by your college</mat-hint>
+
+            <mat-error *ngIf="!uid.valid">UID is required</mat-error>
+
+          </mat-form-field>
+
+          <mat-form-field *ngIf="typeFormGroup.get('type').value === 'Student'">
+
+            <input
+            matInput
+            formControlName="stream"
+            #stream
+            placeholder="Stream">
+
+            <mat-hint>Enter the stream</mat-hint>
+
+            <mat-error *ngIf="!stream.valid">Stream is required</mat-error>
+
+          </mat-form-field>
 
           <div class="pc-stepper-buttons">
             <button mat-button matStepperNext>NEXT</button>
