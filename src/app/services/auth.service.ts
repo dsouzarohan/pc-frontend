@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: "root"
@@ -11,6 +12,31 @@ export class AuthService {
 
   private userToken: string;
   private timer: any;
+
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
+
+  // Sign up form methods
+
+  createUser(user: object) {
+    return this.http.post("http://localhost:3000/api/users/signup", user);
+  }
+
+  emailExists(email: string) {
+    return this.http.get<any>(`http://localhost:3000/api/users/email/${email}`);
+  }
+
+  numberExists(number: string){
+    return this.http.get<any>(`http://localhost:3000/api/users/number/${number}`);
+  }
+
+  uidExists(uid: number, type: string){
+    return this.http.get<any>(`http://localhost:3000/api/users/uid/${uid}/type/${type}`);
+  }
+
+  // Authentication methods
 
   getUserToken() {
     return this.userToken;
@@ -29,15 +55,6 @@ export class AuthService {
     this.userAuthListener.next(toAuthenticate);
   }
 
-  constructor(private http: HttpClient) {}
-
-  createUser(user: object) {
-    return this.http.post("http://localhost:3000/api/users/signup", user);
-  }
-
-  emailExists(email: string) {
-    return this.http.get(`http://localhost:3000/api/users/email/${email}`);
-  }
 
   login(credentials: any) {
     this.http
@@ -63,6 +80,8 @@ export class AuthService {
             console.log(expirationDate);
 
             this.saveUser(this.userToken, expirationDate);
+
+            this.router.navigate(['/home']);
           }
         },
         error => {

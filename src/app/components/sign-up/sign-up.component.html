@@ -1,16 +1,16 @@
 <div class="container">
   <form (ngSubmit)="onSubmit()">
 
+    <!--todo: rewrite all validator using the rxweb form validation library-->
+
     <mat-vertical-stepper
-    linear=true>
+    linear=false>
 
       <!--todo: change linear to true after completion-->
 
       <!--The whole sign up form-->
 
       <mat-step [stepControl]="typeFormGroup" label="Who are you?">
-
-        <!--todo: add a new input for the uid or the stream and uid-->
 
         <!--The type step-->
 
@@ -42,6 +42,7 @@
             matInput
             formControlName="uid"
             #uid
+            type="number"
             placeholder="UID">
 
             <mat-hint>Enter the unique identification number provided by your college</mat-hint>
@@ -190,7 +191,8 @@
             formControlName="mobileNumber"
             placeholder="Mobile Number">
 
-            <mat-error *ngIf="!mobileNumber.valid">Incorrect mobile number</mat-error>
+            <mat-error *ngIf="contactFormGroup.get('mobileNumber').hasError('pattern')">Incorrect mobile number</mat-error>
+            <mat-error *ngIf="contactFormGroup.get('mobileNumber').hasError('Number exists')">Mobile number already exists</mat-error>
 
           </mat-form-field>
 
@@ -202,10 +204,8 @@
             formControlName="alternateNumber"
             placeholder="Alternate mobile number">
 
-            <mat-error
-            *ngIf="!alternateNumber.valid">
-              Incorrect number
-            </mat-error>
+            <mat-error *ngIf="contactFormGroup.get('alternateNumber').hasError('pattern')">Incorrect mobile number</mat-error>
+            <mat-error *ngIf="contactFormGroup.get('alternateNumber').hasError('Number exists')">Mobile number already exists</mat-error>
 
           </mat-form-field>
 
@@ -217,10 +217,8 @@
             formControlName="email"
             placeholder="Email">
 
-            <mat-error *ngIf="!email.valid">Invalid email address</mat-error>
-            <mat-error *ngIf="contactFormGroup.hasError('Email exists')">Email already exists</mat-error>
-
-            <!--todo: only one error should be seen at a time-->
+            <mat-error *ngIf="contactFormGroup.get('email').hasError('email')">Invalid email address</mat-error>
+            <mat-error *ngIf="contactFormGroup.get('email').hasError('Email exists')">Email already exists</mat-error>
 
           </mat-form-field>
 
@@ -287,8 +285,6 @@
 
             <mat-hint>Your password should be alphanumeric and of length 8-15 characters. It should consist of at least one number and uppercase character</mat-hint>
             <!--todo: Shorten the input hint-->
-
-            <!--todo: fix the overlapping hint on the next form field-->
 
             <mat-error *ngIf="!password.valid">Incorrect password</mat-error>
 
