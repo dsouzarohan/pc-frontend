@@ -23,6 +23,7 @@
             formControlName="type"
             #typeGroup
             class="pc-radio-group"
+            required
             (change)="onUserTypeChange()">
 
             <mat-radio-button
@@ -43,7 +44,8 @@
             formControlName="uid"
             #uid
             type="number"
-            placeholder="UID">
+            placeholder="UID"
+            required>
 
             <mat-hint>Enter the unique identification number provided by your college</mat-hint>
 
@@ -57,7 +59,8 @@
             matInput
             formControlName="stream"
             #stream
-            placeholder="Stream">
+            placeholder="Stream"
+            required>
 
             <mat-hint>Enter the stream</mat-hint>
 
@@ -86,7 +89,8 @@
             matInput
             placeholder="First Name"
             formControlName="firstName"
-            #firstName>
+            #firstName
+            required>
 
             <mat-error
               *ngIf="!firstName.valid">
@@ -102,7 +106,8 @@
             matInput
             formControlName="lastName"
             placeholder="Last Name"
-            #lastName>
+            #lastName
+            required>
 
             <mat-error *ngIf="!lastName.valid">
               Incorrect name
@@ -129,6 +134,7 @@
               formControlName="dateOfBirth"
               [matDatepicker]="picker"
               [max]="maxDate"
+              required
               placeholder="Date of birth">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
@@ -151,6 +157,7 @@
             *ngFor="let gender of genders"
             class="pc-radio-button"
             [value]="gender"
+            required
             >
               {{ gender }}
             </mat-radio-button>
@@ -189,7 +196,8 @@
             matInput
             #mobileNumber
             formControlName="mobileNumber"
-            placeholder="Mobile Number">
+            placeholder="Mobile Number"
+            required>
 
             <mat-error *ngIf="contactFormGroup.get('mobileNumber').hasError('pattern')">Incorrect mobile number</mat-error>
             <mat-error *ngIf="contactFormGroup.get('mobileNumber').hasError('Number exists')">Mobile number already exists</mat-error>
@@ -215,7 +223,8 @@
             matInput
             #email
             formControlName="email"
-            placeholder="Email">
+            placeholder="Email"
+            required>
 
             <mat-error *ngIf="contactFormGroup.get('email').hasError('email')">Invalid email address</mat-error>
             <mat-error *ngIf="contactFormGroup.get('email').hasError('Email exists')">Email already exists</mat-error>
@@ -281,7 +290,8 @@
               type="password"
               #password
               formControlName="password"
-              placeholder="Password">
+              placeholder="Password"
+              required>
 
             <mat-hint>Your password should be alphanumeric and of length 8-15 characters. It should consist of at least one number and uppercase character</mat-hint>
             <!--todo: Shorten the input hint-->
@@ -298,6 +308,7 @@
               formControlName="confirmPassword"
               #confirmPassword
               placeholder="Confirm Password"
+              required
             >
 
             <mat-error *ngIf="credentialFormGroup.hasError('Passwords do not match')">The passwords do not match</mat-error>

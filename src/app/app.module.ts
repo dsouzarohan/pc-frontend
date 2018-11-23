@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { LoginComponent } from './components/login/login.component';
+import { SignInComponent } from './components/login/sign-in.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -29,7 +29,7 @@ import { HomeComponent } from './components/home/home.component';
   declarations: [
     AppComponent,
     SignUpComponent,
-    LoginComponent,
+    SignInComponent,
     HomeComponent
   ],
   imports: [

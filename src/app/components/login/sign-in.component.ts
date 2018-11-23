@@ -5,10 +5,11 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"]
+  templateUrl: "./sign-in.component.html",
+  styleUrls: ["./sign-in.component.scss"]
 })
-export class LoginComponent implements OnInit {
+
+export class SignInComponent implements OnInit {
   private credentials: FormGroup;
 
   constructor(
@@ -40,5 +41,7 @@ export class LoginComponent implements OnInit {
         email: this.credentials.get("email").value,
         password: this.credentials.get("password").value
       });
+
+    console.log("Login called");
   }
 }

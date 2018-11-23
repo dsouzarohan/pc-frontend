@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
-import {Router} from '@angular/router';
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
@@ -13,10 +13,7 @@ export class AuthService {
   private userToken: string;
   private timer: any;
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   // Sign up form methods
 
@@ -28,12 +25,16 @@ export class AuthService {
     return this.http.get<any>(`http://localhost:3000/api/users/email/${email}`);
   }
 
-  numberExists(number: string){
-    return this.http.get<any>(`http://localhost:3000/api/users/number/${number}`);
+  numberExists(number: string) {
+    return this.http.get<any>(
+      `http://localhost:3000/api/users/number/${number}`
+    );
   }
 
-  uidExists(uid: number, type: string){
-    return this.http.get<any>(`http://localhost:3000/api/users/uid/${uid}/type/${type}`);
+  uidExists(uid: number, type: string) {
+    return this.http.get<any>(
+      `http://localhost:3000/api/users/uid/${uid}/type/${type}`
+    );
   }
 
   // Authentication methods
@@ -55,45 +56,48 @@ export class AuthService {
     this.userAuthListener.next(toAuthenticate);
   }
 
-
   login(credentials: any) {
-    this.http
-      .post<{ token: string; expiresIn: number }>(
-        "http://localhost:3000/api/users/login",
-        {
-          credentials
-        }
-      )
-      .subscribe(
-        response => {
-          if (response.token) {
-            this.userToken = response.token;
-            let expiresIn = response.expiresIn;
-
-            this.authenticateUser(true);
-
-            this.setExpirationTimer(expiresIn);
-
-            const date = new Date();
-            const expirationDate = new Date(date.getTime() + expiresIn * 1000);
-
-            console.log(expirationDate);
-
-            this.saveUser(this.userToken, expirationDate);
-
-            this.router.navigate(['/home']);
+    if (!this.getUserIsAuthenticated()) {
+      this.http
+        .post<{ token: string; expiresIn: number }>(
+          "http://localhost:3000/api/users/signin",
+          {
+            credentials
           }
-        },
-        error => {
-          console.log(error);
-        }
-      );
+        )
+        .subscribe(
+          response => {
+            if (response.token) {
+              this.userToken = response.token;
+              let expiresIn = response.expiresIn;
+
+              this.authenticateUser(true);
+
+              this.setExpirationTimer(expiresIn);
+
+              const date = new Date();
+              const expirationDate = new Date(
+                date.getTime() + expiresIn * 1000
+              );
+
+              console.log(expirationDate);
+
+              this.saveUser(this.userToken, expirationDate);
+
+              this.router.navigate(["/"]);
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    }
   }
 
   autoAuthUser() {
     const authInformation = this.getUserFromLocalStorage();
 
-    if(!authInformation) return;
+    if (!authInformation) return;
 
     const timeToExpiry =
       authInformation.expirationDate.getTime() - new Date().getTime();
@@ -115,13 +119,15 @@ export class AuthService {
   }
 
   logout() {
-    this.userToken = null;
+    if(this.getUserIsAuthenticated()){
+      this.userToken = null;
 
-    this.authenticateUser(false);
+      this.authenticateUser(false);
 
-    clearTimeout(this.timer);
+      clearTimeout(this.timer);
 
-    this.clearUser();
+      this.clearUser();
+    }
   }
 
   private saveUser(token: string, expirationDate: Date) {
