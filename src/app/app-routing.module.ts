@@ -1,9 +1,10 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
-import {SignInComponent} from './components/login/sign-in.component';
+import {SignInComponent} from './components/sign-in/sign-in.component';
 import {HomeComponent} from './components/home/home.component';
 import {AuthGuard} from './guards/Auth.guard';
+import {ProfileComponent} from './components/profile/profile.component';
 
 const appRoutes : Routes = [
   {
@@ -12,6 +13,14 @@ const appRoutes : Routes = [
     canActivate: [
       AuthGuard
     ]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [
+      AuthGuard
+    ]
+
   },
   {
     path: 'signin',

@@ -9,6 +9,8 @@ import {
 import { AuthService } from "../../services/auth.service";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
+import {Router} from '@angular/router';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: "app-sign-up",
@@ -36,7 +38,8 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -150,7 +153,7 @@ export class SignUpComponent implements OnInit {
 
     console.log(this.contactFormGroup);
 
-    return this.authService.emailExists(email).pipe(
+    return this.userService.emailExists(email).pipe(
       map(response => {
         if (response.emailExists) {
           return { "Email exists": true };
@@ -166,7 +169,7 @@ export class SignUpComponent implements OnInit {
   phoneNumberExists(numberControl: FormControl): Observable<any> {
     const number = numberControl.value;
 
-    return this.authService.numberExists(number).pipe(
+    return this.userService.numberExists(number).pipe(
       map(response => {
         if (response.numberExists) {
           return {
@@ -184,7 +187,7 @@ export class SignUpComponent implements OnInit {
 
     if(number === "") return new Observable<null>();
 
-    return this.authService.numberExists(number).pipe(
+    return this.userService.numberExists(number).pipe(
       map(response => {
         if (response.numberExists) {
           return {
@@ -202,7 +205,7 @@ export class SignUpComponent implements OnInit {
     const uid = uidControl.value;
     const type = this.typeFormGroup.get('type').value;
 
-    return this.authService.uidExists(uid, type).pipe(
+    return this.userService.uidExists(uid, type).pipe(
       map((response) => {
         if(response.uidExists){
           return {"UID exists": true};
@@ -224,9 +227,10 @@ export class SignUpComponent implements OnInit {
 
     console.log(this.signUpForm.value);
 
-    this.authService.createUser(this.signUpForm.value).subscribe(
+    this.userService.createUser(this.signUpForm.value).subscribe(
       response => {
         console.log(response);
+        this.router.navigate(['/signin']);
       },
       error => {
         console.log(error);

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { SignInComponent } from './components/login/sign-in.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -19,18 +19,20 @@ import {
 } from '@angular/material';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import {AuthInterceptor} from './interceptors/auth.interceptor';
 import { HomeComponent } from './components/home/home.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignUpComponent,
     SignInComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent
   ],
   imports: [
     AppRoutingModule,
@@ -50,7 +52,7 @@ import { HomeComponent } from './components/home/home.component';
   ],
   providers: [HttpClient,
     {
-      provide: 'HTTP_INTERCEPTORS',
+      provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
     }
