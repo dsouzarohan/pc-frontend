@@ -129,6 +129,8 @@ export class SignUpComponent implements OnInit {
     } else {
       this.typeFormGroup.get("stream").enable();
     }
+
+    this.typeFormGroup.get('uid').updateValueAndValidity();
   }
 
   //Validators
@@ -200,7 +202,7 @@ export class SignUpComponent implements OnInit {
     );
   }
 
-  uidExists(uidControl : FormControl): Observable<any>{
+  uidExists(uidControl : AbstractControl): Observable<any>{
 
     const uid = uidControl.value;
     const type = this.typeFormGroup.get('type').value;

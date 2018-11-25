@@ -34,7 +34,7 @@ export class UserService {
 
   //user data related routes for view rendering
 
-  getProfile(id: number){
+  getProfile(id: string){
     console.log("getProfile called");
     return this.http.get<any>(`http://localhost:3000/api/users/profile/${id}`);
   }

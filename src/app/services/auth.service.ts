@@ -10,7 +10,7 @@ export class AuthService {
 
   private isUserAuthenticated: boolean = false;
   private userAuthListener = new Subject<boolean>();
-  private userID: number;
+  private userID: string;
 
   private userToken: string;
   private timer: any;
@@ -20,7 +20,7 @@ export class AuthService {
   // Authentication methods
 
   getUserID(){
-    return +localStorage.getItem("userID");
+    return localStorage.getItem("userID");
   }
 
   getUserToken() {
@@ -115,7 +115,7 @@ export class AuthService {
     }
   }
 
-  private saveUser(token: string, expirationDate: Date, id: number) {
+  private saveUser(token: string, expirationDate: Date, id: string) {
     localStorage.setItem("token", token);
     localStorage.setItem("expirationDate", expirationDate.toISOString());
     localStorage.setItem("userID", id+"");
