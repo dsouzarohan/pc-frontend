@@ -5,20 +5,24 @@ import {SignInComponent} from './components/sign-in/sign-in.component';
 import {HomeComponent} from './components/home/home.component';
 import {AuthGuard} from './guards/Auth.guard';
 import {ProfileComponent} from './components/profile/profile.component';
+import {CoreComponent} from './components/core/core.component';
 
 const appRoutes : Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: CoreComponent,
     canActivate: [
       AuthGuard
-    ]
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [
-      AuthGuard
+    ],
+    children: [
+      {
+        path: '',
+        component: HomeComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
+      }
     ]
 
   },

@@ -1,5 +1,5 @@
 <div class="container">
-  <form (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="onSubmit(finalSubmit)">
 
     <!--todo: rewrite all validator using the rxweb form validation library-->
 
@@ -328,11 +328,10 @@
           </button>
 
           <button
-          mat-button>
+          mat-button
+          #finalSubmit>
 
           <!--[disabled]="!signUpForm.valid"-->
-          <!---->
-          <!--&gt;-->
 
             JOIN
           </button>

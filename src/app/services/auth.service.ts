@@ -11,6 +11,7 @@ export class AuthService {
   private isUserAuthenticated: boolean = false;
   private userAuthListener = new Subject<boolean>();
   private userID: string;
+  private userType: string;
 
   private userToken: string;
   private timer: any;
@@ -55,6 +56,7 @@ export class AuthService {
               this.userToken = response.token;
               let expiresIn = response.expiresIn;
               this.userID = response.userID;
+              this.userType = response.type;
 
               this.authenticateUser(true);
 
@@ -67,7 +69,7 @@ export class AuthService {
 
               console.log(expirationDate);
 
-              this.saveUser(this.userToken, expirationDate, this.userID);
+              this.saveUser(this.userToken, expirationDate, this.userID, this.userType);
 
               this.router.navigate(["/"]);
             }
@@ -115,22 +117,25 @@ export class AuthService {
     }
   }
 
-  private saveUser(token: string, expirationDate: Date, id: string) {
+  private saveUser(token: string, expirationDate: Date, id: string, type: string) {
     localStorage.setItem("token", token);
     localStorage.setItem("expirationDate", expirationDate.toISOString());
     localStorage.setItem("userID", id+"");
+    localStorage.setItem("type", type);
   }
 
   private clearUser() {
     localStorage.removeItem("token");
     localStorage.removeItem("expirationDate");
     localStorage.removeItem("userID");
+    localStorage.removeItem("type");
   }
 
   private getUserFromLocalStorage() {
     const token = localStorage.getItem("token");
     const expirationDate = localStorage.getItem("expirationDate");
     const userID = localStorage.getItem("userID");
+    const type = localStorage.getItem("type");
 
     if (!token || !expirationDate) {
       return;
@@ -139,7 +144,8 @@ export class AuthService {
     return {
       token,
       expirationDate: new Date(expirationDate),
-      userID
+      userID,
+      type
     };
   }
 }

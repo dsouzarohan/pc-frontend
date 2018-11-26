@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -35,6 +35,8 @@ export class SignUpComponent implements OnInit {
   private genders = ["Male", "Female", "Other"];
 
   private maxDate: Date;
+
+  private formIsSubmitted: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -221,8 +223,11 @@ export class SignUpComponent implements OnInit {
 
   //On submit handler
 
-  onSubmit() {
+  onSubmit(finalSubmit: HTMLButtonElement) {
     //Setting email in credentials to the email used in contact
+
+    finalSubmit.disabled = true;
+
     this.credentialFormGroup
       .get("email")
       .setValue(this.contactFormGroup.get("email").value);
@@ -236,6 +241,7 @@ export class SignUpComponent implements OnInit {
       },
       error => {
         console.log(error);
+        finalSubmit.disabled = false;
       }
     );
   }

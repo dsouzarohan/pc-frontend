@@ -25,6 +25,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { CoreComponent } from './components/core/core.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     SignUpComponent,
     SignInComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    CoreComponent
   ],
   imports: [
     AppRoutingModule,
