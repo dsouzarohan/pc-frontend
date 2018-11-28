@@ -1,11 +1,14 @@
 .flex-container{
   display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
   height: 100%;
-  margin: auto 0px;
 }
+
+mat-card{
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+}
+
 
 mat-card-title, mat-card-subtitle{
   width: 100%;
@@ -13,11 +16,6 @@ mat-card-title, mat-card-subtitle{
 }
 
 form{
-  display: flex;
-  flex-direction: column;
-}
-
-mat-card{
   display: flex;
   flex-direction: column;
 }

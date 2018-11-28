@@ -1,3 +1,14 @@
-<h1>This will be the core component, navbar goes here</h1>
+<mat-sidenav-container hasBackdrop="true">
 
-<router-outlet></router-outlet>
+  <mat-sidenav #sideNav mode="over">
+    <app-sidenav></app-sidenav>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <app-header (sideNavClick)="sideNav.toggle()"></app-header>
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

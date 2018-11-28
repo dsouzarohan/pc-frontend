@@ -1,0 +1,17 @@
+router-outlet{
+  margin-top: 64px;
+}
+
+mat-sidenav{
+  position: fixed;
+  width: 35%;
+}
+
+@media (max-width: 600px) {
+
+  mat-sidenav{
+    width: 65%;
+  }
+
+}
+

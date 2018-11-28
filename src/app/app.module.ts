@@ -15,7 +15,7 @@ import {
   MatStepperModule,
   MatRadioModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule, MatSidenavModule, MatOptionModule, MatSelectModule, MatToolbarModule
 } from '@angular/material';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -26,6 +26,8 @@ import {AuthInterceptor} from './interceptors/auth.interceptor';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CoreComponent } from './components/core/core.component';
+import { HeaderComponent } from './components/header/header.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { CoreComponent } from './components/core/core.component';
     SignInComponent,
     HomeComponent,
     ProfileComponent,
-    CoreComponent
+    CoreComponent,
+    HeaderComponent,
+    SidenavComponent
   ],
   imports: [
     AppRoutingModule,
@@ -49,6 +53,10 @@ import { CoreComponent } from './components/core/core.component';
     MatStepperModule,
     MatRadioModule,
     MatDatepickerModule,
+    MatToolbarModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatSidenavModule,
     MatNativeDateModule,
     HttpClientModule
   ],
