@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "../../../services/auth.service";
 import {Router} from '@angular/router';
 
 @Component({
@@ -10,7 +10,9 @@ import {Router} from '@angular/router';
 })
 
 export class SignInComponent implements OnInit {
+
   private credentials: FormGroup;
+  private logInSubmitted: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,12 +38,24 @@ export class SignInComponent implements OnInit {
   }
 
   onLoginSubmit() {
-    this.authService
-      .login({
-        email: this.credentials.get("email").value,
-        password: this.credentials.get("password").value
-      });
 
-    console.log("Login called");
+    if(!this.logInSubmitted){
+
+      this.logInSubmitted = true;
+
+      this.authService
+        .login({
+          email: this.credentials.get("email").value,
+          password: this.credentials.get("password").value
+        })
+        .then(() => {
+          this.router.navigate(["/"]);
+        })
+        .catch( error => {
+          this.logInSubmitted = false;
+        });
+
+      console.log("Login called");
+    }
   }
 }

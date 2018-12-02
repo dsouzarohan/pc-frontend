@@ -6,11 +6,11 @@ import {
   FormGroup,
   Validators
 } from "@angular/forms";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "../../../services/auth.service";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import {Router} from '@angular/router';
-import {UserService} from '../../services/user.service';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: "app-sign-up",

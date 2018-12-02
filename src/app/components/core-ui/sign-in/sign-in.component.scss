@@ -9,6 +9,10 @@ mat-card{
   flex-direction: column;
 }
 
+mat-card > button{
+  align-self: center;
+}
+
 
 mat-card-title, mat-card-subtitle{
   width: 100%;

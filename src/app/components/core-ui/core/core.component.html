@@ -1,12 +1,14 @@
+<app-header></app-header>
+<app-fixed-side-nav></app-fixed-side-nav>
+
 <mat-sidenav-container hasBackdrop="true">
 
   <mat-sidenav #sideNav mode="over">
-    <app-sidenav></app-sidenav>
+    <app-sidenav [sideNav]="sideNav"></app-sidenav>
   </mat-sidenav>
 
   <mat-sidenav-content>
 
-    <app-header (sideNavClick)="sideNav.toggle()"></app-header>
     <router-outlet></router-outlet>
 
   </mat-sidenav-content>

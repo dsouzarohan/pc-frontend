@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Subject } from "rxjs";
+import { Subject, pipe } from "rxjs";
 import { Router } from "@angular/router";
 
 @Injectable({
@@ -41,44 +41,51 @@ export class AuthService {
     this.userAuthListener.next(toAuthenticate);
   }
 
-  login(credentials: any) {
-    if (!this.getUserIsAuthenticated()) {
-      this.http
-        .post<any>(
-          "http://localhost:3000/api/users/signin",
-          {
-            credentials
-          }
-        )
-        .subscribe(
-          response => {
-            if (response.token) {
-              this.userToken = response.token;
-              let expiresIn = response.expiresIn;
-              this.userID = response.userID;
-              this.userType = response.type;
-
-              this.authenticateUser(true);
-
-              this.setExpirationTimer(expiresIn);
-
-              const date = new Date();
-              const expirationDate = new Date(
-                date.getTime() + expiresIn * 1000
-              );
-
-              console.log(expirationDate);
-
-              this.saveUser(this.userToken, expirationDate, this.userID, this.userType);
-
-              this.router.navigate(["/"]);
+  login(credentials: any) : Promise<any> {
+    const loginPromise = new Promise((resolve, reject) => {
+      if (!this.getUserIsAuthenticated()) {
+        this.http
+          .post<any>(
+            "http://localhost:3000/api/users/signin",
+            {
+              credentials
             }
-          },
-          error => {
-            console.log(error);
-          }
-        );
-    }
+          )
+          .subscribe(
+            response => {
+              if (response.token) {
+                this.userToken = response.token;
+                let expiresIn = response.expiresIn;
+                this.userID = response.userID;
+                this.userType = response.type;
+
+                this.authenticateUser(true);
+
+                this.setExpirationTimer(expiresIn);
+
+                const date = new Date();
+                const expirationDate = new Date(
+                  date.getTime() + expiresIn * 1000
+                );
+
+                console.log(expirationDate);
+
+                this.saveUser(this.userToken, expirationDate, this.userID, this.userType);
+
+                resolve();
+              }
+            },
+            error => {
+              console.log(error);
+              reject()
+            }
+          );
+      } else {
+        reject();
+      }
+    });
+
+    return loginPromise;
   }
 
   autoAuthUser() {
@@ -114,7 +121,13 @@ export class AuthService {
       clearTimeout(this.timer);
 
       this.clearUser();
+
+      this.router.navigate(['/signin']);
+
+      return true;
     }
+
+    return false;
   }
 
   private saveUser(token: string, expirationDate: Date, id: string, type: string) {

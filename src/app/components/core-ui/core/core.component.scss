@@ -1,10 +1,12 @@
-router-outlet{
-  margin-top: 64px;
-}
-
 mat-sidenav{
   position: fixed;
+  left: 70px;
   width: 35%;
+}
+
+mat-sidenav-content{
+  padding: 70px 15px;
+  padding-left: 95px;
 }
 
 @media (max-width: 600px) {
