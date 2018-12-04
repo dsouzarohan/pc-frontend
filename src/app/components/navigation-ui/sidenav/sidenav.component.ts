@@ -12,7 +12,7 @@ import {MatSidenav} from '@angular/material';
 export class SidenavComponent implements OnInit, OnDestroy {
 
   @Input('sideNav') sideNav: MatSidenav;
-  private navItem: string = "item1";
+  private navItem: string = "";
 
   private navigationSubscription: Subscription = this
     .navigationService
@@ -20,15 +20,12 @@ export class SidenavComponent implements OnInit, OnDestroy {
     .subscribe(navigationItem => {
     console.log(navigationItem);
 
-    if( this.navItem !== navigationItem ){
       this.navItem = navigationItem;
-      this.sideNav.open();
-    } else {
-      this.sideNav.close()
-        .then(result => {
-          this.navItem = "";
-        });
-    }
+      if(!this.sideNav.opened) {
+        this.sideNav.open();
+      } else {
+        this.sideNav.close();
+      }
 
   });
 
