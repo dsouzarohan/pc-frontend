@@ -6,7 +6,8 @@ import {Subject} from 'rxjs';
 })
 export class NavigationService {
 
-  constructor() { }
+  constructor(
+  ) { }
 
   private navigationStatus = new Subject<string>();
 

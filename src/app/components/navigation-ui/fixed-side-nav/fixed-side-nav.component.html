@@ -1,22 +1,27 @@
 <div class="flex-container">
-  Heyfdfd
 
-  <button
-  mat-button
-  (click)="onToggleClick('dashboard')">
-    Item 1
-  </button>
+  <div class="fixed-nav-item"
+       [ngClass]="{'fix-nav-item-selected': selectedNavItem === 'dashboard'}"
+       (click)="onToggleClick('dashboard')">
+    <button mat-icon-button >
+      <mat-icon>dashboard</mat-icon>
+    </button>
+  </div>
 
-  <button
-    mat-button
-    (click)="onToggleClick('user')">
-    Item 2
-  </button>
+  <div class="fixed-nav-item"
+       [ngClass]="{'fix-nav-item-selected': selectedNavItem === 'user'}"
+       (click)="onToggleClick('user')">
+    <button mat-icon-button >
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </div>
 
-  <button
-    mat-button
-    (click)="onToggleClick('classrooms')">
-    Item 3
-  </button>
+  <div class="fixed-nav-item">
+    <button mat-icon-button
+            class="logout-button"
+            (click)="onLogoutClick()">
+      <mat-icon>power_settings_new</mat-icon>
+    </button>
+  </div>
 
 </div>

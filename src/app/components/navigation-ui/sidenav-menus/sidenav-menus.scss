@@ -1,0 +1,18 @@
+.sidenav-link-active{
+  font-weight: bold;
+}
+
+.sidenav-links-list{
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav-links-list > ul {
+  list-style-type: none;
+  padding-left: 15px;
+  margin: 0px;
+}
+
+.sidenav-links-list > ul > li {
+  margin: 10px 0px;
+}

@@ -6,15 +6,29 @@
   top: 64px;
   left: 0;
   height: 100%;
-  width: 70px;
+  width: 60px;
   z-index: 2;
 
   justify-content: normal;
   background-color: white;
+  align-items: center;
 
   box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
   -moz-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
   -webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
 
-  padding-top: 15px;
+  padding-top: 10px;
+}
+
+.fixed-nav-item{
+  padding: 10px;
+  cursor: pointer;
+}
+
+.fixed-nav-item > button:hover{
+  background-color: #ebebeb;
+}
+
+.fix-nav-item-selected > button{
+  background-color: #d7d7d7;
 }

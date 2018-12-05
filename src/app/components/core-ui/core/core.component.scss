@@ -1,12 +1,11 @@
 mat-sidenav{
   position: fixed;
-  left: 70px;
+  left: 60px;
   width: 35%;
 }
 
 mat-sidenav-content{
-  padding: 70px 15px;
-  padding-left: 95px;
+  padding: 70px 35px 70px 95px;
 }
 
 @media (max-width: 600px) {

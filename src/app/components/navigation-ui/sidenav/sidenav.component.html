@@ -1,56 +1,11 @@
 <div class="flex-sidenav">
   <h3>Rohan D'souza</h3>
 
-  <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fuga iste maxime nam unde. Quasi quidem, ut! Commodi-->
-  <!--deserunt eaque exercitationem explicabo labore molestias nam perferendis, rem sequi velit. Quos!</p>-->
-
-  <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fuga iste maxime nam unde. Quasi quidem, ut! Commodi-->
-  <!--deserunt eaque exercitationem explicabo labore molestias nam perferendis, rem sequi velit. Quos!</p>-->
-
-  <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fuga iste maxime nam unde. Quasi quidem, ut! Commodi-->
-  <!--deserunt eaque exercitationem explicabo labore molestias nam perferendis, rem sequi velit. Quos!</p>-->
-
-  <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fuga iste maxime nam unde. Quasi quidem, ut! Commodi-->
-  <!--deserunt eaque exercitationem explicabo labore molestias nam perferendis, rem sequi velit. Quos!</p>-->
-
-  <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fuga iste maxime nam unde. Quasi quidem, ut! Commodi-->
-  <!--deserunt eaque exercitationem explicabo labore molestias nam perferendis, rem sequi velit. Quos!</p>-->
-
-  <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fuga iste maxime nam unde. Quasi quidem, ut! Commodi-->
-  <!--deserunt eaque exercitationem explicabo labore molestias nam perferendis, rem sequi velit. Quos!</p>-->
-
-  <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fuga iste maxime nam unde. Quasi quidem, ut! Commodi-->
-  <!--deserunt eaque exercitationem explicabo labore molestias nam perferendis, rem sequi velit. Quos!</p>-->
-
-  <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fuga iste maxime nam unde. Quasi quidem, ut! Commodi-->
-  <!--deserunt eaque exercitationem explicabo labore molestias nam perferendis, rem sequi velit. Quos!</p>-->
-
-  <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fuga iste maxime nam unde. Quasi quidem, ut! Commodi-->
-  <!--deserunt eaque exercitationem explicabo labore molestias nam perferendis, rem sequi velit. Quos!</p>-->
-
-  <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fuga iste maxime nam unde. Quasi quidem, ut! Commodi-->
-  <!--deserunt eaque exercitationem explicabo labore molestias nam perferendis, rem sequi velit. Quos!</p>-->
-
-  <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fuga iste maxime nam unde. Quasi quidem, ut! Commodi-->
-  <!--deserunt eaque exercitationem explicabo labore molestias nam perferendis, rem sequi velit. Quos!</p>-->
-
-  <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fuga iste maxime nam unde. Quasi quidem, ut! Commodi-->
-  <!--deserunt eaque exercitationem explicabo labore molestias nam perferendis, rem sequi velit. Quos!</p>-->
-
-  <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex fuga iste maxime nam unde. Quasi quidem, ut! Commodi-->
-  <!--deserunt eaque exercitationem explicabo labore molestias nam perferendis, rem sequi velit. Quos!</p>-->
-
   <div [ngSwitch]="navItem">
-    <p *ngSwitchCase="'dashboard'">Item 1</p>
-    <p *ngSwitchCase="'user'">Item 2</p>
-    <p *ngSwitchCase="'classrooms'">Item 3</p>
+    <app-user-menu *ngSwitchCase="'user'">Item 1</app-user-menu>
+    <p *ngSwitchCase="'other'">Item 2</p>
+    <p *ngSwitchCase="'classroom'">Item 3</p>
     <p *ngSwitchDefault>Default</p>
   </div>
-
-  <button
-    mat-button
-    #logoutButton
-    (click)="logout(logoutButton)"
-    >Logout</button>
 
 </div>

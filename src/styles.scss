@@ -28,13 +28,36 @@ $Frontend-theme: mat-light-theme($Frontend-primary, $Frontend-accent, $Frontend-
 
 /* You can add global styles to this file, and also import other style files */
 
+//Global style for the html page and the body
+
 html, body { height: 100%; }
 body { margin: 0; font-family: "Montserrat", sans-serif; }
 
-.flex-container{
+//quick responsive type classes
+
+.flex{
   display: flex;
 }
 
-.grid-container{
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.grid{
   display: grid;
 }
+
+//anchor global styles
+
+a{
+  text-decoration: none;
+  color: #000;
+}
+
+

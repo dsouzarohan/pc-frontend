@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { SignUpComponent } from './components/core-ui/sign-up/sign-up.component';
 import { SignInComponent } from './components/core-ui/sign-in/sign-in.component';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
-import { HomeComponent } from './components/core-ui/home/home.component';
+import { DashboardComponent } from './components/core-ui/dashboard/dashboard.component';
 import { ProfileComponent } from './components/core-ui/profile/profile.component';
 import { CoreComponent } from './components/core-ui/core/core.component';
 import { HeaderComponent } from './components/navigation-ui/header/header.component';
@@ -22,24 +22,26 @@ import {
   MatStepperModule,
   MatRadioModule,
   MatDatepickerModule,
-  MatNativeDateModule, MatSidenavModule, MatOptionModule, MatSelectModule, MatToolbarModule
+  MatNativeDateModule, MatSidenavModule, MatOptionModule, MatSelectModule, MatToolbarModule, MatIconModule, MatDividerModule
 } from '@angular/material';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { UserMenuComponent } from './components/navigation-ui/sidenav-menus/user-menu/user-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignUpComponent,
     SignInComponent,
-    HomeComponent,
+    DashboardComponent,
     ProfileComponent,
     CoreComponent,
     HeaderComponent,
     SidenavComponent,
-    FixedSideNavComponent
+    FixedSideNavComponent,
+    UserMenuComponent
   ],
   imports: [
     AppRoutingModule,
@@ -50,6 +52,7 @@ import { AppRoutingModule } from './app-routing.module';
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
+    MatDividerModule,
     MatButtonModule,
     MatStepperModule,
     MatRadioModule,
@@ -59,6 +62,7 @@ import { AppRoutingModule } from './app-routing.module';
     MatSelectModule,
     MatSidenavModule,
     MatNativeDateModule,
+    MatIconModule,
     HttpClientModule
   ],
   providers: [HttpClient,
