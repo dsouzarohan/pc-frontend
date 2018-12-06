@@ -60,4 +60,23 @@ a{
   color: #000;
 }
 
+//Toast message global styles
+
+p-toast{
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  background-color: red;
+  color: #FFFFFF;
+}
+
+.ui-toast-summary{
+  font-weight: bold;
+}
+
+//text-classes
+
+.text-center{
+  text-align: center !important;
+}
 

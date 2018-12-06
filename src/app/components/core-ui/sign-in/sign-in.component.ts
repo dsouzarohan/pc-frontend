@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../../../services/auth.service";
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: "app-login",
@@ -17,7 +18,8 @@ export class SignInComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private snackbarService: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -51,8 +53,16 @@ export class SignInComponent implements OnInit {
         .then(() => {
           this.router.navigate(["/"]);
         })
-        .catch( error => {
+        .catch( errorResponse => {
+
+          console.log(errorResponse);
+          this.snackbarService.open(errorResponse.error.message,null,{
+            duration: 3000
+            }
+          );
+
           this.logInSubmitted = false;
+
         });
 
       console.log("Login called");

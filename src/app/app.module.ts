@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './components/core-ui/sign-up/sign-up.component';
 import { SignInComponent } from './components/core-ui/sign-in/sign-in.component';
-import {AuthInterceptor} from './interceptors/auth.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { DashboardComponent } from './components/core-ui/dashboard/dashboard.component';
 import { ProfileComponent } from './components/core-ui/profile/profile.component';
 import { CoreComponent } from './components/core-ui/core/core.component';
@@ -22,7 +22,15 @@ import {
   MatStepperModule,
   MatRadioModule,
   MatDatepickerModule,
-  MatNativeDateModule, MatSidenavModule, MatOptionModule, MatSelectModule, MatToolbarModule, MatIconModule, MatDividerModule
+  MatNativeDateModule,
+  MatSidenavModule,
+  MatOptionModule,
+  MatSelectModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatDividerModule,
+  MatSnackBarModule,
+  MatSnackBar
 } from '@angular/material';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -47,9 +55,10 @@ import { UserMenuComponent } from './components/navigation-ui/sidenav-menus/user
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MatCardModule,
     FormsModule,
     ReactiveFormsModule,
+
+    MatCardModule,
     MatInputModule,
     MatFormFieldModule,
     MatDividerModule,
@@ -63,9 +72,14 @@ import { UserMenuComponent } from './components/navigation-ui/sidenav-menus/user
     MatSidenavModule,
     MatNativeDateModule,
     MatIconModule,
+    MatSnackBarModule,
+
     HttpClientModule
   ],
   providers: [HttpClient,
+
+    MatSnackBar,
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

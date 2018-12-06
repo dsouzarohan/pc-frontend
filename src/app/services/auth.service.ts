@@ -16,7 +16,10 @@ export class AuthService {
   private userToken: string;
   private timer: any;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   // Authentication methods
 
@@ -75,9 +78,9 @@ export class AuthService {
                 resolve();
               }
             },
-            error => {
-              console.log(error);
-              reject()
+            errorResponse => {
+
+              reject(errorResponse);
             }
           );
       } else {
