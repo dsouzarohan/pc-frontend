@@ -71,7 +71,7 @@ export class AuthService {
                   date.getTime() + expiresIn * 1000
                 );
 
-                console.log(expirationDate);
+                console.log("Session expires on ", expirationDate);
 
                 this.saveUser(this.userToken, expirationDate, this.userID, this.userType);
 
@@ -84,6 +84,7 @@ export class AuthService {
             }
           );
       } else {
+
         reject();
       }
     });
@@ -108,7 +109,7 @@ export class AuthService {
   }
 
   private setExpirationTimer(duration: number) {
-    console.log(duration);
+    console.log("Session expires in ", duration, " seconds");
 
     this.timer = setTimeout(() => {
       this.logout();

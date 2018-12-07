@@ -21,7 +21,13 @@ const appRoutes : Routes = [
       },
       {
         path: 'profile',
-        component: ProfileComponent
+        component: ProfileComponent,
+        children: [
+          {
+            path: 'test',
+            component: SignInComponent
+          }
+        ]
       }
     ]
 

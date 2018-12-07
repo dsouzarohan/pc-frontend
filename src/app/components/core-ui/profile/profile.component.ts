@@ -1,27 +1,25 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { UserService } from "../../../services/user.service";
-import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.scss"]
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   constructor(
-    private userService: UserService,
-    private authService: AuthService
+    private userService: UserService
   ) {
 
-    const userID = this.authService.getUserID();
-
-    this.userService.getProfile(userID).subscribe(response => {
-      console.log(response);
-    }, error => {
-      console.log("Something went wrong:", error);
-    });
   }
 
   ngOnInit() {
+
+    console.log("ProfileComponent#Intialized");
+
+  }
+
+  ngOnDestroy(): void {
+    console.log("ProfileComponent#Destroyed");
   }
 }

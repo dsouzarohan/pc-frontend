@@ -1,14 +1,38 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {AuthService} from './auth.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UserService {
 
+  private userID = "";
+
+  private userProfile: any = undefined;
+  private userPersonalDetails: any = undefined;
+  private userContactDetails: any = undefined;
+
   constructor(
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+    private authService: AuthService
+  ) {
+    this.userID = this.authService.getUserID();
+  }
+
+  //get all user details
+
+  loadProfile(){
+    this.http.get<any>(`http://localhost:3000/api/users/profile/${this.userID}`)
+      .subscribe( response => {
+
+        this.userProfile = response.profile;
+
+        console.log("Profile: ", this.userProfile);
+
+        this.userPersonalDetails = response.profile.MasterUserPersonal;
+        this.userContactDetails = response.profile.MasterUserContact;
+      });
+  }
+
 
   // Sign up form methods for validation
 
@@ -34,9 +58,16 @@ export class UserService {
 
   //user data related routes for view rendering
 
-  getProfile(id: string){
-    console.log("getProfile called");
-    return this.http.get<any>(`http://localhost:3000/api/users/profile/${id}`);
+  getProfile(){
+    return this.userProfile;
+  }
+
+  getPersonalDetails(){
+    return this.userPersonalDetails;
+  }
+
+  getContactDetails(){
+    return this.userContactDetails;
   }
 
 }

@@ -55,9 +55,9 @@ export class SignInComponent implements OnInit {
         })
         .catch( errorResponse => {
 
-          console.log(errorResponse);
-          this.snackbarService.open(errorResponse.error.message,null,{
-            duration: 3000
+          this.snackbarService.open(errorResponse.error.message,null, {
+            duration: 3000,
+            panelClass: 'snack-bar-align-span-center'
             }
           );
 
@@ -65,7 +65,7 @@ export class SignInComponent implements OnInit {
 
         });
 
-      console.log("Login called");
+      console.log("SignInComponent#LoginCalled");
     }
   }
 }

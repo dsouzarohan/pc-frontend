@@ -1,8 +1,8 @@
 <div class="flex-column">
 
   <div class="user-details">
-    <h2 class="user-name">Rohan D'souza</h2>
-    <p class="user-type">Student</p>
+    <h2 class="user-name">{{ userName }}</h2>
+    <p class="user-type">{{ typeOfUser }}</p>
 
     <!--to be fetched from the server-->
   </div>
@@ -12,7 +12,7 @@
   <div class="sidenav-links-list">
     <ul>
       <li><a routerLink="/profile" routerLinkActive="sidenav-link-active">Profile</a></li>
-      <li><a routerLinkActive="sidenav-link-active">Settings</a></li>
+      <li><a routerLinkActive="/settings" routerLinkActive="sidenav-link-active">Settings</a></li>
     </ul>
   </div>
 

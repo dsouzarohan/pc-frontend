@@ -37,6 +37,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { UserMenuComponent } from './components/navigation-ui/sidenav-menus/user-menu/user-menu.component';
+import {UserService} from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,11 @@ import { UserMenuComponent } from './components/navigation-ui/sidenav-menus/user
 
     HttpClientModule
   ],
-  providers: [HttpClient,
+  providers: [
+
+    HttpClient,
+
+    UserService,
 
     MatSnackBar,
 

@@ -6,8 +6,14 @@ import {Subject} from 'rxjs';
 })
 export class NavigationService {
 
+  private fixedNavItemMap: Map<string, string>;
+
   constructor(
-  ) { }
+  ) {
+    this.fixedNavItemMap = new Map<string, string>();
+    this.fixedNavItemMap.set("profile","user");
+    this.fixedNavItemMap.set("","dashboard");
+  }
 
   private navigationStatus = new Subject<string>();
 
@@ -17,5 +23,9 @@ export class NavigationService {
 
   changeNavigation(navItem: string){
     this.navigationStatus.next(navItem);
+  }
+
+  getFixedNavItemFromUrl(url: string){
+    return this.fixedNavItemMap.get(url);
   }
 }

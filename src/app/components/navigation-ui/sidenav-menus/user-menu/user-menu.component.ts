@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {UserService} from '../../../../services/user.service';
+import {RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-user-menu',
@@ -7,9 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserMenuComponent implements OnInit {
 
-  constructor() { }
+  //Fields in the user menu
+
+  @ViewChild("profileRla") profileRla: RouterLinkActive;
+
+  private userName: string = "";
+  private typeOfUser: string = "";
+
+  constructor(
+    private userService: UserService
+  ) {
+    let userData = this.userService.getProfile();
+
+    this.userName = userData.MasterUserPersonal.firstName + " " +
+      userData.MasterUserPersonal.lastName;
+
+    this.typeOfUser = userData.typeOfUser;
+
+  }
 
   ngOnInit() {
+
   }
+
 
 }

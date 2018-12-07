@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationService} from '../../../services/navigation.service';
 import {AuthService} from '../../../services/auth.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router, RouterState, RoutesRecognized} from '@angular/router';
 
 @Component({
   selector: 'app-fixed-side-nav',
@@ -14,8 +14,17 @@ export class FixedSideNavComponent implements OnInit {
 
   constructor(
     private navigationService: NavigationService,
-    private authService: AuthService
-  ) { }
+    private authService: AuthService,
+    private router: Router
+  ) {
+
+    this.router.events.subscribe(routeEvent => {
+      if(routeEvent instanceof NavigationEnd){
+        let selectedNavUrl = routeEvent.urlAfterRedirects.split("/")[1];
+        this.selectedNavItem = this.navigationService.getFixedNavItemFromUrl(selectedNavUrl);
+      }
+    })
+  }
 
   ngOnInit() {
   }

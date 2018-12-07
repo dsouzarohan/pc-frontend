@@ -60,18 +60,21 @@ a{
   color: #000;
 }
 
-//Toast message global styles
+//Toast message global styles and fixes
 
-p-toast{
-  position: fixed;
-  top: 25px;
-  right: 25px;
-  background-color: red;
-  color: #FFFFFF;
+#cdk-overlay-0.cdk-overlay-pane{
+  width: auto !important;
+  //makes sure the snackbar is always centered and has a width as much as of the content
 }
 
-.ui-toast-summary{
-  font-weight: bold;
+snack-bar-container.mat-snack-bar-container{
+  margin-bottom: 30px !important;
+  text-align: center !important;
+  //adjusts the snackbar and places it 30px from the bottom
+}
+
+.snack-bar-align-span-center > simple-snack-bar{
+  justify-content: center;
 }
 
 //text-classes
