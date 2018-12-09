@@ -10,10 +10,17 @@
 
   <div class="fixed-nav-item"
        [ngClass]="{'fix-nav-item-selected': selectedNavItem === 'user'}"
-       (click)="onToggleClick('user')"
-  routerLinkActive="fix-nav-item-selected">
+       (click)="onToggleClick('user')">
     <button mat-icon-button>
       <mat-icon>account_circle</mat-icon>
+    </button>
+  </div>
+
+  <div class="fixed-nav-item"
+       [ngClass]="{'fix-nav-item-selected': selectedNavItem === 'classroom'}"
+       (click)="onToggleClick('classroom')">
+    <button mat-icon-button>
+      <i class="fas fa-chalkboard-teacher"></i>
     </button>
   </div>
 

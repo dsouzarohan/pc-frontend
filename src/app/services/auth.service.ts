@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Subject, pipe } from "rxjs";
+import { Subject } from "rxjs";
 import { Router } from "@angular/router";
 
 @Injectable({
@@ -24,7 +24,7 @@ export class AuthService {
   // Authentication methods
 
   getUserID(){
-    return localStorage.getItem("userID");
+    return this.userID;
   }
 
   getUserToken() {

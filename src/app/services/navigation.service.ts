@@ -7,6 +7,7 @@ import {Subject} from 'rxjs';
 export class NavigationService {
 
   private fixedNavItemMap: Map<string, string>;
+  private currentSetFixedNavItem: string = "dashboard";
 
   constructor(
   ) {
@@ -23,6 +24,7 @@ export class NavigationService {
 
   changeNavigation(navItem: string){
     this.navigationStatus.next(navItem);
+    this.currentSetFixedNavItem = navItem;
   }
 
   getFixedNavItemFromUrl(url: string){

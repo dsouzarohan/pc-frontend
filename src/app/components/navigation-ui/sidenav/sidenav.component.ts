@@ -3,7 +3,7 @@ import {AuthService} from '../../../services/auth.service';
 import {NavigationService} from '../../../services/navigation.service';
 import {Subscription} from 'rxjs';
 import {MatSidenav} from '@angular/material';
-import {Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
@@ -49,7 +49,8 @@ export class SidenavComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private navigationService: NavigationService,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
   }

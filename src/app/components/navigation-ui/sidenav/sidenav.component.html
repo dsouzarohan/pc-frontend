@@ -3,8 +3,8 @@
 
   <div [ngSwitch]="navItem">
     <app-user-menu *ngSwitchCase="'user'">Item 1</app-user-menu>
-    <p *ngSwitchCase="'other'">Item 2</p>
-    <p *ngSwitchCase="'classroom'">Item 3</p>
+    <app-classroom-menu *ngSwitchCase="'classroom'">Item 2</app-classroom-menu>
+    <p *ngSwitchCase="'other'">Classroom</p>
     <p *ngSwitchDefault>Default</p>
   </div>
 
