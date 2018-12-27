@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { UserService } from "../../../services/user.service";
 
 @Component({
@@ -7,16 +7,10 @@ import { UserService } from "../../../services/user.service";
   styleUrls: ["./profile.component.scss"]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  constructor(
-    private userService: UserService
-  ) {
-
-  }
+  constructor() {}
 
   ngOnInit() {
-
     console.log("ProfileComponent#Intialized");
-
   }
 
   ngOnDestroy(): void {

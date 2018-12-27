@@ -1,38 +1,42 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {AuthService} from './auth.service';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import {Profile} from '../models/user.models';
+import {AppState} from '../app.reducer';
+import {Store} from '@ngrx/store';
+import {ProfileAction} from '../states/user/user.actions';
+import {Observable} from 'rxjs';
+import {map, take} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
+
 export class UserService {
-
-  private userID = "";
-
-  private userProfile: any = undefined;
-  private userPersonalDetails: any = undefined;
-  private userContactDetails: any = undefined;
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService
-  ) {
-    this.userID = this.authService.getUserID();
+    private authService: AuthService,
+    private store: Store<AppState>
+  ) {}
+
+  initialLoadUser() {
+
+    this.authService.getUserID().subscribe(
+
+        userID => {
+
+        this.http.get<{profile: Profile}>(`http://localhost:3000/api/users/profile/${userID}`)
+          .subscribe( response => {
+
+
+            this.store.dispatch(new ProfileAction(response.profile));
+
+            console.log("Profile: ", response.profile);
+          });
+      })
+
   }
-
-  //get all user details
-
-  loadProfile(){
-    this.http.get<any>(`http://localhost:3000/api/users/profile/${this.userID}`)
-      .subscribe( response => {
-
-        this.userProfile = response.profile;
-
-        console.log("Profile: ", this.userProfile);
-
-        this.userPersonalDetails = response.profile.MasterUserPersonal;
-        this.userContactDetails = response.profile.MasterUserContact;
-      });
-  }
-
 
   // Sign up form methods for validation
 
@@ -58,16 +62,13 @@ export class UserService {
 
   //user data related routes for view rendering
 
-  getProfile(){
-    return this.userProfile;
-  }
-
-  getPersonalDetails(){
-    return this.userPersonalDetails;
-  }
-
-  getContactDetails(){
-    return this.userContactDetails;
+  getProfile(): Observable<Profile>{
+    return this.store.select('user').pipe(
+      take(1),
+      map((userState) => {
+        return userState.profile
+      })
+    )
   }
 
 }

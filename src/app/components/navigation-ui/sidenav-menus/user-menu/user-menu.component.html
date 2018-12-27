@@ -1,10 +1,9 @@
 <div class="flex-column">
 
   <div class="user-details">
-    <h2 class="user-name">{{ userName }}</h2>
-    <p class="user-type">{{ typeOfUser }}</p>
+    <h2 class="user-name">{{ (profileObservable | async).MasterUserPersonal.firstName + " " + (profileObservable | async).MasterUserPersonal.firstName}}</h2>
+    <p class="user-type">{{ (profileObservable | async).typeOfUser }}</p>
 
-    <!--to be fetched from the server-->
   </div>
 
   <mat-divider></mat-divider>

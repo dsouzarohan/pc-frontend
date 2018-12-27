@@ -2,97 +2,132 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { Router } from "@angular/router";
+import { Store } from "@ngrx/store";
+import { AppState } from "../app.reducer";
+
+import * as AuthActionsBundle from "../states/auth/auth.actions";
+import {map, take} from 'rxjs/operators';
+import { AuthState } from "../states/auth/auth.reducer";
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthService {
 
-  private isUserAuthenticated: boolean = false;
   private userAuthListener = new Subject<boolean>();
-  private userID: string;
-  private userType: string;
 
-  private userToken: string;
   private timer: any;
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {}
 
   // Authentication methods
 
-  getUserID(){
-    return this.userID;
+  getUserID() {
+    return this.store.select("auth").pipe(
+      take(1),
+      map((state: AuthState) => {
+        return state.userID;
+      })
+    );
   }
 
   getUserToken() {
-    return this.userToken;
+    return this.store.select("auth").pipe(
+      take(1),
+      map((state: AuthState) => {
+        return state.userToken;
+      })
+    );
   }
 
   getUserIsAuthenticated() {
-    return this.isUserAuthenticated;
+    return this.store.select("auth").pipe(
+      take(1),
+      map((state: AuthState) => {
+        console.log("AuthService#authState", state);
+        return state.userAuthStatus;
+      })
+    );
   }
 
-  getUserAuthListener() {
-    return this.userAuthListener.asObservable();
-  }
-
-  private authenticateUser(toAuthenticate: boolean) {
-    this.isUserAuthenticated = toAuthenticate;
-    this.userAuthListener.next(toAuthenticate);
-  }
-
-  login(credentials: any) : Promise<any> {
+  login(credentials: any): Promise<any> {
     const loginPromise = new Promise((resolve, reject) => {
-      if (!this.getUserIsAuthenticated()) {
-        this.http
-          .post<any>(
-            "http://localhost:3000/api/users/signin",
-            {
+
+      this.getUserIsAuthenticated().subscribe(userAuthStatus => {
+        if (!userAuthStatus) {
+          this.http
+            .post<any>("http://localhost:3000/api/users/signin", {
               credentials
-            }
-          )
-          .subscribe(
-            response => {
-              if (response.token) {
-                this.userToken = response.token;
-                let expiresIn = response.expiresIn;
-                this.userID = response.userID;
-                this.userType = response.type;
+            })
+            .subscribe(
+              response => {
+                if (response.token) {
+                  // this.userToken = response.token;
+                  let expiresIn = response.expiresIn;
+                  // this.userID = response.userID;
+                  // this.userType = response.type;
 
-                this.authenticateUser(true);
+                  console.log("AuthService#Login#Response", response);
 
-                this.setExpirationTimer(expiresIn);
+                  this.store.dispatch(
+                    new AuthActionsBundle.SetUserTokenAction(response.token)
+                  );
+                  this.store.dispatch(
+                    new AuthActionsBundle.SetUserIDAction(response.userID)
+                  );
+                  this.store.dispatch(
+                    new AuthActionsBundle.SetUserTypeAction(response.type)
+                  );
+                  this.store.dispatch(
+                    new AuthActionsBundle.SetUserAuthStatusAction(true)
+                  );
 
-                const date = new Date();
-                const expirationDate = new Date(
-                  date.getTime() + expiresIn * 1000
-                );
+                  // this.authenticateUser(true);
 
-                console.log("Session expires on ", expirationDate);
+                  this.setExpirationTimer(expiresIn);
 
-                this.saveUser(this.userToken, expirationDate, this.userID, this.userType);
+                  const date = new Date();
+                  const expirationDate = new Date(
+                    date.getTime() + expiresIn * 1000
+                  );
 
-                resolve();
+                  console.log("Session expires on ", expirationDate);
+
+                  this.saveUser(
+                    response.token,
+                    expirationDate,
+                    response.userID,
+                    response.type
+                  );
+
+                  resolve();
+                }
+              },
+              errorResponse => {
+                console.log("AuthService#Error#", errorResponse);
+
+                reject(errorResponse);
               }
-            },
-            errorResponse => {
-
-              reject(errorResponse);
+            );
+        } else {
+          reject({
+            error: {
+              message: "Already logged in"
             }
-          );
-      } else {
-
-        reject();
-      }
+          });
+        }
+      });
     });
 
     return loginPromise;
   }
 
   autoAuthUser() {
+    console.log("AuthService#autoAuthUser()");
     const authInformation = this.getUserFromLocalStorage();
 
     if (!authInformation) return;
@@ -101,10 +136,13 @@ export class AuthService {
       authInformation.expirationDate.getTime() - new Date().getTime();
 
     if (timeToExpiry > 0) {
-      this.userToken = authInformation.token;
+
+      this.store.dispatch(new AuthActionsBundle.SetUserTokenAction(authInformation.token));
+      this.store.dispatch(new AuthActionsBundle.SetUserIDAction(authInformation.userID));
+      this.store.dispatch(new AuthActionsBundle.SetUserTypeAction(authInformation.type));
+      this.store.dispatch(new AuthActionsBundle.SetUserAuthStatusAction(true));
       this.setExpirationTimer(timeToExpiry / 1000);
 
-      this.authenticateUser(true);
     }
   }
 
@@ -117,16 +155,19 @@ export class AuthService {
   }
 
   logout() {
-    if(this.getUserIsAuthenticated()){
-      this.userToken = null;
+    if (this.getUserIsAuthenticated()) {
+      this.store.dispatch(new AuthActionsBundle.SetUserTokenAction(null));
+      this.store.dispatch(new AuthActionsBundle.SetUserIDAction(null));
+      this.store.dispatch(new AuthActionsBundle.SetUserTypeAction(null));
+      this.store.dispatch(new AuthActionsBundle.SetUserAuthStatusAction(false));
 
-      this.authenticateUser(false);
+      // this.authenticateUser(false);
 
       clearTimeout(this.timer);
 
       this.clearUser();
 
-      this.router.navigate(['/signin']);
+      this.router.navigate(["/signin"]);
 
       return true;
     }
@@ -134,10 +175,15 @@ export class AuthService {
     return false;
   }
 
-  private saveUser(token: string, expirationDate: Date, id: string, type: string) {
+  private saveUser(
+    token: string,
+    expirationDate: Date,
+    id: string,
+    type: string
+  ) {
     localStorage.setItem("token", token);
     localStorage.setItem("expirationDate", expirationDate.toISOString());
-    localStorage.setItem("userID", id+"");
+    localStorage.setItem("userID", id + "");
     localStorage.setItem("type", type);
   }
 
@@ -154,7 +200,7 @@ export class AuthService {
     const userID = localStorage.getItem("userID");
     const type = localStorage.getItem("type");
 
-    if (!token || !expirationDate) {
+    if (!(token && expirationDate && userID && type)) {
       return;
     }
 

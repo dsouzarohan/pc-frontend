@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-classroom-menu',
   templateUrl: './classroom-menu.component.html',
-  styleUrls: ['./classroom-menu.component.scss']
+  styleUrls: ['./classroom-menu.component.scss'
+  ,'../sidenav-menus.scss']
 })
 export class ClassroomMenuComponent implements OnInit {
 

@@ -1,9 +1,8 @@
 <div class="flex-sidenav">
-  <h3>Rohan D'souza</h3>
 
   <div [ngSwitch]="navItem">
-    <app-user-menu *ngSwitchCase="'user'">Item 1</app-user-menu>
-    <app-classroom-menu *ngSwitchCase="'classroom'">Item 2</app-classroom-menu>
+    <app-user-menu *ngSwitchCase="'user'"></app-user-menu>
+    <app-classroom-menu *ngSwitchCase="'classroom'"></app-classroom-menu>
     <p *ngSwitchCase="'other'">Classroom</p>
     <p *ngSwitchDefault>Default</p>
   </div>

@@ -1,3 +1,11 @@
+.sidenav-header{
+  margin: 10px 0px 5px 0px;;
+}
+
+mat-divider{
+  margin: 20px 0px 10px 0px;
+}
+
 .sidenav-link-active{
   font-weight: bold;
 }
@@ -8,7 +16,7 @@
 }
 
 .sidenav-links-list > ul {
-  list-style-type: none;
+  list-style-type: none !important;
   padding-left: 15px;
   margin: 0px;
 }
