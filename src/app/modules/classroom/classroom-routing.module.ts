@@ -25,4 +25,5 @@ const classroomRoutes: Routes = [
   ]
 })
 
-export class ClassroomRoutingModule{}
+export class ClassroomRoutingModule {
+}

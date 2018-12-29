@@ -1,25 +1,26 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { UserService } from "../../../../services/user.service";
-import { RouterLinkActive } from "@angular/router";
-import { Profile } from "../../../../models/user.models";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {RouterLinkActive} from '@angular/router';
+import {Profile} from '../../../../models/user.models';
 import {Observable} from 'rxjs';
+import {UserFacade} from '../../../../states/user/user.facade';
 
 @Component({
-  selector: "app-user-menu",
-  templateUrl: "./user-menu.component.html",
-  styleUrls: ["./user-menu.component.scss", "../sidenav-menus.scss"]
+  selector: 'app-user-menu',
+  templateUrl: './user-menu.component.html',
+  styleUrls: ['./user-menu.component.scss', '../sidenav-menus.scss']
 })
 export class UserMenuComponent implements OnInit {
   //Fields in the user menu
 
-  @ViewChild("profileRla")
+  @ViewChild('profileRla')
   profileRla: RouterLinkActive;
 
   private profileObservable: Observable<Profile>;
 
-  constructor(private userService: UserService) {
-    this.profileObservable = this.userService.getProfile();
+  constructor(private userFacade: UserFacade) {
+    this.profileObservable = this.userFacade.profile$;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 }

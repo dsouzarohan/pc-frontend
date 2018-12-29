@@ -1,8 +1,9 @@
 <div class="flex-column">
 
   <div class="user-details">
-    <h2 class="user-name">{{ (profileObservable | async).MasterUserPersonal.firstName + " " + (profileObservable | async).MasterUserPersonal.firstName}}</h2>
-    <p class="user-type">{{ (profileObservable | async).typeOfUser }}</p>
+    <h2
+      class="sidenav-title">{{ (profileObservable | async).MasterUserPersonal.firstName + " " + (profileObservable | async).MasterUserPersonal.lastName}}</h2>
+    <p class="sidenav-subtitle">{{ (profileObservable | async).typeOfUser }}</p>
 
   </div>
 

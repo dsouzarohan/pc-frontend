@@ -1,16 +1,16 @@
-mat-sidenav{
+mat-sidenav {
   position: fixed;
   left: 60px;
   width: 35%;
 }
 
-mat-sidenav-content{
+mat-sidenav-content {
   padding: 70px 35px 70px 95px;
 }
 
 @media (max-width: 600px) {
 
-  mat-sidenav{
+  mat-sidenav {
     width: 65%;
   }
 

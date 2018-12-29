@@ -1,21 +1,21 @@
-import { NgModule } from "@angular/core";
+import {NgModule} from '@angular/core';
 import {
-  MatCardModule,
-  MatInputModule,
-  MatFormFieldModule,
   MatButtonModule,
-  MatStepperModule,
-  MatRadioModule,
+  MatCardModule,
   MatDatepickerModule,
-  MatNativeDateModule,
-  MatSidenavModule,
-  MatOptionModule,
-  MatSelectModule,
-  MatToolbarModule,
-  MatIconModule,
   MatDividerModule,
-  MatSnackBarModule
-} from "@angular/material";
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatNativeDateModule,
+  MatOptionModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSnackBarModule,
+  MatStepperModule,
+  MatToolbarModule
+} from '@angular/material';
 
 @NgModule({
   exports: [
@@ -37,4 +37,5 @@ import {
   ]
 })
 
-export class MaterialModule {}
+export class MaterialModule {
+}

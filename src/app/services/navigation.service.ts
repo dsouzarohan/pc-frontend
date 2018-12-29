@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 
 @Injectable({
@@ -7,27 +7,26 @@ import {Subject} from 'rxjs';
 export class NavigationService {
 
   private fixedNavItemMap: Map<string, string>;
-  private currentSetFixedNavItem: string = "dashboard";
+  private currentSetFixedNavItem: string = 'dashboard';
 
-  constructor(
-  ) {
+  constructor() {
     this.fixedNavItemMap = new Map<string, string>();
-    this.fixedNavItemMap.set("profile","user");
-    this.fixedNavItemMap.set("","dashboard");
+    this.fixedNavItemMap.set('profile', 'user');
+    this.fixedNavItemMap.set('', 'dashboard');
   }
 
   private navigationStatus = new Subject<string>();
 
-  getNavigationListener(){
+  getNavigationListener() {
     return this.navigationStatus.asObservable();
   }
 
-  changeNavigation(navItem: string){
+  changeNavigation(navItem: string) {
     this.navigationStatus.next(navItem);
     this.currentSetFixedNavItem = navItem;
   }
 
-  getFixedNavItemFromUrl(url: string){
+  getFixedNavItemFromUrl(url: string) {
     return this.fixedNavItemMap.get(url);
   }
 }

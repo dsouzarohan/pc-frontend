@@ -1,16 +1,20 @@
-.sidenav-header{
+.sidenav-title {
   margin: 10px 0px 5px 0px;;
 }
 
-mat-divider{
+.sidenav-subtitle {
+  margin: 0px;
+}
+
+mat-divider {
   margin: 20px 0px 10px 0px;
 }
 
-.sidenav-link-active{
+.sidenav-link-active {
   font-weight: bold;
 }
 
-.sidenav-links-list{
+.sidenav-links-list {
   display: flex;
   flex-direction: column;
 }

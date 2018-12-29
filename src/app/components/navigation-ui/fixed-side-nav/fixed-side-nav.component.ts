@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationService} from '../../../services/navigation.service';
-import {AuthService} from '../../../services/auth.service';
-import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router, RouterState, RoutesRecognized} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
+import {AuthFacade} from '../../../states/auth/auth.facade';
 
 @Component({
   selector: 'app-fixed-side-nav',
@@ -10,33 +10,33 @@ import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router, RouterSta
 })
 export class FixedSideNavComponent implements OnInit {
 
-  private selectedNavItem: string = "dashboard";
+  private selectedNavItem: string = 'dashboard';
 
   constructor(
     private navigationService: NavigationService,
-    private authService: AuthService,
+    private authFacade: AuthFacade,
     private router: Router
   ) {
 
     this.router.events.subscribe(routeEvent => {
-      if(routeEvent instanceof NavigationEnd){
-        let selectedNavUrl = routeEvent.urlAfterRedirects.split("/")[1];
+      if (routeEvent instanceof NavigationEnd) {
+        let selectedNavUrl = routeEvent.urlAfterRedirects.split('/')[1];
         this.selectedNavItem = this.navigationService.getFixedNavItemFromUrl(selectedNavUrl);
       }
-    })
+    });
   }
 
   ngOnInit() {
   }
 
-  onToggleClick(item: string){
-    
+  onToggleClick(item: string) {
+
     this.selectedNavItem = item;
     this.navigationService.changeNavigation(item);
   }
 
-  onLogoutClick(){
-    this.authService.logout();
+  onLogoutClick() {
+    this.authFacade._logout();
   }
 
 }

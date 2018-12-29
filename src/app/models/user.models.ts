@@ -1,3 +1,16 @@
+export interface UserAuthInformation {
+  userAuthStatus: boolean;
+  userID: string;
+  userType: string;
+  userToken: string;
+  expiresIn: number
+}
+
+export interface UserLoginCredentials {
+  email: string;
+  password: string;
+}
+
 export interface UserMaster {
   id: string;
   typeOfUser: string;
@@ -5,7 +18,7 @@ export interface UserMaster {
   updatedAt: string;
 }
 
-export interface UserPersonal{
+export interface UserPersonal {
   id: string;
   firstName: string;
   lastName: string;
@@ -16,7 +29,7 @@ export interface UserPersonal{
   updatedAt: string;
 }
 
-export interface UserContact{
+export interface UserContact {
   id: string;
   phoneNumber: string;
   alternateNumber: string;
@@ -44,7 +57,7 @@ export interface Teacher {
   masterUserID: string;
 }
 
-export interface Profile extends UserMaster{
+export interface Profile extends UserMaster {
   MasterUserPersonal: UserPersonal;
   MasterUserContact: UserContact;
 }

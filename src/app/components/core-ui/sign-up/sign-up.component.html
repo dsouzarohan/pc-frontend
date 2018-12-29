@@ -4,7 +4,7 @@
     <!--todo: rewrite all validator using the rxweb form validation library-->
 
     <mat-vertical-stepper
-    linear=false>
+      linear=false>
 
       <!--todo: change linear to true after completion-->
 
@@ -40,12 +40,12 @@
           <mat-form-field>
 
             <input
-            matInput
-            formControlName="uid"
-            #uid
-            type="number"
-            placeholder="UID"
-            required>
+              matInput
+              formControlName="uid"
+              #uid
+              type="number"
+              placeholder="UID"
+              required>
 
             <mat-hint>Enter the unique identification number provided by your college</mat-hint>
 
@@ -56,11 +56,11 @@
           <mat-form-field *ngIf="typeFormGroup.get('type').value === 'Student'">
 
             <input
-            matInput
-            formControlName="stream"
-            #stream
-            placeholder="Stream"
-            required>
+              matInput
+              formControlName="stream"
+              #stream
+              placeholder="Stream"
+              required>
 
             <mat-hint>Enter the stream</mat-hint>
 
@@ -86,11 +86,11 @@
           <mat-form-field>
 
             <input
-            matInput
-            placeholder="First Name"
-            formControlName="firstName"
-            #firstName
-            required>
+              matInput
+              placeholder="First Name"
+              formControlName="firstName"
+              #firstName
+              required>
 
             <mat-error
               *ngIf="!firstName.valid">
@@ -103,11 +103,11 @@
           <mat-form-field>
 
             <input
-            matInput
-            formControlName="lastName"
-            placeholder="Last Name"
-            #lastName
-            required>
+              matInput
+              formControlName="lastName"
+              placeholder="Last Name"
+              #lastName
+              required>
 
             <mat-error *ngIf="!lastName.valid">
               Incorrect name
@@ -118,10 +118,10 @@
           <mat-form-field>
 
             <input
-            matInput
-            placeholder="Middle name"
-            #middleName
-            formControlName="middleName">
+              matInput
+              placeholder="Middle name"
+              #middleName
+              formControlName="middleName">
 
             <mat-error *ngIf="!middleName.valid">Incorrect name</mat-error>
 
@@ -143,7 +143,7 @@
 
           <mat-radio-group
             matInput
-            placeHolder = "Gender"
+            placeHolder="Gender"
             formControlName="gender"
             class="pc-radio-group"
             required
@@ -154,16 +154,17 @@
             </mat-label>
 
             <mat-radio-button
-            *ngFor="let gender of genders"
-            class="pc-radio-button"
-            [value]="gender"
-            required
+              *ngFor="let gender of genders"
+              class="pc-radio-button"
+              [value]="gender"
+              required
             >
               {{ gender }}
             </mat-radio-button>
 
             <mat-error *ngIf="!personalFormGroup.get('gender').valid &&
-            personalFormGroup.get('gender').touched">Please select a value</mat-error>
+            personalFormGroup.get('gender').touched">Please select a value
+            </mat-error>
 
           </mat-radio-group>
 
@@ -193,38 +194,44 @@
           <mat-form-field>
 
             <input
-            matInput
-            #mobileNumber
-            formControlName="mobileNumber"
-            placeholder="Mobile Number"
-            required>
+              matInput
+              #mobileNumber
+              formControlName="mobileNumber"
+              placeholder="Mobile Number"
+              required>
 
-            <mat-error *ngIf="contactFormGroup.get('mobileNumber').hasError('pattern')">Incorrect mobile number</mat-error>
-            <mat-error *ngIf="contactFormGroup.get('mobileNumber').hasError('Number exists')">Mobile number already exists</mat-error>
-
-          </mat-form-field>
-
-          <mat-form-field>
-
-            <input
-            matInput
-            #alternateNumber
-            formControlName="alternateNumber"
-            placeholder="Alternate mobile number">
-
-            <mat-error *ngIf="contactFormGroup.get('alternateNumber').hasError('pattern')">Incorrect mobile number</mat-error>
-            <mat-error *ngIf="contactFormGroup.get('alternateNumber').hasError('Number exists')">Mobile number already exists</mat-error>
+            <mat-error *ngIf="contactFormGroup.get('mobileNumber').hasError('pattern')">Incorrect mobile number
+            </mat-error>
+            <mat-error *ngIf="contactFormGroup.get('mobileNumber').hasError('Number exists')">Mobile number already
+              exists
+            </mat-error>
 
           </mat-form-field>
 
           <mat-form-field>
 
             <input
-            matInput
-            #email
-            formControlName="email"
-            placeholder="Email"
-            required>
+              matInput
+              #alternateNumber
+              formControlName="alternateNumber"
+              placeholder="Alternate mobile number">
+
+            <mat-error *ngIf="contactFormGroup.get('alternateNumber').hasError('pattern')">Incorrect mobile number
+            </mat-error>
+            <mat-error *ngIf="contactFormGroup.get('alternateNumber').hasError('Number exists')">Mobile number already
+              exists
+            </mat-error>
+
+          </mat-form-field>
+
+          <mat-form-field>
+
+            <input
+              matInput
+              #email
+              formControlName="email"
+              placeholder="Email"
+              required>
 
             <mat-error *ngIf="contactFormGroup.get('email').hasError('email')">Invalid email address</mat-error>
             <mat-error *ngIf="contactFormGroup.get('email').hasError('Email exists')">Email already exists</mat-error>
@@ -251,11 +258,13 @@
             <button
               mat-button
               matStepperPrevious
-            >PREVIOUS</button>
+            >PREVIOUS
+            </button>
 
             <button
               mat-button
-              matStepperNext>NEXT</button>
+              matStepperNext>NEXT
+            </button>
           </div>
 
         </form>
@@ -271,11 +280,11 @@
           <mat-form-field>
 
             <input
-            matInput
-            readonly
-            [value]="contactFormGroup.get('email').value"
-            formControlName="email"
-            placeholder="Email">
+              matInput
+              readonly
+              [value]="contactFormGroup.get('email').value"
+              formControlName="email"
+              placeholder="Email">
 
             <mat-hint>
               The email you chose in the previous step will be your login credential.
@@ -293,7 +302,9 @@
               placeholder="Password"
               required>
 
-            <mat-hint>Your password should be alphanumeric and of length 8-15 characters. It should consist of at least one number and uppercase character</mat-hint>
+            <mat-hint>Your password should be alphanumeric and of length 8-15 characters. It should consist of at least
+              one number and uppercase character
+            </mat-hint>
             <!--todo: Shorten the input hint-->
 
             <mat-error *ngIf="!password.valid">Incorrect password</mat-error>
@@ -311,7 +322,8 @@
               required
             >
 
-            <mat-error *ngIf="credentialFormGroup.hasError('Passwords do not match')">The passwords do not match</mat-error>
+            <mat-error *ngIf="credentialFormGroup.hasError('Passwords do not match')">The passwords do not match
+            </mat-error>
 
             <!--todo: passwords do not match error not triggered by error in the main password box-->
 
@@ -322,16 +334,16 @@
         <div class="pc-stepper-buttons">
 
           <button
-          mat-button
-          matStepperNext>
+            mat-button
+            matStepperNext>
             PREVIOUS
           </button>
 
           <button
-          mat-button
-          #finalSubmit>
+            mat-button
+            #finalSubmit>
 
-          <!--[disabled]="!signUpForm.valid"-->
+            <!--[disabled]="!signUpForm.valid"-->
 
             JOIN
           </button>

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {ClassroomsService} from '../../../services/classrooms.service';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-classroom',
@@ -8,12 +7,10 @@ import {ClassroomsService} from '../../../services/classrooms.service';
 })
 export class ClassroomComponent implements OnInit {
 
-  constructor(
-    private classroomsService: ClassroomsService
-  ) { }
+  constructor() {
+  }
 
   ngOnInit() {
-    this.classroomsService.getClassrooms();
   }
 
 }

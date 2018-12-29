@@ -1,19 +1,19 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { UserService } from "../../../services/user.service";
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 @Component({
-  selector: "app-profile",
-  templateUrl: "./profile.component.html",
-  styleUrls: ["./profile.component.scss"]
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
-    console.log("ProfileComponent#Intialized");
+    console.log('ProfileComponent#Intialized');
   }
 
   ngOnDestroy(): void {
-    console.log("ProfileComponent#Destroyed");
+    console.log('ProfileComponent#Destroyed');
   }
 }

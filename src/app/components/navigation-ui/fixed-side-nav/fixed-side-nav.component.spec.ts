@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FixedSideNavComponent } from './fixed-side-nav.component';
+import {FixedSideNavComponent} from './fixed-side-nav.component';
 
 describe('FixedSideNavComponent', () => {
   let component: FixedSideNavComponent;
@@ -8,9 +8,9 @@ describe('FixedSideNavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FixedSideNavComponent ]
+      declarations: [FixedSideNavComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

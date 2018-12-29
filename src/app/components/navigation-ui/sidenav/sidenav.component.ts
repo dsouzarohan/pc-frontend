@@ -3,7 +3,7 @@ import {AuthService} from '../../../services/auth.service';
 import {NavigationService} from '../../../services/navigation.service';
 import {Subscription} from 'rxjs';
 import {MatSidenav} from '@angular/material';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
@@ -13,37 +13,37 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 export class SidenavComponent implements OnInit, OnDestroy {
 
   @Input('sideNav') sideNav: MatSidenav;
-  private navItem: string = "";
+  private navItem: string = '';
 
   private navigationSubscription: Subscription = this
     .navigationService
     .getNavigationListener()
     .subscribe(navigationItem => {
-    
 
-    if(this.sideNav.opened){
 
-      if(navigationItem === 'dashboard'){
-        this.router.navigate(['/']);
-        this.sideNav.close();
+      if (this.sideNav.opened) {
 
-      } else if (this.navItem !== navigationItem){
-        this.navItem = navigationItem;
+        if (navigationItem === 'dashboard') {
+          this.router.navigate(['/']);
+          this.sideNav.close();
+
+        } else if (this.navItem !== navigationItem) {
+          this.navItem = navigationItem;
+
+        } else {
+          this.sideNav.close();
+        }
 
       } else {
-        this.sideNav.close();
+        if (navigationItem === 'dashboard') {
+          this.router.navigate(['/']);
+        } else {
+          this.navItem = navigationItem;
+          this.sideNav.open();
+        }
       }
 
-    } else {
-      if(navigationItem === 'dashboard'){
-        this.router.navigate(['/']);
-      } else {
-        this.navItem = navigationItem;
-        this.sideNav.open();
-      }
-    }
-
-  });
+    });
 
   constructor(
     private authService: AuthService,
@@ -57,12 +57,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.navigationSubscription.unsubscribe();
-    
-  }
 
-  logout(logoutButton: HTMLButtonElement){
-    const loggedOut = this.authService.logout();
-    logoutButton.disabled = loggedOut;
   }
 
 }

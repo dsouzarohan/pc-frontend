@@ -1,25 +1,24 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from "./app.component";
-import { AuthInterceptor } from "./interceptors/auth.interceptor";
+import {AppComponent} from './app.component';
+import {AuthInterceptor} from './interceptors/auth.interceptor';
 
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { MatSnackBar } from "@angular/material";
+import {MatSnackBar} from '@angular/material';
 
-import {
-  HttpClient,
-  HttpClientModule,
-  HTTP_INTERCEPTORS
-} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 
-import { AppRoutingModule } from "./app-routing.module";
-import { AuthModule } from "./modules/auth/auth.module";
-import { SharedModule } from "./modules/shared/shared.module";
-import { NavigationModule } from "./modules/navigation/navigation.module";
+import {AppRoutingModule} from './app-routing.module';
+import {AuthModule} from './modules/auth/auth.module';
+import {SharedModule} from './modules/shared/shared.module';
+import {NavigationModule} from './modules/navigation/navigation.module';
 import {StoreModule} from '@ngrx/store';
-import {reducers} from './app.reducer';
+import {effects, reducers} from './app.reducer';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -33,7 +32,9 @@ import {reducers} from './app.reducer';
     AuthModule,
     SharedModule,
     NavigationModule,
-    StoreModule.forRoot(reducers)
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(effects),
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [
     HttpClient,
@@ -47,4 +48,5 @@ import {reducers} from './app.reducer';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

@@ -5,12 +5,14 @@ import {SharedModule} from '../shared/shared.module';
 import {CoreComponent} from '../../components/core-ui/core/core.component';
 import {CoreRoutingModule} from './core-routing.module';
 import {NavigationModule} from '../navigation/navigation.module';
+import {JoinClassroomDialogComponent} from '../../components/dialogs/join-classroom-dialog/join-classroom-dialog.component';
 
 @NgModule({
   declarations: [
     CoreComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    JoinClassroomDialogComponent
   ],
   imports: [
     SharedModule,

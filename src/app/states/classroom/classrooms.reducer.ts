@@ -11,16 +11,25 @@ const initialState: ClassroomState = {
 
 export function classroomReducer(
   state: ClassroomState,
-  action: ClassroomsActionBundle.ClassroomsAction
-) : ClassroomState {
+  action: ClassroomsActionBundle.ClassroomsActions
+): ClassroomState {
 
   switch (action.type) {
-    case ClassroomsActionBundle.ClassroomsActionTypes.CLASSROOM:
+    case ClassroomsActionBundle.ClassroomsActionTypes.ON_GET_CLASSROOMS_SUCCESS:
       return {
         ...state,
-        classrooms: action.payload
+        classrooms: (<ClassroomsActionBundle.OnGetClassroomsSuccessAction>action).payload
       };
-    default: return state;
+    case ClassroomsActionBundle.ClassroomsActionTypes.ON_JOIN_CLASSROOM_SUCCESS:
+
+      return {
+        ...state,
+        classrooms: [
+          ...(state.classrooms),
+        ]
+      };
+    default:
+      return state;
   }
 
 }

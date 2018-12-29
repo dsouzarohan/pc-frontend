@@ -1,49 +1,60 @@
-import * as AuthActionsBundle from "./auth.actions";
+import * as AuthActionsBundle from './auth.actions';
 
 export interface AuthState {
   userAuthStatus: boolean;
   userID: string;
   userType: string;
   userToken: string;
+  isLoggingIn: boolean;
+  isLoggingOut: boolean;
 }
 
 const initialAuthState: AuthState = {
   userAuthStatus: false,
   userID: null,
   userType: null,
-  userToken: null
+  userToken: null,
+  isLoggingIn: false,
+  isLoggingOut: false
 };
 
 export function authReducer(
   state: AuthState = initialAuthState,
   action: AuthActionsBundle.AuthActions
-) : AuthState {
+): AuthState {
   switch (action.type) {
-    case AuthActionsBundle.AuthActionTypes.SET_USER_AUTH_STATUS:
+    case AuthActionsBundle.AuthActionTypes.USER_TYPE:
       return {
         ...state,
-        userAuthStatus: (<boolean> action.payload)
+        userType: (<AuthActionsBundle.UserTypeAction>action).payload
       };
-
-    case AuthActionsBundle.AuthActionTypes.SET_USER_TOKEN:
+    case AuthActionsBundle.AuthActionTypes.USER_ID:
       return {
         ...state,
-        userToken: (<string> action.payload)
+        userID: (<AuthActionsBundle.UserIDAction>action).payload
       };
-    case AuthActionsBundle.AuthActionTypes.SET_USER_TYPE:
+    case AuthActionsBundle.AuthActionTypes.USER_TOKEN:
       return {
         ...state,
-        userType: (<string> action.payload)
+        userToken: (<AuthActionsBundle.UserTokenAction>action).payload
       };
-    case AuthActionsBundle.AuthActionTypes.SET_USER_ID:
+    case AuthActionsBundle.AuthActionTypes.USER_AUTH_STATUS:
       return {
         ...state,
-        userID: (<string> action.payload)
+        userAuthStatus: (<AuthActionsBundle.UserAuthStatusAction>action).payload
+      };
+    case AuthActionsBundle.AuthActionTypes.IS_LOGGING_IN:
+      return {
+        ...state,
+        isLoggingIn: (<AuthActionsBundle.IsLoggingInAction>action).payload
+      };
+    case AuthActionsBundle.AuthActionTypes.IS_LOGGING_OUT:
+      return {
+        ...state,
+        isLoggingOut: (<AuthActionsBundle.IsLoggingOutAction>action).payload
       };
     default: {
       return state;
     }
   }
-
-  return state;
 }

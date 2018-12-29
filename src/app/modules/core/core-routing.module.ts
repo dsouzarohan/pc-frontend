@@ -19,7 +19,7 @@ const coreRoutes: Routes = [
       },
       {
         path: 'classroom',
-        loadChildren: "../classroom/classroom.module#ClassroomModule"
+        loadChildren: '../classroom/classroom.module#ClassroomModule'
       }
     ]
   }
@@ -34,6 +34,6 @@ const coreRoutes: Routes = [
   ]
 })
 
-export class CoreRoutingModule{
+export class CoreRoutingModule {
 
 }

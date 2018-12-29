@@ -1,8 +1,8 @@
-$sm:576px;
-$md:768px;
-$lg:992px;
-$xl:1200px;
-$gutter:.5em;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$gutter: .5em;
 
 .p-grid {
   display: -webkit-box;
@@ -21,8 +21,8 @@ $gutter:.5em;
   margin-top: 0;
 }
 
-.p-nogutter>.p-col,
-.p-nogutter>[class*="p-col-"] {
+.p-nogutter > .p-col,
+.p-nogutter > [class*="p-col-"] {
   padding: 0;
 }
 

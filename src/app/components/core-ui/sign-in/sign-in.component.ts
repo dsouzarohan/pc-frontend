@@ -1,71 +1,50 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AuthService } from "../../../services/auth.service";
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material';
+import {AuthFacade} from '../../../states/auth/auth.facade';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./sign-in.component.html",
-  styleUrls: ["./sign-in.component.scss"]
+  selector: 'app-login',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.scss']
 })
 
 export class SignInComponent implements OnInit {
 
   private credentials: FormGroup;
-  private logInSubmitted: boolean = false;
+  private isLoggingIn: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-    private snackbarService: MatSnackBar
-  ) {}
+    private authFacade: AuthFacade,
+    private router: Router
+  ) {
+    this.authFacade.isLoggingIn$.subscribe(
+      isLoggingIn => {
+
+        this.isLoggingIn = isLoggingIn;
+      }
+    );
+  }
 
   ngOnInit() {
     this.credentials = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     });
   }
 
-  goToSignUp(){
-    this.router.navigate(['/signup'])
-      .then( result => {
-        //console.log(result);
-      })
-      .catch( error => {
-        //console.log(error);
-      })
+  goToSignUp() {
+    this.router.navigate(['/signup']);
   }
 
   onLoginSubmit() {
-
-    if(!this.logInSubmitted){
-
-      this.logInSubmitted = true;
-
-      this.authService
-        .login({
-          email: this.credentials.get("email").value,
-          password: this.credentials.get("password").value
-        })
-        .then(() => {
-          this.router.navigate(["/"]);
-        })
-        .catch( errorResponse => {
-
-          this.snackbarService.open(errorResponse.error.message,null, {
-            duration: 3000,
-            panelClass: 'snack-bar-align-span-center'
-            }
-          );
-
-          this.logInSubmitted = false;
-
-        });
-
-      console.log("SignInComponent#LoginCalled");
+    if (!this.isLoggingIn) {
+      this.authFacade._login({
+        email: this.credentials.get('email').value,
+        password: this.credentials.get('password').value
+      });
     }
   }
 }
+

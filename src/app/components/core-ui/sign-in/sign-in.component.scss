@@ -1,29 +1,29 @@
-.flex-container{
+.flex-container {
   display: flex;
   height: 100%;
 }
 
-mat-card{
+mat-card {
   display: flex;
   margin: auto;
   flex-direction: column;
 }
 
-mat-card > button{
+mat-card > button {
   align-self: center;
 }
 
 
-mat-card-title, mat-card-subtitle{
+mat-card-title, mat-card-subtitle {
   width: 100%;
   text-align: center;
 }
 
-form{
+form {
   display: flex;
   flex-direction: column;
 }
 
-form > *{
+form > * {
   margin: 0px 20px;
 }

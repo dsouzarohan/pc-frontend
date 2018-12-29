@@ -9,12 +9,13 @@ export class HeaderComponent implements OnInit {
 
   @Output() sideNavClick = new EventEmitter();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
-  onSideNavButtonClick(){
+  onSideNavButtonClick() {
     this.sideNavClick.emit();
   }
 

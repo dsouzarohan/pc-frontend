@@ -3,13 +3,11 @@ import {ClassroomComponent} from '../../components/classroom-ui/classroom/classr
 import {CreateClassroomComponent} from '../../components/classroom-ui/create-classroom/create-classroom.component';
 import {SharedModule} from '../shared/shared.module';
 import {ClassroomRoutingModule} from './classroom-routing.module';
-import { ClassroomMenuTileComponent } from '../../components/sidenav-menus/classroom-menu/classroom-menu-tile/classroom-menu-tile.component';
 
 @NgModule({
   declarations: [
     ClassroomComponent,
-    CreateClassroomComponent,
-    ClassroomMenuTileComponent
+    CreateClassroomComponent
   ],
   imports: [
     SharedModule,
@@ -21,4 +19,5 @@ import { ClassroomMenuTileComponent } from '../../components/sidenav-menus/class
   ]
 })
 
-export class ClassroomModule{}
+export class ClassroomModule {
+}

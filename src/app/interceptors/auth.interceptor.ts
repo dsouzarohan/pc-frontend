@@ -1,21 +1,21 @@
 import {HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {AuthService} from '../services/auth.service';
 import {Injectable} from '@angular/core';
+import {AuthFacade} from '../states/auth/auth.facade';
 
 @Injectable()
 
-export class AuthInterceptor implements HttpInterceptor{
+export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService){
+  constructor(private authFacade: AuthFacade) {
   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler){
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
 
     let authRequest;
-    this.authService.getUserToken()
-      .subscribe( authToken => {
-         authRequest = req.clone({
-          headers: req.headers.set('X-Authorization','Bearer '+authToken)
+    this.authFacade.userToken$
+      .subscribe(authToken => {
+        authRequest = req.clone({
+          headers: req.headers.set('X-Authorization', 'Bearer ' + authToken)
         });
       });
 

@@ -1,21 +1,14 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from "@angular/forms";
-import { AuthService } from "../../../services/auth.service";
-import { map } from "rxjs/operators";
-import { Observable } from "rxjs";
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 
 @Component({
-  selector: "app-sign-up",
-  templateUrl: "./sign-up.component.html",
-  styleUrls: ["./sign-up.component.scss"]
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
   /*
@@ -30,9 +23,9 @@ export class SignUpComponent implements OnInit {
   private contactFormGroup: FormGroup;
   private credentialFormGroup: FormGroup;
 
-  private types = ["Student", "Teacher"];
+  private types = ['Student', 'Teacher'];
 
-  private genders = ["Male", "Female", "Other"];
+  private genders = ['Male', 'Female', 'Other'];
 
   private maxDate: Date;
 
@@ -42,7 +35,8 @@ export class SignUpComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.maxDate = new Date();
@@ -53,30 +47,30 @@ export class SignUpComponent implements OnInit {
     //Form Groups
 
     this.typeFormGroup = this.formBuilder.group({
-      type: ["Student", Validators.required],
-      uid: ["", Validators.required, this.uidExists.bind(this)],
-      stream: ["", Validators.required]
+      type: ['Student', Validators.required],
+      uid: ['', Validators.required, this.uidExists.bind(this)],
+      stream: ['', Validators.required]
     });
 
     this.personalFormGroup = this.formBuilder.group({
       firstName: [
-        "",
-        [Validators.required, Validators.pattern("^[a-zA-Z']*$")]
+        '',
+        [Validators.required, Validators.pattern('^[a-zA-Z\']*$')]
       ],
-      lastName: ["", [Validators.required, Validators.pattern("^[a-zA-Z']*$")]],
-      middleName: ["", [Validators.pattern("^[a-zA-Z]*$")]],
-      dateOfBirth: ["", [Validators.required]],
-      gender: ["", [Validators.required]]
+      lastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z\']*$')]],
+      middleName: ['', [Validators.pattern('^[a-zA-Z]*$')]],
+      dateOfBirth: ['', [Validators.required]],
+      gender: ['', [Validators.required]]
     });
 
     this.contactFormGroup = this.formBuilder.group({
       mobileNumber: [
-        "",
+        '',
         [Validators.required, Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10}$/)],
         this.phoneNumberExists.bind(this)
       ],
       alternateNumber: [
-        "",
+        '',
         [Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10}$/)],
         this.alternateNumberExists.bind(this)
       ],
@@ -85,14 +79,14 @@ export class SignUpComponent implements OnInit {
         [Validators.required, Validators.email],
         this.emailExists.bind(this)
       ],
-      address: ["", [Validators.required]]
+      address: ['', [Validators.required]]
     });
 
     this.credentialFormGroup = this.formBuilder.group(
       {
-        email: [this.contactFormGroup.get("email").value, [Validators.email]],
+        email: [this.contactFormGroup.get('email').value, [Validators.email]],
         password: [
-          "",
+          '',
           [
             Validators.required,
             Validators.pattern(
@@ -101,7 +95,7 @@ export class SignUpComponent implements OnInit {
           ]
         ],
         confirmPassword: [
-          "",
+          '',
           [
             Validators.required,
             Validators.pattern(
@@ -126,10 +120,10 @@ export class SignUpComponent implements OnInit {
   }
 
   private onUserTypeChange() {
-    if (this.typeFormGroup.get("type").value !== "Student") {
-      this.typeFormGroup.get("stream").disable();
+    if (this.typeFormGroup.get('type').value !== 'Student') {
+      this.typeFormGroup.get('stream').disable();
     } else {
-      this.typeFormGroup.get("stream").enable();
+      this.typeFormGroup.get('stream').enable();
     }
 
     this.typeFormGroup.get('uid').updateValueAndValidity();
@@ -140,27 +134,25 @@ export class SignUpComponent implements OnInit {
   static passwordMatch(
     abstractControl: AbstractControl
   ): { [key: string]: boolean } {
-    let password = abstractControl.get("password").value;
-    let confirmPassword = abstractControl.get("confirmPassword").value;
+    let password = abstractControl.get('password').value;
+    let confirmPassword = abstractControl.get('confirmPassword').value;
 
-    console.log(abstractControl);
 
     if (password === confirmPassword) {
       return null;
     }
 
-    return { "Passwords do not match": true };
+    return {'Passwords do not match': true};
   }
 
   emailExists(emailControl: FormControl): Observable<any> {
     const email = emailControl.value;
 
-    console.log(this.contactFormGroup);
 
     return this.userService.emailExists(email).pipe(
       map(response => {
         if (response.emailExists) {
-          return { "Email exists": true };
+          return {'Email exists': true};
         }
 
         return null;
@@ -177,7 +169,7 @@ export class SignUpComponent implements OnInit {
       map(response => {
         if (response.numberExists) {
           return {
-            "Number exists": true
+            'Number exists': true
           };
         }
 
@@ -189,13 +181,13 @@ export class SignUpComponent implements OnInit {
   alternateNumberExists(numberControl: FormControl): Observable<any> {
     const number = numberControl.value;
 
-    if(number === "") return new Observable<null>();
+    if (number === '') return new Observable<null>();
 
     return this.userService.numberExists(number).pipe(
       map(response => {
         if (response.numberExists) {
           return {
-            "Number exists": true
+            'Number exists': true
           };
         }
 
@@ -204,15 +196,15 @@ export class SignUpComponent implements OnInit {
     );
   }
 
-  uidExists(uidControl : AbstractControl): Observable<any>{
+  uidExists(uidControl: AbstractControl): Observable<any> {
 
     const uid = uidControl.value;
     const type = this.typeFormGroup.get('type').value;
 
     return this.userService.uidExists(uid, type).pipe(
       map((response) => {
-        if(response.uidExists){
-          return {"UID exists": true};
+        if (response.uidExists) {
+          return {'UID exists': true};
         }
 
         return null;
@@ -229,18 +221,17 @@ export class SignUpComponent implements OnInit {
     finalSubmit.disabled = true;
 
     this.credentialFormGroup
-      .get("email")
-      .setValue(this.contactFormGroup.get("email").value);
+      .get('email')
+      .setValue(this.contactFormGroup.get('email').value);
 
-    console.log(this.signUpForm.value);
 
     this.userService.createUser(this.signUpForm.value).subscribe(
       response => {
-        console.log(response);
+
         this.router.navigate(['/signin']);
       },
       error => {
-        console.log(error);
+
         finalSubmit.disabled = false;
       }
     );

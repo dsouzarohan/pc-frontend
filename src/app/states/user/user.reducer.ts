@@ -13,13 +13,13 @@ const initialState: UserState = {
 export function userReducer(
   state: UserState = initialState,
   action: UserActionsBundle.UserActions
-) : UserState {
+): UserState {
 
   switch (action.type) {
-    case UserActionTypes.PROFILE:
+    case UserActionTypes.ON_GET_PROFILE_SUCCESS:
       return {
         ...state,
-        profile: (<Profile> action.payload)
+        profile: (<Profile>action.payload)
       };
     default:
       return state;
