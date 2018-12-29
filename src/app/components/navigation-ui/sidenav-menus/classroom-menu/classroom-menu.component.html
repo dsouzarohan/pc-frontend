@@ -2,7 +2,12 @@
   Classrooms
 </h2>
 
-<button class="new-class-button" type="button" tabindex="-1" mat-icon-button>
+<button
+  class="new-class-button"
+  type="button"
+  tabindex="-1"
+  (click)="onNewClassroomClick()"
+  mat-icon-button>
   <mat-icon>add_circle</mat-icon>
 </button>
 

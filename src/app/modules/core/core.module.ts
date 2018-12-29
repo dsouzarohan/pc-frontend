@@ -11,8 +11,7 @@ import {JoinClassroomDialogComponent} from '../../components/dialogs/join-classr
   declarations: [
     CoreComponent,
     DashboardComponent,
-    ProfileComponent,
-    JoinClassroomDialogComponent
+    ProfileComponent
   ],
   imports: [
     SharedModule,

@@ -7,6 +7,11 @@ import {AuthEffects} from './states/auth/auth.effects';
 import {ClassroomsEffects} from './states/classroom/classrooms.effects';
 import {UserEffects} from './states/user/user.effects';
 
+export interface ActionStatus {
+  type: 'SUCCESS' | 'FAIL' | 'TRYING' | null,
+  message?: string
+}
+
 export interface AppState {
   auth: fromAuth.AuthState
   user: fromUser.UserState

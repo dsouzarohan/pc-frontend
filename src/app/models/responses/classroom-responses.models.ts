@@ -11,7 +11,8 @@ export interface CreateClassroomResponse {
 }
 
 export interface JoinClassroomResponse {
-  message: string
+  message: string,
+  classroom: Classroom
 }
 
 

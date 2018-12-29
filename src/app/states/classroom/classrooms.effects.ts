@@ -1,14 +1,18 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import * as ClassroomsActionBundle from './classrooms.action';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ClassroomsService} from '../../services/classrooms.service';
+import {OnJoinClassroomFailAction, OnJoinClassroomSuccessAction} from './classrooms.action';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 
 export class ClassroomsEffects {
+
+  //get classroom action lifecycle
 
   @Effect() tryGetClassroomsEffect = this.actions.pipe(
     ofType(ClassroomsActionBundle.ClassroomsActionTypes.TRY_GET_CLASSROOMS)
@@ -20,7 +24,7 @@ export class ClassroomsEffects {
           return new ClassroomsActionBundle.OnGetClassroomsSuccessAction(response.data);
         }),
         catchError((errorResponse: HttpErrorResponse) => {
-          return of(new ClassroomsActionBundle.OnGetClassroomsFailAction(errorResponse.message));
+          return of(new ClassroomsActionBundle.OnGetClassroomsFailAction(errorResponse.error.message));
         })
       );
     })
@@ -40,21 +44,45 @@ export class ClassroomsEffects {
     })
   );
 
-  // @Effect() tryJoinClassroomEffect = this.actions.pipe(
-  //   ofType(ClassroomsActionTypes.TRY_JOIN_CLASSROOM)
-  // ).pipe(
-  //   map((action: TryJoinClassroomAction) => {
-  //     return action.payload
-  //   })
-  // ).pipe(
-  //   switchMap((classCode) => {
-  //     return this.http.get<GetClassroomResponse>(environment.apiUrl + 'classrooms').pipe()
-  //   })
-  // );
+  //join classroom action life cycle
+
+  @Effect() tryJoinClassroomEffect = this.actions.pipe(
+    ofType(ClassroomsActionBundle.ClassroomsActionTypes.TRY_JOIN_CLASSROOM)
+  ).pipe(
+    map((action: ClassroomsActionBundle.TryJoinClassroomAction) => action.payload)
+  ).pipe(
+    switchMap((classcode) => {
+      return this.classroomsService.joinClassroom(classcode).pipe(
+        mergeMap((response) => {
+          console.log("@ClassroomEffect#JoinClassroomResponse",response);
+          return [new OnJoinClassroomSuccessAction(response.classroom), new ClassroomsActionBundle.IsJoiningClassroomAction(false)]
+        }),
+        catchError((errorResponse: HttpErrorResponse) => {
+          console.log('@ClassroomsEffects#ErrorResponse',errorResponse);
+          return of(new OnJoinClassroomFailAction(errorResponse.error.message))
+        })
+      )
+    })
+  );
+
+  @Effect() onJoinClassroomFailEffect = this.actions.pipe(
+    ofType(ClassroomsActionBundle.ClassroomsActionTypes.ON_JOIN_CLASSROOM_FAIL)
+  ).pipe(
+    map((action: ClassroomsActionBundle.OnJoinClassroomFailAction) => action.payload)
+  ).pipe(
+    map((error) => {
+      this.snackBarService.open(error, null, {
+        duration: 3000,
+        panelClass: 'snack-bar-align-span-center'
+      });
+      return new ClassroomsActionBundle.IsJoiningClassroomAction(false);
+    })
+  );
 
   constructor(
     private actions: Actions,
-    private classroomsService: ClassroomsService
+    private classroomsService: ClassroomsService,
+    private snackBarService: MatSnackBar
   ) {
   }
 

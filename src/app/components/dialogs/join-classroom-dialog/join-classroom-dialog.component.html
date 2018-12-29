@@ -1,12 +1,26 @@
-<!--<h1 mat-dialog-title>Join a classroom</h1>-->
-<!--<div mat-dialog-content>-->
-<!--<p>Enter the classcode</p>-->
-<!--<mat-hint>This is provided by your class teacher</mat-hint>-->
-<!--<mat-form-field>-->
-<!--<input matInput [(ngModel)]="data.animal">-->
-<!--</mat-form-field>-->
-<!--</div>-->
-<!--<div mat-dialog-actions>-->
-<!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
-<!--<button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>-->
-<!--</div>-->
+<h1 mat-dialog-title>Join a classroom</h1>
+<div>
+  <p>Enter the classcode</p>
+  <form [formGroup]="classcodeForm" (ngSubmit)="onClasscodeSubmit()">
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="classcodeInput"
+        type="text"
+        placeholder="Class code"
+        required
+        #classcodeInput>
+
+      <mat-hint>This is provided by your teacher</mat-hint>
+    </mat-form-field>
+    <br>
+    <br>
+    <div mat-dialog-actions>
+      <button mat-button
+      [disabled]="!classcodeForm.valid">JOIN</button>
+      <button type="button"
+              mat-button
+              mat-dialog-close>CANCEL</button>
+    </div>
+  </form>
+</div>
