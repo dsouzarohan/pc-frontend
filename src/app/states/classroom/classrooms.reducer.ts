@@ -53,9 +53,12 @@ export function classroomReducer(
         }
       };
     case ClassroomsActionBundle.ClassroomsActionTypes.IS_JOINING_CLASSROOM:
+
+      let isJoiningPayload = (<ClassroomsActionBundle.IsJoiningClassroomAction>action).payload;
+
       return {
         ...state,
-        joiningClassroomStatus: null
+        joiningClassroomStatus: isJoiningPayload ? {type: 'STARTING'} : null
       };
     default:
       return state;

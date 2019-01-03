@@ -20,10 +20,11 @@ export class ClassroomMenuComponent implements OnInit {
     private dialogService: MatDialog
   ) {
     this.classroomsObservable = this.classroomsFacade.classrooms$;
+    this.classroomsFacade.isJoiningSuccess$.subscribe(joiningStatus => console.log('@ClassroomMenuComponent#joiningStatus'));
   }
 
   onNewClassroomClick(){
-    const dialogRef = this.dialogService.open(JoinClassroomDialogComponent);
+    this.dialogService.open(JoinClassroomDialogComponent);
   }
 
   ngOnInit() {

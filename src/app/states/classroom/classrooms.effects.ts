@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import * as ClassroomsActionBundle from './classrooms.action';
+import {OnJoinClassroomFailAction, OnJoinClassroomSuccessAction} from './classrooms.action';
 import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ClassroomsService} from '../../services/classrooms.service';
-import {OnJoinClassroomFailAction, OnJoinClassroomSuccessAction} from './classrooms.action';
 import {MatSnackBar} from '@angular/material';
 
 @Injectable()
@@ -72,6 +72,20 @@ export class ClassroomsEffects {
   ).pipe(
     map((error) => {
       this.snackBarService.open(error, null, {
+        duration: 3000,
+        panelClass: 'snack-bar-align-span-center'
+      });
+      return new ClassroomsActionBundle.IsJoiningClassroomAction(false);
+    })
+  );
+
+  @Effect() onJoinClassroomSuccessEffect = this.actions.pipe(
+    ofType(ClassroomsActionBundle.ClassroomsActionTypes.ON_JOIN_CLASSROOM_SUCCESS)
+  ).pipe(
+    map((action: ClassroomsActionBundle.OnJoinClassroomSuccessAction) => action.payload)
+  ).pipe(
+    map(joinedClassroom => {
+      this.snackBarService.open(`'${joinedClassroom.name}' joined successfully`, null, {
         duration: 3000,
         panelClass: 'snack-bar-align-span-center'
       });

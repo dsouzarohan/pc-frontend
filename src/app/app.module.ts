@@ -19,14 +19,10 @@ import {effects, reducers} from './app.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
-import {JoinClassroomDialogComponent} from './components/dialogs/join-classroom-dialog/join-classroom-dialog.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-
-    //run time components for the component factory
-    JoinClassroomDialogComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +35,6 @@ import {JoinClassroomDialogComponent} from './components/dialogs/join-classroom-
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
     !environment.production ? StoreDevtoolsModule.instrument() : []
-  ],
-  entryComponents: [
-    JoinClassroomDialogComponent
   ],
   providers: [
     HttpClient,

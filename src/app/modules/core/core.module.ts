@@ -5,18 +5,27 @@ import {SharedModule} from '../shared/shared.module';
 import {CoreComponent} from '../../components/core-ui/core/core.component';
 import {CoreRoutingModule} from './core-routing.module';
 import {NavigationModule} from '../navigation/navigation.module';
+import {StoreModule} from '@ngrx/store';
+import {effects, reducers} from '../../states/core/core.reducer';
+import {EffectsModule} from '@ngrx/effects';
 import {JoinClassroomDialogComponent} from '../../components/dialogs/join-classroom-dialog/join-classroom-dialog.component';
 
 @NgModule({
   declarations: [
     CoreComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    JoinClassroomDialogComponent
   ],
   imports: [
     SharedModule,
     CoreRoutingModule,
-    NavigationModule
+    NavigationModule,
+    StoreModule.forFeature('core', reducers),
+    EffectsModule.forFeature(effects)
+  ],
+  entryComponents: [
+    JoinClassroomDialogComponent
   ],
   exports: [
     CoreComponent,

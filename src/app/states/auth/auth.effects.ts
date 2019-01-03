@@ -27,6 +27,7 @@ export class AuthEffects {
       switchMap((credentials: UserLoginCredentials) => {
         return this.authService.login(credentials).pipe(
           mergeMap(response => {
+            console.log('@AuthEffect#Response', response);
             this.authService.saveUser(
               response.token,
               response.expiresIn,
@@ -75,7 +76,10 @@ export class AuthEffects {
           userAuthInformation.userType
         );
         this.router.navigate(['/']);
-
+        this.snackBarService.open('Welcome, please subscribe to PewDiePie', null, {
+          duration: 3000,
+          panelClass: 'snack-bar-align-span-center'
+        });
         return new IsLoggingInAction(false);
       })
     );

@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
-import {AppState} from '../../app.reducer';
+import * as fromCore from '../core/core.reducer';
 import {Store} from '@ngrx/store';
-import {map, take} from 'rxjs/operators';
 import {TryGetProfileAction} from './user.actions';
+
+import * as userSelectors from './user.selectors';
+import * as authSelectors from '../auth/auth.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +12,11 @@ import {TryGetProfileAction} from './user.actions';
 
 export class UserFacade {
 
-  public profile$ = this.store.select('user').pipe(take(1), map(userState => userState.profile));
-  private userID$ = this.store.select('auth').pipe(take(1), map(authState => authState.userID));
+  public profile$ = this.store.select(userSelectors.getProfile);
+  private userID$ = this.store.select(authSelectors.getUserID);
 
   constructor(
-    private store: Store<AppState>) {
+    private store: Store<fromCore.CoreFeatureState>) {
   }
 
   public _loadProfile() {

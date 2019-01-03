@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {AppState} from '../../app.reducer';
 import {Store} from '@ngrx/store';
-import {map, take} from 'rxjs/operators';
+import {take} from 'rxjs/operators';
 import {UserAuthInformation, UserLoginCredentials} from '../../models/user.models';
 import * as AuthActionsBundle from './auth.actions';
-import {IsLoggingInAction, IsLoggingOutAction, TryLogInAction, TryLogOutAction} from './auth.actions';
+import * as authSelectors from './auth.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +12,12 @@ import {IsLoggingInAction, IsLoggingOutAction, TryLogInAction, TryLogOutAction} 
 
 export class AuthFacade {
 
-  public userID$ = this.store.select('auth').pipe(take(1), map(authState => authState.userID));
-  public userType$ = this.store.select('auth').pipe(take(1), map(authState => authState.userType));
-  public userToken$ = this.store.select('auth').pipe(take(1), map(authState => authState.userToken));
-  public userAuthStatus$ = this.store.select('auth').pipe(take(1), map(authState => authState.userAuthStatus));
-  public isLoggingIn$ = this.store.select('auth').pipe(map(authState => authState.isLoggingIn));
-  public isLoggingOut$ = this.store.select('auth').pipe(map(authState => authState.isLoggingOut));
+  public userID$ = this.store.select(authSelectors.getUserID).pipe(take(1));
+  public userType$ = this.store.select(authSelectors.getUserType).pipe(take(1));
+  public userToken$ = this.store.select(authSelectors.getUserToken).pipe(take(1));
+  public userAuthStatus$ = this.store.select(authSelectors.getUserAuthStatus).pipe(take(1));
+  public isLoggingIn$ = this.store.select(authSelectors.getIsLoggingIn);
+  public isLoggingOut$ = this.store.select(authSelectors.getIsLoggingOut);
 
   constructor(
     private store: Store<AppState>
@@ -26,14 +26,14 @@ export class AuthFacade {
 
   public _login(credentials: UserLoginCredentials) {
     //indicates to the whole application that the user is now trying to log in
-    this.store.dispatch(new IsLoggingInAction(true));
+    this.store.dispatch(new AuthActionsBundle.IsLoggingInAction(true));
     //try logging in
-    this.store.dispatch(new TryLogInAction(credentials));
+    this.store.dispatch(new AuthActionsBundle.TryLogInAction(credentials));
   }
 
   public _logout() {
-    this.store.dispatch(new IsLoggingOutAction(true));
-    this.store.dispatch(new TryLogOutAction());
+    this.store.dispatch(new AuthActionsBundle.IsLoggingOutAction(true));
+    this.store.dispatch(new AuthActionsBundle.TryLogOutAction());
   }
 
   public _saveAuthInformation(authInformation: UserAuthInformation) {
