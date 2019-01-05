@@ -20,6 +20,9 @@ import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 
+
+import {StoreRouterConnectingModule} from '@ngrx/router-store';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -34,6 +37,7 @@ import {environment} from '../environments/environment';
     NavigationModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
+    StoreRouterConnectingModule.forRoot(),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [

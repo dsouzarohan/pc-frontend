@@ -1,71 +1,28 @@
-<div>
-  <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h3>
+<div class="profile-container">
 
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam in libero magni nobis optio placeat repudiandae
-    sint tenetur? Aliquam consequuntur in ipsa, nam neque nobis quas quis quod temporibus vero.</p>
-  <p>Ab architecto
-    asperiores debitis distinctio dolore doloremque ducimus eaque enim, est eum eveniet facilis illo maxime minus modi
-    necessitatibus nisi, nulla optio pariatur quas quidem rem repellat repudiandae voluptas voluptatum.</p>
-  <p>Aliquid
-    architecto aspernatur consectetur est fuga fugit incidunt magnam, necessitatibus numquam possimus provident rem! At
-    atque autem, cupiditate deserunt earum fugit id laborum nisi possimus quae quaerat temporibus vel veritatis?</p>
+  <mat-card>
 
-  <hr>
+    <mat-card-title>{{ (profile$ | async).MasterUserPersonal.firstName +
+    ' ' + (profile$ | async).MasterUserPersonal.lastName }}</mat-card-title>
 
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam in libero magni nobis optio placeat repudiandae
-    sint tenetur? Aliquam consequuntur in ipsa, nam neque nobis quas quis quod temporibus vero.</p>
-  <p>Ab architecto
-    asperiores debitis distinctio dolore doloremque ducimus eaque enim, est eum eveniet facilis illo maxime minus modi
-    necessitatibus nisi, nulla optio pariatur quas quidem rem repellat repudiandae voluptas voluptatum.</p>
-  <p>Aliquid
-    architecto aspernatur consectetur est fuga fugit incidunt magnam, necessitatibus numquam possimus provident rem! At
-    atque autem, cupiditate deserunt earum fugit id laborum nisi possimus quae quaerat temporibus vel veritatis?</p>
+    <mat-card-subtitle>{{ (profile$ | async).typeOfUser }}</mat-card-subtitle>
 
-  <hr>
+    <hr>
 
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam in libero magni nobis optio placeat repudiandae
-    sint tenetur? Aliquam consequuntur in ipsa, nam neque nobis quas quis quod temporibus vero.</p>
-  <p>Ab architecto
-    asperiores debitis distinctio dolore doloremque ducimus eaque enim, est eum eveniet facilis illo maxime minus modi
-    necessitatibus nisi, nulla optio pariatur quas quidem rem repellat repudiandae voluptas voluptatum.</p>
-  <p>Aliquid
-    architecto aspernatur consectetur est fuga fugit incidunt magnam, necessitatibus numquam possimus provident rem! At
-    atque autem, cupiditate deserunt earum fugit id laborum nisi possimus quae quaerat temporibus vel veritatis?</p>
+    <mat-card-content>
 
-  <hr>
+      <p> {{ (profile$ | async).MasterUserPersonal.dateOfBirth }}</p>
+      <p> {{ (profile$ | async).MasterUserPersonal.gender }}</p>
 
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam in libero magni nobis optio placeat repudiandae
-    sint tenetur? Aliquam consequuntur in ipsa, nam neque nobis quas quis quod temporibus vero.</p>
-  <p>Ab architecto
-    asperiores debitis distinctio dolore doloremque ducimus eaque enim, est eum eveniet facilis illo maxime minus modi
-    necessitatibus nisi, nulla optio pariatur quas quidem rem repellat repudiandae voluptas voluptatum.</p>
-  <p>Aliquid
-    architecto aspernatur consectetur est fuga fugit incidunt magnam, necessitatibus numquam possimus provident rem! At
-    atque autem, cupiditate deserunt earum fugit id laborum nisi possimus quae quaerat temporibus vel veritatis?</p>
+    </mat-card-content>
 
-  <hr>
+    <hr>
 
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam in libero magni nobis optio placeat repudiandae
-    sint tenetur? Aliquam consequuntur in ipsa, nam neque nobis quas quis quod temporibus vero.</p>
-  <p>Ab architecto
-    asperiores debitis distinctio dolore doloremque ducimus eaque enim, est eum eveniet facilis illo maxime minus modi
-    necessitatibus nisi, nulla optio pariatur quas quidem rem repellat repudiandae voluptas voluptatum.</p>
-  <p>Aliquid
-    architecto aspernatur consectetur est fuga fugit incidunt magnam, necessitatibus numquam possimus provident rem! At
-    atque autem, cupiditate deserunt earum fugit id laborum nisi possimus quae quaerat temporibus vel veritatis?</p>
+    <p> {{ (profile$ | async).MasterUserContact.phoneNumber }}</p>
+    <p> {{ (profile$ | async).MasterUserContact.alternateNumber }}</p>
+    <p> {{ (profile$ | async).MasterUserContact.address }}</p>
+    <p> {{ (profile$ | async).MasterUserContact.email }}</p>
 
-  <hr>
-
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam in libero magni nobis optio placeat repudiandae
-    sint tenetur? Aliquam consequuntur in ipsa, nam neque nobis quas quis quod temporibus vero.</p>
-  <p>Ab architecto
-    asperiores debitis distinctio dolore doloremque ducimus eaque enim, est eum eveniet facilis illo maxime minus modi
-    necessitatibus nisi, nulla optio pariatur quas quidem rem repellat repudiandae voluptas voluptatum.</p>
-  <p>Aliquid
-    architecto aspernatur consectetur est fuga fugit incidunt magnam, necessitatibus numquam possimus provident rem! At
-    atque autem, cupiditate deserunt earum fugit id laborum nisi possimus quae quaerat temporibus vel veritatis?</p>
-
-  <hr>
-
+  </mat-card>
 
 </div>

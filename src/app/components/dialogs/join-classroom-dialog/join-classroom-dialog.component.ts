@@ -15,9 +15,6 @@ export class JoinClassroomDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     private classroomsFacade: ClassroomsFacade
   ) {
-    this.classroomsFacade.isJoiningSuccess$.subscribe(joiningStatus => {
-      console.log('@JoinClassroomDialogComponent#joiningClassroomStatus', joiningStatus);
-    });
   }
 
   private classcodeForm = this.formBuilder.group({

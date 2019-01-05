@@ -7,7 +7,7 @@ export interface GetClassroomResponse {
 
 export interface CreateClassroomResponse {
   message: string;
-  data: string;
+  classroom: Classroom
 }
 
 export interface JoinClassroomResponse {

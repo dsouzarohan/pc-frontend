@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ClassroomsFacade} from '../../../states/classroom/classrooms.facade';
 
 @Component({
   selector: 'app-create-classroom',
@@ -7,10 +9,25 @@ import {Component, OnInit} from '@angular/core';
 })
 export class CreateClassroomComponent implements OnInit {
 
-  constructor() {
+  private createClassroomForm: FormGroup;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private classroomFacade: ClassroomsFacade
+  ) {
+    this.createClassroomForm = this.formBuilder.group({
+      classroomName: ['', [Validators.required]],
+      classroomSubject: ['', [Validators.required]]
+    });
   }
 
   ngOnInit() {
+  }
+
+  private onCreateClassroomClick() {
+    console.log('@CreateClassroomComponent#Create classroom form', this.createClassroomForm.value);
+    let classroomDetails = this.createClassroomForm.value;
+    this.classroomFacade._createClassroom(classroomDetails);
   }
 
 }

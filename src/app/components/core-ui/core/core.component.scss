@@ -1,11 +1,28 @@
 mat-sidenav {
   position: fixed;
+  top: 64px;
   left: 60px;
   width: 35%;
 }
 
+mat-sidenav-container {
+  position: fixed;
+  top: 64px;
+  left: 60px;
+  bottom: 0;
+  right: 0;
+}
+
 mat-sidenav-content {
-  padding: 70px 35px 70px 95px;
+  //padding: 99px 35px 70px 95px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 35px;
+  height: inherit;
+  overflow: auto;
 }
 
 @media (max-width: 600px) {

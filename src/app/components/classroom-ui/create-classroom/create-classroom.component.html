@@ -1,1 +1,46 @@
-<p>Create clsasroom works</p>
+<div class="create-classroom-container">
+
+  <mat-card class="create-classroom-card">
+
+    <mat-card-title>Create a classroom</mat-card-title>
+    <mat-card-subtitle>Fill in the details for the classroom you want to create</mat-card-subtitle>
+
+    <form [formGroup]="createClassroomForm">
+
+      <mat-form-field>
+
+        <input
+          formControlName="classroomName"
+          matInput
+          placeholder="Classroom name"
+          required>
+
+        <mat-hint>Some hint here</mat-hint>
+        <mat-error>This field is required</mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field>
+
+        <input
+          formControlName="classroomSubject"
+          matInput
+          placeholder="Classroom subject"
+          required>
+
+        <mat-hint>Some hint here</mat-hint>
+        <mat-error>This field is required</mat-error>
+
+      </mat-form-field>
+
+      <button
+        (click)="onCreateClassroomClick()"
+        [disabled]="!createClassroomForm.valid"
+        mat-button>Create
+      </button>
+
+    </form>
+
+  </mat-card>
+
+</div>

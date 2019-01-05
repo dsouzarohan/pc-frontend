@@ -15,7 +15,6 @@ import * as classroomsSelectors from './classrooms.selectors';
 export class ClassroomsFacade {
 
   public classrooms$ = this.store.select(classroomsSelectors.getClassrooms);
-  private classroomState$ = this.store.select(classroomsSelectors.getClassroomState);
   private joiningClassroomStatus$ = this.store.select(classroomsSelectors.getJoiningClassroomStatus)
     .pipe(filter(joiningStatus => joiningStatus !== null));
 
@@ -43,6 +42,14 @@ export class ClassroomsFacade {
   _joinClassroom(classcode: string){
     this.store.dispatch(new ClassroomsActionBundle.IsJoiningClassroomAction(true));
     this.store.dispatch(new ClassroomsActionBundle.TryJoinClassroomAction(classcode));
+  }
+
+  _createClassroom(classDetails: {
+    classroomName: string,
+    classroomSubject: string
+  }) {
+    this.store.dispatch(new ClassroomsActionBundle.IsCreatingClassroomAction(true));
+    this.store.dispatch(new ClassroomsActionBundle.TryCreateClassroomAction(classDetails));
   }
 
 }

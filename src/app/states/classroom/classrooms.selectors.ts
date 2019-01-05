@@ -17,3 +17,8 @@ export const getJoiningClassroomStatus = createSelector(
   getClassroomState,
   (state: fromClassrooms.ClassroomState) => state.joiningClassroomStatus
 );
+
+export const getCreateClassroomStatus = createSelector(
+  getClassroomState,
+  (state: fromClassrooms.ClassroomState) => state.creatingClassroomStatus
+);

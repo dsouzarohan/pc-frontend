@@ -5,14 +5,16 @@ import {TryGetProfileAction} from './user.actions';
 
 import * as userSelectors from './user.selectors';
 import * as authSelectors from '../auth/auth.selectors';
+import {filter} from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 
 export class UserFacade {
 
-  public profile$ = this.store.select(userSelectors.getProfile);
+  public profile$ = this.store.select(userSelectors.getProfile).pipe(
+    filter(profile => {
+      return profile !== null;
+    }));
   private userID$ = this.store.select(authSelectors.getUserID);
 
   constructor(

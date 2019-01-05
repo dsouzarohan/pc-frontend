@@ -1,0 +1,20 @@
+.create-classroom-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-basis: 130%;
+}
+
+form > mat-form-field {
+  margin: 20px 0;
+}
+
+form > button {
+  margin-top: 10px;
+}

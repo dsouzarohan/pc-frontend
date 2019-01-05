@@ -6,9 +6,7 @@ import {EmailExistsResponse, PhoneNumberExistsResponse, UIDExistsResponse} from 
 import {GetProfileResponse} from '../models/responses/user-responses.models';
 import {AuthFacade} from '../states/auth/auth.facade';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 
 export class UserService {
 
