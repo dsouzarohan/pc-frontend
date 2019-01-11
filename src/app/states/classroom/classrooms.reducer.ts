@@ -1,9 +1,12 @@
-import {Classroom} from '../../models/classroom.models';
+import {Classroom, ClassroomDetails} from '../../models/classroom.models';
 import * as ClassroomsActionBundle from './classrooms.action';
 import {ActionStatus} from '../../app.reducer';
 
 export interface ClassroomState {
   classrooms: Array<Classroom>;
+
+  selectedClassroomDetails: ClassroomDetails;
+  loadingClassroomDetails: boolean;
 
   //statuses
   joiningClassroomStatus: ActionStatus;
@@ -12,6 +15,10 @@ export interface ClassroomState {
 
 const initialState: ClassroomState = {
   classrooms: null,
+
+  selectedClassroomDetails: null,
+  loadingClassroomDetails: false,
+
   joiningClassroomStatus: null,
   creatingClassroomStatus: null
 };
@@ -61,6 +68,7 @@ export function classroomReducer(
             .payload
         }
       };
+
     case ClassroomsActionBundle.ClassroomsActionTypes.IS_JOINING_CLASSROOM:
       let isJoiningPayload = (<ClassroomsActionBundle.IsJoiningClassroomAction>(
         action
@@ -70,7 +78,6 @@ export function classroomReducer(
         ...state,
         joiningClassroomStatus: isJoiningPayload ? {type: 'STARTING'} : null
       };
-
     case ClassroomsActionBundle.ClassroomsActionTypes.TRY_CREATE_CLASSROOM:
       return {
         ...state,
@@ -107,6 +114,27 @@ export function classroomReducer(
           >action).payload
           ? {type: 'STARTING'}
           : null
+      };
+
+    case ClassroomsActionBundle.ClassroomsActionTypes.TRY_GET_CLASSROOM_DETAILS:
+      return {
+        ...state,
+        loadingClassroomDetails: true
+      };
+    case ClassroomsActionBundle.ClassroomsActionTypes
+      .ON_GET_CLASSROOM_DETAILS_SUCCESS:
+      return {
+        ...state,
+        selectedClassroomDetails: (<
+          ClassroomsActionBundle.OnGetClassroomDetailsSuccessAction
+          >action).payload,
+        loadingClassroomDetails: false
+      };
+    case ClassroomsActionBundle.ClassroomsActionTypes
+      .ON_GET_CLASSROOM_DETAILS_FAIL:
+      return {
+        ...state,
+        loadingClassroomDetails: false
       };
     default:
       return state;

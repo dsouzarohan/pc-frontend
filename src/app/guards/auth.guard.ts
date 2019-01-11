@@ -8,19 +8,15 @@ import {AuthFacade} from '../states/auth/auth.facade';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-
-  constructor(
-    private authFacade: AuthFacade,
-    private router: Router
-  ) {
+  constructor(private authFacade: AuthFacade, private router: Router) {
   }
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
     return this.authFacade.userAuthStatus$.pipe(
-      map((userAuthStatus) => {
+      map(userAuthStatus => {
         if (userAuthStatus) {
           return userAuthStatus;
         } else {

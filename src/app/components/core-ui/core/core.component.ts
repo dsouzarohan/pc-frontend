@@ -10,7 +10,6 @@ import {ClassroomsFacade} from '../../../states/classroom/classrooms.facade';
   providers: [UserService]
 })
 export class CoreComponent implements OnInit, OnDestroy {
-
   constructor(
     private userFacade: UserFacade,
     private classroomsFacade: ClassroomsFacade
@@ -29,5 +28,4 @@ export class CoreComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     console.log('CoreComponent#Destroyed');
   }
-
 }

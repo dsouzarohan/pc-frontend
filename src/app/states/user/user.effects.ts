@@ -7,26 +7,25 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
 @Injectable()
-
 export class UserEffects {
+  @Effect()
+  tryGetProfileEffect = this.actions
+    .pipe(ofType(UserActionBundle.UserActionTypes.TRY_GET_PROFILE))
+    .pipe(map((action: UserActionBundle.TryGetProfileAction) => action.payload))
+    .pipe(
+      switchMap(userID => {
+        return this.userService.loadProfile(userID).pipe(
+          map(
+            response =>
+              new UserActionBundle.OnGetProfileSuccessAction(response.profile)
+          ),
+          catchError((error: HttpErrorResponse) =>
+            of(new UserActionBundle.OnGetProfileFailAction(error.message))
+          )
+        );
+      })
+    );
 
-  @Effect() tryGetProfileEffect = this.actions.pipe(
-    ofType(UserActionBundle.UserActionTypes.TRY_GET_PROFILE)
-  ).pipe(
-    map((action: UserActionBundle.TryGetProfileAction) => action.payload)
-  ).pipe(
-    switchMap((userID) => {
-      return this.userService.loadProfile(userID).pipe(
-        map(response => new UserActionBundle.OnGetProfileSuccessAction(response.profile)),
-        catchError((error: HttpErrorResponse) => of(new UserActionBundle.OnGetProfileFailAction(error.message)))
-      );
-    })
-  );
-
-  constructor(
-    private actions: Actions,
-    private userService: UserService
-  ) {
+  constructor(private actions: Actions, private userService: UserService) {
   }
-
 }

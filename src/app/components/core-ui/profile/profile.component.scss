@@ -1,3 +1,36 @@
-.profile-container {
+//todo: fix text sizes and styles for the profile details
 
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin: auto;
+  width: 80%;
+}
+
+.profile-main {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  margin-bottom: 7px;
+}
+
+.profile-details {
+  justify-content: space-between;
+  margin: 0;
+}
+
+.profile-personal {
+  flex: 1;
+}
+
+.profile-contact {
+  flex: 1;
+}
+
+.profile-personal,
+.profile-contact {
+  box-sizing: border-box;
+  width: 45%;
 }

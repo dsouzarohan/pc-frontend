@@ -9,8 +9,7 @@ describe('FixedSideNavComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [FixedSideNavComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,0 +1,22 @@
+<mat-card class="flex-column">
+
+  <div class="card-header">
+    <h3 class="card-title">
+      {{ classroomDetails.name }}
+    </h3>
+    <p class="card-subtitle">
+      {{ classroomDetails.subject }}
+    </p>
+  </div>
+
+  <div class="card-footer">
+    <p class="card-dk-text">
+      Classroom Code: {{classroomDetails.classcode}}
+    </p>
+    <p class="card-lt-text">
+      Created by {{ classroomDetails.createdBy | userFullName | async }}
+      on {{ classroomDetails.createdAt | date:'MMMM d, y, h:mm:ss a'}}
+    </p>
+  </div>
+
+</mat-card>

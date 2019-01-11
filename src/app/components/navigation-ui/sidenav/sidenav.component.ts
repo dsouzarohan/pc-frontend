@@ -3,7 +3,7 @@ import {AuthService} from '../../../services/auth.service';
 import {NavigationService} from '../../../services/navigation.service';
 import {Subscription} from 'rxjs';
 import {MatSidenav} from '@angular/material';
-import {Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
@@ -11,29 +11,22 @@ import {Router} from '@angular/router';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit, OnDestroy {
-
-  @Input('sideNav') sideNav: MatSidenav;
+  @Input('sideNav')
+  sideNav: MatSidenav;
   private navItem: string = '';
 
-  private navigationSubscription: Subscription = this
-    .navigationService
+  private navigationSubscription: Subscription = this.navigationService
     .getNavigationListener()
     .subscribe(navigationItem => {
-
-
       if (this.sideNav.opened) {
-
         if (navigationItem === 'dashboard') {
           this.router.navigate(['/']);
           this.sideNav.close();
-
         } else if (this.navItem !== navigationItem) {
           this.navItem = navigationItem;
-
         } else {
           this.sideNav.close();
         }
-
       } else {
         if (navigationItem === 'dashboard') {
           this.router.navigate(['/']);
@@ -43,6 +36,11 @@ export class SidenavComponent implements OnInit, OnDestroy {
         }
       }
 
+      this.router.events.subscribe(routeEvent => {
+        if (routeEvent instanceof NavigationEnd) {
+          this.sideNav.close();
+        }
+      });
     });
 
   constructor(
@@ -57,7 +55,5 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.navigationSubscription.unsubscribe();
-
   }
-
 }

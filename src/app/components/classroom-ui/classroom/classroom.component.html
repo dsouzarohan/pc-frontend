@@ -1,1 +1,17 @@
-<router-outlet></router-outlet>
+<div *ngIf="(classroomDetails$ | async) as classroomDetails; else classroomNotSelected">
+
+  <div *ngIf="!(isLoadingClassroomDetails$ | async); else isLoadingClassroom">
+    <app-classroom-dashboard
+      [classroomDetails]="classroomDetails"
+    ></app-classroom-dashboard>
+  </div>
+
+  <ng-template #isLoadingClassroom>
+    Loading...
+  </ng-template>
+
+</div>
+
+<ng-template #classroomNotSelected>
+  Please select a classroom
+</ng-template>

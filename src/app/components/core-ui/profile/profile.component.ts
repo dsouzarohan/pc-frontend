@@ -1,5 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserFacade} from '../../../states/user/user.facade';
+import {Observable} from 'rxjs';
+import {Profile} from '../../../models/user.models';
 
 @Component({
   selector: 'app-profile',
@@ -7,12 +9,9 @@ import {UserFacade} from '../../../states/user/user.facade';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit, OnDestroy {
+  profile$: Observable<Profile> = this.userFacade.profile$;
 
-  private profile$ = this.userFacade.profile$;
-
-  constructor(
-    private userFacade: UserFacade
-  ) {
+  constructor(private userFacade: UserFacade) {
   }
 
   ngOnInit() {

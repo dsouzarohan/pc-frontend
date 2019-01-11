@@ -5,24 +5,18 @@ import {TryGetProfileAction} from './user.actions';
 
 import * as userSelectors from './user.selectors';
 import * as authSelectors from '../auth/auth.selectors';
-import {filter} from 'rxjs/operators';
 
 @Injectable()
-
 export class UserFacade {
-
-  public profile$ = this.store.select(userSelectors.getProfile).pipe(
-    filter(profile => {
-      return profile !== null;
-    }));
+  public profile$ = this.store.select(userSelectors.getProfile);
   private userID$ = this.store.select(authSelectors.getUserID);
 
-  constructor(
-    private store: Store<fromCore.CoreFeatureState>) {
+  constructor(private store: Store<fromCore.CoreFeatureState>) {
   }
 
   public _loadProfile() {
-    this.userID$.subscribe(userID => this.store.dispatch(new TryGetProfileAction(userID)));
+    this.userID$.subscribe(userID =>
+      this.store.dispatch(new TryGetProfileAction(userID))
+    );
   }
-
 }

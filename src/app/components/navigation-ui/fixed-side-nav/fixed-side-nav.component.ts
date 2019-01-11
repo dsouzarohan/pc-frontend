@@ -9,7 +9,6 @@ import {AuthFacade} from '../../../states/auth/auth.facade';
   styleUrls: ['./fixed-side-nav.component.scss']
 })
 export class FixedSideNavComponent implements OnInit {
-
   private selectedNavItem: string = 'dashboard';
 
   constructor(
@@ -17,11 +16,12 @@ export class FixedSideNavComponent implements OnInit {
     private authFacade: AuthFacade,
     private router: Router
   ) {
-
     this.router.events.subscribe(routeEvent => {
       if (routeEvent instanceof NavigationEnd) {
         let selectedNavUrl = routeEvent.urlAfterRedirects.split('/')[1];
-        this.selectedNavItem = this.navigationService.getFixedNavItemFromUrl(selectedNavUrl);
+        this.selectedNavItem = this.navigationService.getFixedNavItemFromUrl(
+          selectedNavUrl
+        );
       }
     });
   }
@@ -30,7 +30,6 @@ export class FixedSideNavComponent implements OnInit {
   }
 
   onToggleClick(item: string) {
-
     this.selectedNavItem = item;
     this.navigationService.changeNavigation(item);
   }
@@ -38,5 +37,4 @@ export class FixedSideNavComponent implements OnInit {
   onLogoutClick() {
     this.authFacade._logout();
   }
-
 }

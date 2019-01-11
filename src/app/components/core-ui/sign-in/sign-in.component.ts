@@ -8,9 +8,7 @@ import {AuthFacade} from '../../../states/auth/auth.facade';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-
 export class SignInComponent implements OnInit {
-
   private credentials: FormGroup;
   private isLoggingIn: boolean = false;
 
@@ -19,12 +17,9 @@ export class SignInComponent implements OnInit {
     private authFacade: AuthFacade,
     private router: Router
   ) {
-    this.authFacade.isLoggingIn$.subscribe(
-      isLoggingIn => {
-
-        this.isLoggingIn = isLoggingIn;
-      }
-    );
+    this.authFacade.isLoggingIn$.subscribe(isLoggingIn => {
+      this.isLoggingIn = isLoggingIn;
+    });
   }
 
   ngOnInit() {
@@ -47,4 +42,3 @@ export class SignInComponent implements OnInit {
     }
   }
 }
-

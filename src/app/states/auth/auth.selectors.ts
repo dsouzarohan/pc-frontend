@@ -28,9 +28,7 @@ export const getIsLoggingIn = createSelector(
   (state: AuthState) => state.isLoggingIn
 );
 
-
 export const getIsLoggingOut = createSelector(
   getAuthState,
   (state: AuthState) => state.isLoggingOut
 );
-

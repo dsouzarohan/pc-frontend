@@ -6,8 +6,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
-  @Output() sideNavClick = new EventEmitter();
+  @Output()
+  sideNavClick = new EventEmitter();
 
   constructor() {
   }
@@ -18,5 +18,4 @@ export class HeaderComponent implements OnInit {
   onSideNavButtonClick() {
     this.sideNavClick.emit();
   }
-
 }

@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {Classroom} from '../../models/classroom.models';
+import {Classroom, ClassroomDetails} from '../../models/classroom.models';
 
 export enum ClassroomsActionTypes {
   TRY_GET_CLASSROOMS = "TRY_GET_CLASSROOMS",
@@ -14,7 +14,11 @@ export enum ClassroomsActionTypes {
   TRY_CREATE_CLASSROOM = 'TRY_CREATE_CLASSROOM',
   ON_CREATE_CLASSROOM_SUCCESS = 'ON_CREATE_CLASSROOM_SUCCESS',
   ON_CREATE_CLASSROOM_FAIL = 'ON_CREATE_CLASSROOM_FAIL',
-  IS_CREATING_CLASSROOM = 'IS_CREATING_CLASSROOM'
+  IS_CREATING_CLASSROOM = 'IS_CREATING_CLASSROOM',
+
+  TRY_GET_CLASSROOM_DETAILS = 'TRY_GET_CLASSROOM_DETAILS',
+  ON_GET_CLASSROOM_DETAILS_SUCCESS = 'ON_GET_CLASSROOM_DETAILS_SUCCESS',
+  ON_GET_CLASSROOM_DETAILS_FAIL = 'ON_GET_CLASSROOM_DETAILS_FAIL'
 }
 
 //get classroom actions
@@ -94,6 +98,30 @@ export class IsCreatingClassroomAction implements Action {
   readonly type: string = ClassroomsActionTypes.IS_CREATING_CLASSROOM;
 
   constructor(public payload: boolean) {
+  }
+}
+
+//fetch classroom details life cycle
+
+export class TryGetClassroomDetailsAction implements Action {
+  readonly type: string = ClassroomsActionTypes.TRY_GET_CLASSROOM_DETAILS;
+
+  constructor(public payload: string) {
+  }
+}
+
+export class OnGetClassroomDetailsSuccessAction implements Action {
+  readonly type: string =
+    ClassroomsActionTypes.ON_GET_CLASSROOM_DETAILS_SUCCESS;
+
+  constructor(public payload: ClassroomDetails) {
+  }
+}
+
+export class OnGetClassroomDetailsFailAction implements Action {
+  readonly type: string = ClassroomsActionTypes.ON_GET_CLASSROOM_DETAILS_FAIL;
+
+  constructor(public payload: string) {
   }
 }
 

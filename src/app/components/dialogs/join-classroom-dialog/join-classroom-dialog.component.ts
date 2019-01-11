@@ -9,6 +9,9 @@ import {ClassroomsFacade} from '../../../states/classroom/classrooms.facade';
   styleUrls: ["./join-classroom-dialog.component.scss"]
 })
 export class JoinClassroomDialogComponent implements OnInit {
+  private classcodeForm = this.formBuilder.group({
+    classcodeInput: ['', [Validators.required]]
+  });
 
   constructor(
     public dialogRef: MatDialogRef<JoinClassroomDialogComponent>,
@@ -17,12 +20,7 @@ export class JoinClassroomDialogComponent implements OnInit {
   ) {
   }
 
-  private classcodeForm = this.formBuilder.group({
-    classcodeInput: ['',[Validators.required]]
-    }
-  );
-
-  onClasscodeSubmit(){
+  onClasscodeSubmit() {
     let classcode = this.classcodeForm.get('classcodeInput').value;
     this.classroomsFacade._joinClassroom(classcode);
   }

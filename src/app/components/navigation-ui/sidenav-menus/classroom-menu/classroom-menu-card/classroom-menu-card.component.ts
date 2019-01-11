@@ -1,4 +1,4 @@
-import {Component, Input, OnInit,} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Classroom} from '../../../../../models/classroom.models';
 
 @Component({
@@ -7,14 +7,12 @@ import {Classroom} from '../../../../../models/classroom.models';
   styleUrls: ['./classroom-menu-card.component.scss']
 })
 export class ClassroomMenuCardComponent implements OnInit {
-
-  @Input('classroom') classroom: Classroom;
+  @Input('classroom')
+  classroom: Classroom;
 
   constructor() {
   }
 
   ngOnInit() {
-
   }
-
 }

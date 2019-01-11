@@ -15,7 +15,12 @@
 
 <mat-divider></mat-divider>
 
-<app-classroom-menu-card
-  *ngFor="let classroom of (classroomsObservable | async)"
-  [classroom]="classroom"
-></app-classroom-menu-card>
+<div *ngIf="(classroomsObservable | async) as classrooms; else classroomsLoading">
+  <app-classroom-menu-card
+    *ngFor="let classroom of classrooms"
+    [classroom]="classroom"
+    (click)="onClassroomClick(classroom.id)"
+  ></app-classroom-menu-card>
+</div>
+
+<ng-template #classroomsLoading>Loading...</ng-template>

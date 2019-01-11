@@ -5,8 +5,8 @@ import {ClassroomsEffects} from '../classroom/classrooms.effects';
 import {UserEffects} from '../user/user.effects';
 
 export interface CoreFeatureState {
-  user: fromUser.UserState,
-  classrooms: fromClassrooms.ClassroomState
+  user: fromUser.UserState;
+  classrooms: fromClassrooms.ClassroomState;
 }
 
 export const reducers: ActionReducerMap<CoreFeatureState> = {
@@ -14,7 +14,4 @@ export const reducers: ActionReducerMap<CoreFeatureState> = {
   classrooms: fromClassrooms.classroomReducer
 };
 
-export const effects: Array<any> = [
-  ClassroomsEffects, UserEffects
-];
-
+export const effects: Array<any> = [ClassroomsEffects, UserEffects];

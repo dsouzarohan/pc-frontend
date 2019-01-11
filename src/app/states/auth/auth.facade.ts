@@ -9,19 +9,19 @@ import * as authSelectors from './auth.selectors';
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthFacade {
-
   public userID$ = this.store.select(authSelectors.getUserID).pipe(take(1));
   public userType$ = this.store.select(authSelectors.getUserType).pipe(take(1));
-  public userToken$ = this.store.select(authSelectors.getUserToken).pipe(take(1));
-  public userAuthStatus$ = this.store.select(authSelectors.getUserAuthStatus).pipe(take(1));
+  public userToken$ = this.store
+    .select(authSelectors.getUserToken)
+    .pipe(take(1));
+  public userAuthStatus$ = this.store
+    .select(authSelectors.getUserAuthStatus)
+    .pipe(take(1));
   public isLoggingIn$ = this.store.select(authSelectors.getIsLoggingIn);
   public isLoggingOut$ = this.store.select(authSelectors.getIsLoggingOut);
 
-  constructor(
-    private store: Store<AppState>
-  ) {
+  constructor(private store: Store<AppState>) {
   }
 
   public _login(credentials: UserLoginCredentials) {
@@ -38,9 +38,14 @@ export class AuthFacade {
 
   public _saveAuthInformation(authInformation: UserAuthInformation) {
     this.store.dispatch(new AuthActionsBundle.UserAuthStatusAction(true));
-    this.store.dispatch(new AuthActionsBundle.UserTokenAction(authInformation.userToken));
-    this.store.dispatch(new AuthActionsBundle.UserTypeAction(authInformation.userType));
-    this.store.dispatch(new AuthActionsBundle.UserIDAction(authInformation.userID));
+    this.store.dispatch(
+      new AuthActionsBundle.UserTokenAction(authInformation.userToken)
+    );
+    this.store.dispatch(
+      new AuthActionsBundle.UserTypeAction(authInformation.userType)
+    );
+    this.store.dispatch(
+      new AuthActionsBundle.UserIDAction(authInformation.userID)
+    );
   }
-
 }

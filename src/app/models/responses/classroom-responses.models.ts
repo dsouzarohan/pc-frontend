@@ -1,18 +1,21 @@
-import {Classroom} from '../classroom.models';
+import {Classroom, ClassroomDetails} from '../classroom.models';
 
 export interface GetClassroomResponse {
   message: string;
-  data: Array<Classroom>
+  data: Array<Classroom>;
 }
 
 export interface CreateClassroomResponse {
   message: string;
-  classroom: Classroom
+  classroom: Classroom;
 }
 
 export interface JoinClassroomResponse {
-  message: string,
-  classroom: Classroom
+  message: string;
+  classroom: Classroom;
 }
 
-
+export interface GetClassroomDetailsResponse {
+  message: string;
+  classroomDetails: ClassroomDetails;
+}

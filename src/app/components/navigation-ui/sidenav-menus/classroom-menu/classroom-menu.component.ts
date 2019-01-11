@@ -10,11 +10,9 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-classroom-menu',
   templateUrl: './classroom-menu.component.html',
-  styleUrls: ['./classroom-menu.component.scss'
-    , '../sidenav-menus.scss']
+  styleUrls: ['./classroom-menu.component.scss', '../sidenav-menus.scss']
 })
 export class ClassroomMenuComponent implements OnInit {
-
   classroomsObservable: Observable<Array<Classroom>> = null;
 
   dialogRef: MatDialogRef<JoinClassroomDialogComponent> = null;
@@ -34,19 +32,21 @@ export class ClassroomMenuComponent implements OnInit {
     });
   }
 
-  onNewClassroomClick(){
-    this.authFacade.userType$.subscribe(
-      userType => {
-        if (userType === 'Student') {
-          this.dialogRef = this.dialogService.open(JoinClassroomDialogComponent);
-        } else {
-          this.router.navigate(['/classroom', 'new']);
-        }
+  onNewClassroomClick() {
+    this.authFacade.userType$.subscribe(userType => {
+      if (userType === 'Student') {
+        this.dialogRef = this.dialogService.open(JoinClassroomDialogComponent);
+      } else {
+        this.router.navigate(['/classroom', 'new']);
       }
-    );
+    });
+  }
+
+  onClassroomClick(classroomID: string) {
+    console.log('@ClassroomMenu#SelectedClassroom', classroomID);
+    this.classroomsFacade._loadClassroomDetails(classroomID);
   }
 
   ngOnInit() {
   }
-
 }

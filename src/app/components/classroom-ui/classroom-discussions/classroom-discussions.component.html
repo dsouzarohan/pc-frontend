@@ -1,0 +1,17 @@
+<mat-card>
+  <div *ngIf="(classroomDetails$ | async) as classroomDetails; else classroomDetailsLoading">
+    <h3 class="card-title">
+      Discussions
+    </h3>
+    <p class="card-subtitle">{{classroomDetails.name}}</p>
+    <br>
+    <hr>
+    <br>
+    <pre>
+      {{ classroomDetails.Discussions | json }}
+    </pre>
+  </div>
+  <ng-template #classroomDetailsLoading>
+    Loading...
+  </ng-template>
+</mat-card>

@@ -22,3 +22,13 @@ export const getCreateClassroomStatus = createSelector(
   getClassroomState,
   (state: fromClassrooms.ClassroomState) => state.creatingClassroomStatus
 );
+
+export const getClassroomDetails = createSelector(
+  getClassroomState,
+  (state: fromClassrooms.ClassroomState) => state.selectedClassroomDetails
+);
+
+export const isClassroomDetailsLoading = createSelector(
+  getClassroomState,
+  (state: fromClassrooms.ClassroomState) => state.loadingClassroomDetails
+);

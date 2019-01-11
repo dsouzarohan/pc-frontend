@@ -15,7 +15,7 @@ const coreRoutes: Routes = [
       },
       {
         path: 'profile',
-        component: ProfileComponent,
+        component: ProfileComponent
       },
       {
         path: 'classroom',
@@ -26,14 +26,8 @@ const coreRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(coreRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(coreRoutes)],
+  exports: [RouterModule]
 })
-
 export class CoreRoutingModule {
-
 }

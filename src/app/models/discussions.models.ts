@@ -6,7 +6,7 @@ export interface Discussion {
   classroomId: string;
   createdAt: string;
   updatedAt: string;
-  DiscussionPosts: Array<DiscussionPost>
+  DiscussionPosts: Array<DiscussionPost>;
 }
 
 export interface DiscussionPost {
@@ -16,7 +16,7 @@ export interface DiscussionPost {
   updatedAt: string;
   discussionId: string;
   postedBy: string;
-  DiscussionPostComments: Array<DiscussionPostComment>
+  DiscussionPostComments: Array<DiscussionPostComment>;
 }
 
 export interface DiscussionPostComment {

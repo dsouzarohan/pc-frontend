@@ -6,15 +6,8 @@ import {SideNavigationModule} from './side-navigation.module';
 import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    SidenavComponent,
-    FixedSideNavComponent
-  ],
-  imports: [
-    SideNavigationModule,
-    SharedModule
-  ],
+  declarations: [HeaderComponent, SidenavComponent, FixedSideNavComponent],
+  imports: [SideNavigationModule, SharedModule],
   exports: [
     HeaderComponent,
     SidenavComponent,
@@ -22,7 +15,5 @@ import {SharedModule} from '../shared/shared.module';
     SideNavigationModule
   ]
 })
-
 export class NavigationModule {
-
 }

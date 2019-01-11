@@ -6,9 +6,44 @@ import {of} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ClassroomsService} from '../../services/classrooms.service';
 import {MatSnackBar} from '@angular/material';
+import {GetClassroomDetailsResponse} from '../../models/responses/classroom-responses.models';
 
 @Injectable()
 export class ClassroomsEffects {
+  //get classroom details lifecycle
+
+  @Effect()
+  tryGetClassroomDetails = this.actions
+    .pipe(
+      ofType(
+        ClassroomsActionBundle.ClassroomsActionTypes.TRY_GET_CLASSROOM_DETAILS
+      )
+    )
+    .pipe(
+      map(
+        (action: ClassroomsActionBundle.TryGetClassroomDetailsAction) =>
+          action.payload
+      )
+    )
+    .pipe(
+      switchMap(classroomID => {
+        return this.classroomsService.getClassroomDetails(classroomID).pipe(
+          map((response: GetClassroomDetailsResponse) => {
+            return new ClassroomsActionBundle.OnGetClassroomDetailsSuccessAction(
+              response.classroomDetails
+            );
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              new ClassroomsActionBundle.OnGetClassroomDetailsFailAction(
+                errorResponse.error.message
+              )
+            );
+          })
+        );
+      })
+    );
+
   //create classroom action lifecycle
 
   @Effect()

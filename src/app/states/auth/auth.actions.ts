@@ -5,9 +5,7 @@ import {UserAuthInformation, UserLoginCredentials} from '../../models/user.model
 // SIGN_IN = 'SIGN_IN',
 // LOG_OUT = 'LOG_OUT',
 
-
 export enum AuthActionTypes {
-
   IS_LOGGING_IN = 'IS_LOGGING_IN',
   TRY_LOG_IN = 'TRY_LOG_IN',
   ON_LOG_IN_SUCCESS = 'ON_LOG_IN_SUCCESS',
@@ -20,8 +18,7 @@ export enum AuthActionTypes {
   USER_TOKEN = 'USER_TOKEN',
   USER_ID = 'USER_ID',
   USER_TYPE = 'USER_TYPE',
-  USER_AUTH_STATUS = 'USER_AUTH_STATUS',
-
+  USER_AUTH_STATUS = 'USER_AUTH_STATUS'
 }
 
 //logging in or out status
@@ -103,14 +100,15 @@ export class OnLogOutSuccessAction implements Action {
   public readonly type: string = AuthActionTypes.ON_LOG_OUT_SUCCESS;
 }
 
-export type AuthActions = UserAuthStatusAction |
-  UserIDAction |
-  UserTokenAction |
-  UserTypeAction |
-  TryLogOutAction |
-  TryLogInAction |
-  IsLoggingInAction |
-  IsLoggingOutAction |
-  OnLogInFailAction |
-  OnLogInSuccessAction |
-  OnLogOutSuccessAction
+export type AuthActions =
+  | UserAuthStatusAction
+  | UserIDAction
+  | UserTokenAction
+  | UserTypeAction
+  | TryLogOutAction
+  | TryLogInAction
+  | IsLoggingInAction
+  | IsLoggingOutAction
+  | OnLogInFailAction
+  | OnLogInSuccessAction
+  | OnLogOutSuccessAction;

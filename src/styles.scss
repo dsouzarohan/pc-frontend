@@ -67,6 +67,10 @@ a {
 
 //Toast message global styles and fixes
 
+.mat-snack-bar-handset {
+  width: auto !important;
+}
+
 #cdk-overlay-0.cdk-overlay-pane {
   width: auto !important;
   //makes sure the snackbar is always centered and has a width as much as of the content
@@ -75,11 +79,14 @@ a {
 snack-bar-container.mat-snack-bar-container {
   margin-bottom: 30px !important;
   text-align: center !important;
+  min-width: auto;
+  max-width: fit-content;
   //adjusts the snackbar and places it 30px from the bottom
 }
 
 .snack-bar-align-span-center > simple-snack-bar {
   justify-content: center;
+  padding: 0px 20px;
 }
 
 //text-classes
@@ -92,17 +99,55 @@ snack-bar-container.mat-snack-bar-container {
 
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
   background-color: #F5F5F5;
 }
 
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 6px;
   background-color: #F5F5F5;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
   background-color: #555;
 }
+
+//card-styles
+
+.card {
+  display: flex;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  margin: 0px;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.card-subtitle {
+  margin: 7px 0px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.card-lt-text {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.card-dk-text {
+  color: #000;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-footer {
+  display: flex;
+  flex-direction: column;
+}
+

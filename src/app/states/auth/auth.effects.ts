@@ -12,7 +12,6 @@ import {HttpErrorResponse} from '@angular/common/http';
 
 @Injectable()
 export class AuthEffects {
-
   //Log in action life cycle
 
   @Effect()
@@ -76,10 +75,14 @@ export class AuthEffects {
           userAuthInformation.userType
         );
         this.router.navigate(['/']);
-        this.snackBarService.open('Welcome, please subscribe to PewDiePie', null, {
-          duration: 3000,
-          panelClass: 'snack-bar-align-span-center'
-        });
+        this.snackBarService.open(
+          'Welcome, please subscribe to PewDiePie',
+          null,
+          {
+            duration: 3000,
+            panelClass: 'snack-bar-align-span-center'
+          }
+        );
         return new IsLoggingInAction(false);
       })
     );
@@ -133,7 +136,6 @@ export class AuthEffects {
         this.router.navigate(['/signin']);
       })
     );
-
 
   constructor(
     private actions: Actions,

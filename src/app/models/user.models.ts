@@ -3,7 +3,7 @@ export interface UserAuthInformation {
   userID: string;
   userType: string;
   userToken: string;
-  expiresIn: number
+  expiresIn: number;
 }
 
 export interface UserLoginCredentials {

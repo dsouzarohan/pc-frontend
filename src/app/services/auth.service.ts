@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {AppState} from '../app.reducer';
 import {UserLoginCredentials} from '../models/user.models';
-import {SignInResponse} from '../models/responses/auth-responses.models';
+import {EmailExistsResponse, PhoneNumberExistsResponse, SignInResponse, UIDExistsResponse} from '../models/responses/auth-responses.models';
 import {AuthFacade} from '../states/auth/auth.facade';
 
 @Injectable({
@@ -21,10 +21,40 @@ export class AuthService {
   ) {
   }
 
+  //sign up methods
+
+  // Sign up form methods for validation
+
+  createUser(user: object) {
+    return this.http.post('http://localhost:3000/api/users/signup', user);
+  }
+
+  emailExists(email: string) {
+    return this.http.get<EmailExistsResponse>(
+      `http://localhost:3000/api/users/email/${email}`
+    );
+  }
+
+  numberExists(number: string) {
+    return this.http.get<PhoneNumberExistsResponse>(
+      `http://localhost:3000/api/users/number/${number}`
+    );
+  }
+
+  uidExists(uid: number, type: string) {
+    return this.http.get<UIDExistsResponse>(
+      `http://localhost:3000/api/users/uid/${uid}/type/${type}`
+    );
+  }
+
+  //login methods
 
   //sends the credentials to the backend
   login(credentials: UserLoginCredentials) {
-    return this.http.post<SignInResponse>('http://localhost:3000/api/users/signin', {credentials});
+    return this.http.post<SignInResponse>(
+      'http://localhost:3000/api/users/signin',
+      {credentials}
+    );
   }
 
   autoAuthUser() {
@@ -56,17 +86,9 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  saveUser(
-    token: string,
-    expiresIn: number,
-    id: string,
-    type: string
-  ) {
-
+  saveUser(token: string, expiresIn: number, id: string, type: string) {
     const date = new Date();
-    const expirationDate = new Date(
-      date.getTime() + expiresIn * 1000
-    );
+    const expirationDate = new Date(date.getTime() + expiresIn * 1000);
 
     localStorage.setItem('token', token);
     localStorage.setItem('expirationDate', expirationDate.toISOString());

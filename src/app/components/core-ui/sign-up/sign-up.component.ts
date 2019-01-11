@@ -3,7 +3,7 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
-import {UserService} from '../../../services/user.service';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -33,9 +33,22 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService,
+    private authService: AuthService,
     private router: Router
   ) {
+  }
+
+  static passwordMatch(
+    abstractControl: AbstractControl
+  ): { [key: string]: boolean } {
+    let password = abstractControl.get('password').value;
+    let confirmPassword = abstractControl.get('confirmPassword').value;
+
+    if (password === confirmPassword) {
+      return null;
+    }
+
+    return {'Passwords do not match': true};
   }
 
   ngOnInit() {
@@ -119,37 +132,12 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  private onUserTypeChange() {
-    if (this.typeFormGroup.get('type').value !== 'Student') {
-      this.typeFormGroup.get('stream').disable();
-    } else {
-      this.typeFormGroup.get('stream').enable();
-    }
-
-    this.typeFormGroup.get('uid').updateValueAndValidity();
-  }
-
   //Validators
-
-  static passwordMatch(
-    abstractControl: AbstractControl
-  ): { [key: string]: boolean } {
-    let password = abstractControl.get('password').value;
-    let confirmPassword = abstractControl.get('confirmPassword').value;
-
-
-    if (password === confirmPassword) {
-      return null;
-    }
-
-    return {'Passwords do not match': true};
-  }
 
   emailExists(emailControl: FormControl): Observable<any> {
     const email = emailControl.value;
 
-
-    return this.userService.emailExists(email).pipe(
+    return this.authService.emailExists(email).pipe(
       map(response => {
         if (response.emailExists) {
           return {'Email exists': true};
@@ -165,7 +153,7 @@ export class SignUpComponent implements OnInit {
   phoneNumberExists(numberControl: FormControl): Observable<any> {
     const number = numberControl.value;
 
-    return this.userService.numberExists(number).pipe(
+    return this.authService.numberExists(number).pipe(
       map(response => {
         if (response.numberExists) {
           return {
@@ -183,7 +171,7 @@ export class SignUpComponent implements OnInit {
 
     if (number === '') return new Observable<null>();
 
-    return this.userService.numberExists(number).pipe(
+    return this.authService.numberExists(number).pipe(
       map(response => {
         if (response.numberExists) {
           return {
@@ -197,23 +185,19 @@ export class SignUpComponent implements OnInit {
   }
 
   uidExists(uidControl: AbstractControl): Observable<any> {
-
     const uid = uidControl.value;
     const type = this.typeFormGroup.get('type').value;
 
-    return this.userService.uidExists(uid, type).pipe(
-      map((response) => {
+    return this.authService.uidExists(uid, type).pipe(
+      map(response => {
         if (response.uidExists) {
           return {'UID exists': true};
         }
 
         return null;
-
       })
     );
   }
-
-  //On submit handler
 
   onSubmit(finalSubmit: HTMLButtonElement) {
     //Setting email in credentials to the email used in contact
@@ -224,16 +208,25 @@ export class SignUpComponent implements OnInit {
       .get('email')
       .setValue(this.contactFormGroup.get('email').value);
 
-
-    this.userService.createUser(this.signUpForm.value).subscribe(
+    this.authService.createUser(this.signUpForm.value).subscribe(
       response => {
-
         this.router.navigate(['/signin']);
       },
       error => {
-
         finalSubmit.disabled = false;
       }
     );
+  }
+
+  //On submit handler
+
+  private onUserTypeChange() {
+    if (this.typeFormGroup.get('type').value !== 'Student') {
+      this.typeFormGroup.get('stream').disable();
+    } else {
+      this.typeFormGroup.get('stream').enable();
+    }
+
+    this.typeFormGroup.get('uid').updateValueAndValidity();
   }
 }

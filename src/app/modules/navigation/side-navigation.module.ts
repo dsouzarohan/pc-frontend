@@ -10,15 +10,12 @@ import {ClassroomMenuCardComponent} from '../../components/navigation-ui/sidenav
     UserMenuComponent,
     ClassroomMenuCardComponent
   ],
-  imports: [
-    SharedModule
-  ],
+  imports: [SharedModule],
   exports: [
     ClassroomMenuComponent,
     UserMenuComponent,
     ClassroomMenuCardComponent
   ]
 })
-
 export class SideNavigationModule {
 }

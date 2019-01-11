@@ -5,7 +5,6 @@ import {Subject} from 'rxjs';
   providedIn: 'root'
 })
 export class NavigationService {
-
   private fixedNavItemMap: Map<string, string>;
   private currentSetFixedNavItem: string = 'dashboard';
 

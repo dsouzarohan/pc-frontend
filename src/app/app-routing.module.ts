@@ -6,22 +6,13 @@ const appRoutes: Routes = [
   {
     path: '',
     loadChildren: './modules/core/core.module#CoreModule',
-    canActivate: [
-      AuthGuard
-    ]
+    canActivate: [AuthGuard]
   }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(appRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forRoot(appRoutes)],
+  exports: [RouterModule]
 })
-
-
 export class AppRoutingModule {
-
 }

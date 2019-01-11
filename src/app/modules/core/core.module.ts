@@ -33,23 +33,9 @@ import {ClassroomsService} from '../../services/classrooms.service';
     StoreModule.forFeature('core', reducers),
     EffectsModule.forFeature(effects)
   ],
-  entryComponents: [
-    JoinClassroomDialogComponent
-  ],
-  exports: [
-    CoreComponent,
-    DashboardComponent,
-    ProfileComponent
-  ],
-  providers: [
-    UserFacade,
-    ClassroomsFacade,
-
-    UserService,
-    ClassroomsService
-  ]
+  entryComponents: [JoinClassroomDialogComponent],
+  exports: [CoreComponent, DashboardComponent, ProfileComponent],
+  providers: [UserFacade, ClassroomsFacade, UserService, ClassroomsService]
 })
-
 export class CoreModule {
-
 }

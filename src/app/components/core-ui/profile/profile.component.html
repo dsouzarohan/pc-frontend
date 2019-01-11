@@ -1,28 +1,29 @@
 <div class="profile-container">
 
-  <mat-card>
+  <div *ngIf="profile$ | async as profile; else profileLoading">
+    <mat-card class="flex-column profile-main">
+      <mat-card-title>{{ profile.MasterUserPersonal.firstName +
+      ' ' + profile.MasterUserPersonal.lastName }}</mat-card-title>
 
-    <mat-card-title>{{ (profile$ | async).MasterUserPersonal.firstName +
-    ' ' + (profile$ | async).MasterUserPersonal.lastName }}</mat-card-title>
+      <mat-card-subtitle>{{ profile.typeOfUser }}</mat-card-subtitle>
+    </mat-card>
+    <div class="flex-row profile-details">
+      <mat-card class="profile-personal">
+        <p> {{ profile.MasterUserPersonal.dateOfBirth | date:'longDate'}}</p>
+        <p> {{ profile.MasterUserPersonal.gender }}</p>
+      </mat-card>
+      <mat-card class="profile-contact">
+        <p> {{ profile.MasterUserContact.phoneNumber }}</p>
+        <p> {{ profile.MasterUserContact.alternateNumber }}</p>
+        <p> {{ profile.MasterUserContact.address }}</p>
+        <p> {{ profile.MasterUserContact.email }}</p>
+      </mat-card>
+    </div>
+  </div>
 
-    <mat-card-subtitle>{{ (profile$ | async).typeOfUser }}</mat-card-subtitle>
+  <ng-template #profileLoading>
+    Loading...
+  </ng-template>
 
-    <hr>
-
-    <mat-card-content>
-
-      <p> {{ (profile$ | async).MasterUserPersonal.dateOfBirth }}</p>
-      <p> {{ (profile$ | async).MasterUserPersonal.gender }}</p>
-
-    </mat-card-content>
-
-    <hr>
-
-    <p> {{ (profile$ | async).MasterUserContact.phoneNumber }}</p>
-    <p> {{ (profile$ | async).MasterUserContact.alternateNumber }}</p>
-    <p> {{ (profile$ | async).MasterUserContact.address }}</p>
-    <p> {{ (profile$ | async).MasterUserContact.email }}</p>
-
-  </mat-card>
 
 </div>

@@ -8,7 +8,6 @@ import {ClassroomsFacade} from '../../../states/classroom/classrooms.facade';
   styleUrls: ['./create-classroom.component.scss']
 })
 export class CreateClassroomComponent implements OnInit {
-
   private createClassroomForm: FormGroup;
 
   constructor(
@@ -25,9 +24,11 @@ export class CreateClassroomComponent implements OnInit {
   }
 
   private onCreateClassroomClick() {
-    console.log('@CreateClassroomComponent#Create classroom form', this.createClassroomForm.value);
+    console.log(
+      '@CreateClassroomComponent#Create classroom form',
+      this.createClassroomForm.value
+    );
     let classroomDetails = this.createClassroomForm.value;
     this.classroomFacade._createClassroom(classroomDetails);
   }
-
 }

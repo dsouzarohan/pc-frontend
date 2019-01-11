@@ -7,10 +7,7 @@ import {AuthService} from './services/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-
-  constructor(
-    private authService: AuthService
-  ) {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -21,5 +18,4 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     console.log('AppComponent#Destroyed');
   }
-
 }
