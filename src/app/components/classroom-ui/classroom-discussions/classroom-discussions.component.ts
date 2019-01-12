@@ -18,6 +18,8 @@ export class ClassroomDiscussionsComponent implements OnInit {
     this.classroomDetails$ = classroomFacade.classroomDetails$;
   }
 
+  private displayedColumns = ['topic', 'startedBy', 'createdAt'];
+
   ngOnInit() {
   }
 }

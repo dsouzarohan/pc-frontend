@@ -6,6 +6,7 @@
     (click)="onDiscussionsCardClick()"
     [discussions]="classroomDetails.Discussions"></app-discussions-details-card>
   <br>
-  <app-members-details-card [members]="classroomDetails.Students"></app-members-details-card>
+  <app-members-details-card (click)="onMembersCardClick()"
+                            [members]="classroomDetails.Students"></app-members-details-card>
 
 </div>

@@ -22,4 +22,8 @@ export class ClassroomDashboardComponent implements OnInit {
   onDiscussionsCardClick() {
     this.router.navigate(['/classroom', 'discussions']);
   }
+
+  onMembersCardClick() {
+    this.router.navigate(['/classroom', 'members']);
+  }
 }

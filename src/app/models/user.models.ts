@@ -37,7 +37,7 @@ export interface UserContact {
   address: string;
   createdAt: string;
   updatedAt: string;
-  masterUserID: string;
+  masterUserId: string;
 }
 
 export interface Student {
@@ -46,7 +46,7 @@ export interface Student {
   uid: number;
   createdAt: string;
   updatedAt: string;
-  masterUserID: string;
+  masterUserId: string;
 }
 
 export interface Teacher {
@@ -54,7 +54,7 @@ export interface Teacher {
   uid: string;
   createdAt: string;
   updatedAt: string;
-  masterUserID: string;
+  masterUserId: string;
 }
 
 export interface Profile extends UserMaster {

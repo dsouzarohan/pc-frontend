@@ -15,6 +15,7 @@ import {
   MatSidenavModule,
   MatSnackBarModule,
   MatStepperModule,
+  MatTableModule,
   MatToolbarModule
 } from '@angular/material';
 
@@ -35,7 +36,8 @@ import {
     MatNativeDateModule,
     MatIconModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule
   ]
 })
 export class MaterialModule {

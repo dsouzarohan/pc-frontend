@@ -1,3 +1,38 @@
-<p>
-  classroom-members works!
-</p>
+<mat-card>
+
+  <div *ngIf="classroomDetails$ | async as classroomDetails; else classroomDetailsLoading">
+
+    <h3 class="card-title">Members</h3>
+    <p class="card-subtitle">{{ classroomDetails.name }}</p>
+    <br>
+
+    <div *ngIf="classroomDetails.Students.length !== 0; else noStudentsMessage">
+      <mat-table [dataSource]="classroomDetails.Students" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="masterUserID">
+          <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+          <mat-cell *matCellDef="let student;"> {{ student.masterUserId }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="uid">
+          <mat-header-cell *matHeaderCellDef>UID</mat-header-cell>
+          <mat-cell *matCellDef="let student;">{{ student.uid }}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      </mat-table>
+    </div>
+
+    <ng-template #noStudentsMessage>
+      <p class="card-subtitle">No students part of this classroom</p>
+    </ng-template>
+
+  </div>
+
+  <ng-template #classroomDetailsLoading>
+    Loading...
+  </ng-template>
+
+</mat-card>
