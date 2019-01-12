@@ -16,7 +16,8 @@
 
         <ng-container matColumnDef="startedBy">
           <mat-header-cell *matHeaderCellDef> Started by</mat-header-cell>
-          <mat-cell *matCellDef="let discussion"> {{ discussion.startedBy }} </mat-cell>
+          <mat-cell
+            *matCellDef="let discussion"> {{ discussion.MasterUser.MasterUserPersonal | userFullName }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="createdAt">

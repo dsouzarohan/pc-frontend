@@ -1,3 +1,5 @@
+import {MasterUserName} from './user.models';
+
 export interface Discussion {
   id: string;
   topic: string;
@@ -6,6 +8,7 @@ export interface Discussion {
   classroomId: string;
   createdAt: string;
   updatedAt: string;
+  MasterUser: MasterUserName;
   DiscussionPosts: Array<DiscussionPost>;
 }
 
@@ -16,6 +19,7 @@ export interface DiscussionPost {
   updatedAt: string;
   discussionId: string;
   postedBy: string;
+  MasterUser: MasterUserName;
   DiscussionPostComments: Array<DiscussionPostComment>;
 }
 
@@ -26,4 +30,5 @@ export interface DiscussionPostComment {
   commentedBy: string;
   createdAt: string;
   updatedAt: string;
+  MasterUser: MasterUserName;
 }

@@ -1,5 +1,5 @@
 import {Discussion} from './discussions.models';
-import {Student} from './user.models';
+import {MasterUserName, Student} from './user.models';
 
 export interface Classroom {
   id: string;
@@ -20,6 +20,10 @@ export interface ClassroomDetails {
   createdBy: string;
   createdAt: string;
   updatedAt: string;
+  Teacher: {
+    id: string,
+    MasterUser: MasterUserName
+  };
   Discussions: Array<Discussion>;
   Students: Array<Student>;
 }

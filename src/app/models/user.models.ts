@@ -1,3 +1,11 @@
+export interface MasterUserName {
+  typeOfUser: string,
+  MasterUserPersonal: {
+    firstName: string,
+    lastName: string
+  }
+}
+
 export interface UserAuthInformation {
   userAuthStatus: boolean;
   userID: string;
@@ -47,6 +55,7 @@ export interface Student {
   createdAt: string;
   updatedAt: string;
   masterUserId: string;
+  MasterUser: MasterUserName
 }
 
 export interface Teacher {
@@ -55,6 +64,7 @@ export interface Teacher {
   createdAt: string;
   updatedAt: string;
   masterUserId: string;
+  MasterUser: MasterUserName
 }
 
 export interface Profile extends UserMaster {

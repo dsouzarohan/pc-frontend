@@ -11,7 +11,7 @@
 
         <ng-container matColumnDef="masterUserID">
           <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-          <mat-cell *matCellDef="let student;"> {{ student.masterUserId }}</mat-cell>
+          <mat-cell *matCellDef="let student;"> {{ student.MasterUser.MasterUserPersonal | userFullName }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="uid">

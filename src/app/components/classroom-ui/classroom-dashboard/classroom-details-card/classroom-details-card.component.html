@@ -14,7 +14,7 @@
       Classroom Code: {{classroomDetails.classcode}}
     </p>
     <p class="card-lt-text">
-      Created by {{ classroomDetails.createdBy | userFullName | async }}
+      Created by {{ classroomDetails.Teacher.MasterUser.MasterUserPersonal | userFullName}}
       on {{ classroomDetails.createdAt | date:'MMMM d, y, h:mm:ss a'}}
     </p>
   </div>

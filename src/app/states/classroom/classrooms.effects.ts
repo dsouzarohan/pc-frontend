@@ -29,11 +29,13 @@ export class ClassroomsEffects {
       switchMap(classroomID => {
         return this.classroomsService.getClassroomDetails(classroomID).pipe(
           map((response: GetClassroomDetailsResponse) => {
+            console.log('@ClassroomEffects#GetClassroomDetailResponse', response);
             return new ClassroomsActionBundle.OnGetClassroomDetailsSuccessAction(
               response.classroomDetails
             );
           }),
           catchError((errorResponse: HttpErrorResponse) => {
+            console.log('@ClassroomEffects#GetClassroomDetailError', errorResponse);
             return of(
               new ClassroomsActionBundle.OnGetClassroomDetailsFailAction(
                 errorResponse.error.message

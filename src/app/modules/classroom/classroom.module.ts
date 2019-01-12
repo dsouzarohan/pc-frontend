@@ -8,6 +8,7 @@ import {ClassroomDetailsCardComponent} from '../../components/classroom-ui/class
 import {DiscussionsDetailsCardComponent} from '../../components/classroom-ui/classroom-dashboard/discussions-details-card/discussions-details-card.component';
 import {MembersDetailsCardComponent} from '../../components/classroom-ui/classroom-dashboard/members-details-card/members-details-card.component';
 import {ClassroomMembersComponent} from '../../components/classroom-ui/classroom-members/classroom-members.component';
+import {ClassroomCoreComponent} from '../../components/classroom-ui/classroom-core/classroom-core.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import {ClassroomMembersComponent} from '../../components/classroom-ui/classroom
 
     MembersDetailsCardComponent,
 
-    ClassroomMembersComponent
+    ClassroomMembersComponent,
+
+    ClassroomCoreComponent
   ],
   imports: [SharedModule, ClassroomRoutingModule],
   exports: []
