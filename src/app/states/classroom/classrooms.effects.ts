@@ -7,9 +7,11 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {ClassroomsService} from '../../services/classrooms.service';
 import {MatSnackBar} from '@angular/material';
 import {GetClassroomDetailsResponse} from '../../models/responses/classroom-responses.models';
+import {DiscussionsService} from '../../services/discussions.service';
 
 @Injectable()
 export class ClassroomsEffects {
+
   //get classroom details lifecycle
 
   @Effect()
@@ -249,7 +251,8 @@ export class ClassroomsEffects {
   constructor(
     private actions: Actions,
     private classroomsService: ClassroomsService,
-    private snackBarService: MatSnackBar
+    private snackBarService: MatSnackBar,
+    private discussionsService: DiscussionsService
   ) {
   }
 }

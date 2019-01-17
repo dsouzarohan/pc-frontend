@@ -136,6 +136,7 @@ export function classroomReducer(
         ...state,
         loadingClassroomDetails: false
       };
+
     default:
       return state;
   }

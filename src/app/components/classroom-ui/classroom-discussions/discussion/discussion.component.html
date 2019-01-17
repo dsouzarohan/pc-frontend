@@ -1,0 +1,11 @@
+<div *ngIf="(discussions$ | async) as discussions; else discussionLoading">
+
+  <app-discussion-body-card [discussion]="discussions"></app-discussion-body-card>
+
+</div>
+
+<ng-template #discussionLoading>
+  Loading...
+</ng-template>
+
+<router-outlet></router-outlet>

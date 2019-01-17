@@ -18,6 +18,8 @@ import {ClassroomsFacade} from '../../states/classroom/classrooms.facade';
 
 import {UserService} from '../../services/user.service';
 import {ClassroomsService} from '../../services/classrooms.service';
+import {DiscussionsService} from '../../services/discussions.service';
+import {DiscussionsFacade} from '../../states/discussions/discussions.facade';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,7 @@ import {ClassroomsService} from '../../services/classrooms.service';
   ],
   entryComponents: [JoinClassroomDialogComponent],
   exports: [CoreComponent, DashboardComponent, ProfileComponent],
-  providers: [UserFacade, ClassroomsFacade, UserService, ClassroomsService]
+  providers: [UserFacade, ClassroomsFacade, UserService, ClassroomsService, DiscussionsService, DiscussionsFacade]
 })
 export class CoreModule {
 }
