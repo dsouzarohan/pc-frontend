@@ -1,6 +1,5 @@
 <mat-card>
-  <p class="card-dk-text">
-    {{ discussionPost.body }}
+  <p [innerHTML]="discussionPost.body" class="card-dk-text">
   </p>
   <br>
   <p class="card-lt-text post-author">Posted by {{ discussionPost.MasterUser.MasterUserPersonal | userFullName }}
@@ -12,7 +11,17 @@
     <app-discussion-comments-card
       *ngFor="let discussionPostComment of discussionPost.DiscussionPostComments"
       [discussionPostComment]="discussionPostComment"></app-discussion-comments-card>
-
+    <div class="comment-input">
+      <form #commentForm="ngForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Add a comment</mat-label>
+          <input [(ngModel)]="discussionComment" matInput name="comment" placeholder="Type here..." required>
+          <button (click)="onCommentClick(discussionPost.id)" [disabled]="!commentForm.valid" mat-icon-button matSuffix>
+            <mat-icon>send</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+    </div>
   </div>
 </mat-card>
 <br>

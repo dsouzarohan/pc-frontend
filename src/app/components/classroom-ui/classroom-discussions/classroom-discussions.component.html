@@ -7,29 +7,14 @@
     <br>
 
     <div *ngIf="classroomDetails.Discussions.length !== 0; else noDiscussionsMessage">
-      <mat-table [dataSource]="classroomDetails.Discussions" class="mat-elevation-z8">
 
-        <ng-container matColumnDef="topic">
-          <mat-header-cell *matHeaderCellDef> Topic</mat-header-cell>
-          <mat-cell *matCellDef="let discussion"> {{ discussion.topic }} </mat-cell>
-        </ng-container>
+      <app-discussion-card
+        *ngFor="let discussion of classroomDetails.Discussions"
+        [discussion]="discussion"
+        [routerLink]="discussion.id"
+        class="discussion-card"
+      ></app-discussion-card>
 
-        <ng-container matColumnDef="startedBy">
-          <mat-header-cell *matHeaderCellDef> Started by</mat-header-cell>
-          <mat-cell
-            *matCellDef="let discussion"> {{ discussion.MasterUser.MasterUserPersonal | userFullName }} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="createdAt">
-          <mat-header-cell *matHeaderCellDef> Created on</mat-header-cell>
-          <mat-cell *matCellDef="let discussion"> {{ discussion.createdAt | date:'MMMM d, y, h:mm:ss a'}} </mat-cell>
-        </ng-container>
-
-
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
-      </mat-table>
     </div>
     <ng-template #noDiscussionsMessage>
       <p class="card-subtitle">There are no discussions in this classroom</p>

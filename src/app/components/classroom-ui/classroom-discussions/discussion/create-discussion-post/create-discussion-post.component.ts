@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DiscussionsFacade} from '../../../../../states/discussions/discussions.facade';
 import {Observable} from 'rxjs';
 import {Discussion} from '../../../../../models/discussions.models';
@@ -10,8 +10,6 @@ import {Discussion} from '../../../../../models/discussions.models';
 })
 export class CreateDiscussionPostComponent implements OnInit {
 
-  @ViewChild('quill') quill;
-
   private discussion$: Observable<Discussion>;
   private discussionPost: string = '';
 
@@ -19,6 +17,13 @@ export class CreateDiscussionPostComponent implements OnInit {
     private discussionsFacade: DiscussionsFacade
   ) {
     this.discussion$ = this.discussionsFacade.discussions$;
+  }
+
+  onPostButtonClick(discussionId: string) {
+    this.discussionsFacade._addPost({
+      discussionId,
+      body: this.discussionPost
+    });
   }
 
   ngOnInit() {

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DiscussionPost} from '../../../../../models/discussions.models';
+import {DiscussionsFacade} from '../../../../../states/discussions/discussions.facade';
 
 @Component({
   selector: 'app-discussion-posts-card',
@@ -7,13 +8,20 @@ import {DiscussionPost} from '../../../../../models/discussions.models';
   styleUrls: ['./discussion-posts-card.component.scss']
 })
 export class DiscussionPostsCardComponent implements OnInit {
+  @Input('discussionPost')
+  discussionPost: DiscussionPost;
+  private discussionComment: string;
 
-  @Input('discussionPost') discussionPost: DiscussionPost;
+  constructor(private discussionsFacade: DiscussionsFacade) {
+  }
 
-  constructor() {
+  onCommentClick(discussionPostId: string) {
+    this.discussionsFacade._addComment({
+      discussionPostId,
+      body: this.discussionComment
+    });
   }
 
   ngOnInit() {
   }
-
 }

@@ -1,7 +1,7 @@
 <mat-card>
 
   <h3 class="card-title">{{ discussion.topic }}</h3>
-  <p class="card-subtitle">{{ discussion.body }}</p>
+  <p [innerHTML]="discussion.body" class="card-subtitle"></p>
   <br>
   <mat-divider></mat-divider>
 
