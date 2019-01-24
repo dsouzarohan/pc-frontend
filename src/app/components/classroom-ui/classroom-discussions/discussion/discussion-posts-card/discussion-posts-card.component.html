@@ -2,26 +2,23 @@
   <p [innerHTML]="discussionPost.body" class="card-dk-text">
   </p>
   <br>
-  <p class="card-lt-text post-author">Posted by {{ discussionPost.MasterUser.MasterUserPersonal | userFullName }}
+  <p class="card-lt-text post-author">Posted by {{ discussionPost.poster.personalDetails | userFullName }}
     on {{ discussionPost.createdAt|date:'MMMM d, y, h:mm:ss a' }}</p>
 
   <mat-divider class="card-divider post-divider"></mat-divider>
 
   <div class="discussion-comments-container">
     <app-discussion-comments-card
-      *ngFor="let discussionPostComment of discussionPost.DiscussionPostComments"
+      *ngFor="let discussionPostComment of discussionPost.discussionPostComments"
       [discussionPostComment]="discussionPostComment"></app-discussion-comments-card>
-    <div class="comment-input">
-      <form #commentForm="ngForm">
-        <mat-form-field appearance="outline">
-          <mat-label>Add a comment</mat-label>
-          <input [(ngModel)]="discussionComment" matInput name="comment" placeholder="Type here..." required>
-          <button (click)="onCommentClick(discussionPost.id)" [disabled]="!commentForm.valid" mat-icon-button matSuffix>
-            <mat-icon>send</mat-icon>
-          </button>
-        </mat-form-field>
-      </form>
-    </div>
+
+    <!--
+    todo: Fix the width of the input form field, should take up the whole width available
+    todo: Fix form field for small screens, make it responsive
+    todo: remove unecesarry padding and margin
+    -->
+
+    <app-discussion-comment-input [discussionPostId]="discussionPost.id"></app-discussion-comment-input>
   </div>
 </mat-card>
 <br>

@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ClassroomsFacade} from '../../../states/classroom/classrooms.facade';
-import {ClassroomDetails} from '../../../models/classroom.models';
+import {Classroom} from '../../../models/classroom.models';
 import {Observable} from 'rxjs';
+import {DiscussionsFacade} from '../../../states/discussions/discussions.facade';
+import {Discussion} from '../../../models/discussions.models';
 
 @Component({
   selector: 'app-classroom-discussions',
@@ -10,15 +12,16 @@ import {Observable} from 'rxjs';
 })
 export class ClassroomDiscussionsComponent implements OnInit {
 
-  private classroomDetails$: Observable<ClassroomDetails>;
+  private discussions$: Observable<Array<Discussion>>;
+  private classroom$: Observable<Classroom>;
 
   constructor(
-    private classroomFacade: ClassroomsFacade
+    private discussionsFacade: DiscussionsFacade,
+    private classroomsFacade: ClassroomsFacade
   ) {
-    this.classroomDetails$ = classroomFacade.classroomDetails$;
+    this.discussions$ = this.discussionsFacade.discussions$;
+    this.classroom$ = this.classroomsFacade.classroomDetails$;
   }
-
-  private displayedColumns = ['topic', 'startedBy', 'createdAt'];
 
   ngOnInit() {
   }

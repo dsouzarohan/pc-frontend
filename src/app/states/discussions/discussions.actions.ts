@@ -2,6 +2,11 @@ import {Action} from '@ngrx/store';
 import {Discussion, DiscussionPost, DiscussionPostComment} from '../../models/discussions.models';
 
 export enum DiscussionsActionTypes {
+
+  TRY_CREATE_DISCUSSION = 'TRY_CREATE_DISCUSSION',
+  ON_CREATE_DISCUSSION_SUCCESS = 'ON_CREATE_DISCUSSION_SUCCESS',
+  ON_CREATE_DISCUSSION_FAIL = 'ON_CREATE_DISCUSSION_FAIL',
+
   TRY_ADD_POST = 'TRY_ADD_POST',
   ON_ADD_POST_SUCCESS = 'ON_ADD_POST_SUCCESS',
   ON_ADD_POST_FAIL = 'ON_ADD_POST_FAIL',
@@ -10,9 +15,36 @@ export enum DiscussionsActionTypes {
   ON_ADD_COMMENT_SUCCESS = 'ON_ADD_COMMENT_SUCCESS',
   ON_ADD_COMMENT_FAIL = 'ON_ADD_COMMENT_FAIL',
 
-  TRY_GET_DISCUSSION = 'TRY_GET_DISCUSSION',
-  ON_GET_DISCUSSION_SUCCESS = 'ON_GET_DISCUSSION_SUCCESS',
-  ON_GET_DISCUSSION_FAIL = 'ON_GET_DISCUSSION_FAIL'
+  TRY_GET_DISCUSSIONS = 'TRY_GET_DISCUSSIONS',
+  ON_GET_DISCUSSIONS_SUCCESS = 'ON_GET_DISCUSSIONS_SUCCESS',
+  ON_GET_DISCUSSIONS_FAIL = 'ON_GET_DISCUSSIONS_FAIL'
+}
+
+//create a discussion
+
+export class TryCreateDiscussionAction implements Action {
+  readonly type: string = DiscussionsActionTypes.TRY_CREATE_DISCUSSION;
+
+  constructor(public payload: {
+    discussionTopic: string,
+    discussionBody: string,
+    classroomId: string
+  }) {
+  }
+}
+
+export class OnCreateDiscussionSuccess implements Action {
+  readonly type: string = DiscussionsActionTypes.ON_CREATE_DISCUSSION_SUCCESS;
+
+  constructor(public payload: Discussion) {
+  }
+}
+
+export class OnCreateDiscussionFail implements Action {
+  readonly type: string = DiscussionsActionTypes.ON_CREATE_DISCUSSION_FAIL;
+
+  constructor(public payload: string) {
+  }
 }
 
 //add a discussion post comment
@@ -20,7 +52,7 @@ export enum DiscussionsActionTypes {
 export class TryAddCommentAction implements Action {
   readonly type: string = DiscussionsActionTypes.TRY_ADD_COMMENT;
 
-  constructor(public payload: { discussionPostId: string; body: string }) {
+  constructor(public payload: { discussionPostId: number; body: string }) {
   }
 }
 
@@ -43,7 +75,7 @@ export class OnAddCommentFailAction implements Action {
 export class TryAddPostAction implements Action {
   readonly type: string = DiscussionsActionTypes.TRY_ADD_POST;
 
-  constructor(public payload: { discussionId: string; body: string }) {
+  constructor(public payload: { discussionId: number; body: string }) {
   }
 }
 
@@ -64,21 +96,21 @@ export class OnAddPostFailAction implements Action {
 //get discussion
 
 export class TryGetDiscussionsAction implements Action {
-  readonly type: string = DiscussionsActionTypes.TRY_GET_DISCUSSION;
+  readonly type: string = DiscussionsActionTypes.TRY_GET_DISCUSSIONS;
 
-  constructor(public payload: string) {
+  constructor(public payload: number) {
   }
 }
 
-export class OnGetDiscussionSuccessAction implements Action {
-  readonly type: string = DiscussionsActionTypes.ON_GET_DISCUSSION_SUCCESS;
+export class OnGetDiscussionsSuccessAction implements Action {
+  readonly type: string = DiscussionsActionTypes.ON_GET_DISCUSSIONS_SUCCESS;
 
-  constructor(public payload: Discussion) {
+  constructor(public payload: Array<Discussion>) {
   }
 }
 
-export class OnGetDiscussionFailAction implements Action {
-  readonly type: string = DiscussionsActionTypes.ON_GET_DISCUSSION_FAIL;
+export class OnGetDiscussionsFailAction implements Action {
+  readonly type: string = DiscussionsActionTypes.ON_GET_DISCUSSIONS_FAIL;
 
   constructor(public payload: string) {
   }
@@ -86,8 +118,8 @@ export class OnGetDiscussionFailAction implements Action {
 
 export type DiscussionsActions =
   | TryGetDiscussionsAction
-  | OnGetDiscussionSuccessAction
-  | OnGetDiscussionFailAction
+  | OnGetDiscussionsSuccessAction
+  | OnGetDiscussionsFailAction
 
   | TryAddPostAction
   | OnAddPostSuccessAction

@@ -14,23 +14,30 @@ export class DiscussionsFacade {
     })
   );
 
+  public discussion$ = this.store.select(discussionsSelectors.getDiscussion).pipe(
+    map(discussion => {
+      console.log('@DiscussionFacade#discussionSelector', discussion);
+      return discussion;
+    })
+  );
+
   constructor(private store: Store<fromDiscussions.DiscussionState>) {
   }
 
-  _loadDiscussion(discussionId: string) {
+  _loadDiscussions(classroomId: number) {
     this.store.dispatch(
-      new DiscussionsActionBundle.TryGetDiscussionsAction(discussionId)
+      new DiscussionsActionBundle.TryGetDiscussionsAction(classroomId)
     );
   }
 
-  _addPost(postDetails: { discussionId: string; body: string }) {
+  _addPost(postDetails: { discussionId: number; body: string }) {
     console.log('@DiscussionFacade#addPostDetails', postDetails);
     this.store.dispatch(
       new DiscussionsActionBundle.TryAddPostAction(postDetails)
     );
   }
 
-  _addComment(commentDetails: { discussionPostId: string; body: string }) {
+  _addComment(commentDetails: { discussionPostId: number; body: string }) {
     this.store.dispatch(
       new DiscussionsActionBundle.TryAddCommentAction(commentDetails)
     );

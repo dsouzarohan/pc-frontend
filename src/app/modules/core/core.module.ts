@@ -11,7 +11,7 @@ import {NavigationModule} from '../navigation/navigation.module';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 
-import {effects, reducers} from '../../states/core/core.reducer';
+import {effects, reducers} from '../../states/core-feature/core-feature.reducer';
 
 import {UserFacade} from '../../states/user/user.facade';
 import {ClassroomsFacade} from '../../states/classroom/classrooms.facade';

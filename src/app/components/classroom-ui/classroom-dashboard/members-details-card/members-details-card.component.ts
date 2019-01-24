@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Student} from '../../../../models/user.models';
 
 @Component({
   selector: 'app-members-details-card',
@@ -7,8 +6,8 @@ import {Student} from '../../../../models/user.models';
   styleUrls: ['./members-details-card.component.scss']
 })
 export class MembersDetailsCardComponent implements OnInit {
-  @Input('members')
-  members: Array<Student>;
+  @Input('memberCount')
+  memberCount: number;
 
   constructor() {
   }

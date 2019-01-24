@@ -16,12 +16,12 @@ export class CreateDiscussionPostComponent implements OnInit {
   constructor(
     private discussionsFacade: DiscussionsFacade
   ) {
-    this.discussion$ = this.discussionsFacade.discussions$;
+    this.discussion$ = this.discussionsFacade.discussion$;
   }
 
-  onPostButtonClick(discussionId: string) {
+  onPostButtonClick(discussionId: number) {
     this.discussionsFacade._addPost({
-      discussionId,
+      discussionId: discussionId,
       body: this.discussionPost
     });
   }

@@ -19,7 +19,7 @@
   <app-classroom-menu-card
     *ngFor="let classroom of classrooms"
     [classroom]="classroom"
-    (click)="onClassroomClick(classroom.id)"
+    [routerLink]="['/classroom',classroom.id]"
   ></app-classroom-menu-card>
 </div>
 

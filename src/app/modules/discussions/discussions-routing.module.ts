@@ -8,7 +8,21 @@ import {DiscussionCoreComponent} from '../../components/classroom-ui/classroom-d
 const discussionsRoutes: Routes = [
   {
     path: '',
-    component: ClassroomDiscussionsComponent
+    component: DiscussionCoreComponent,
+    children: [
+      {
+        component: ClassroomDiscussionsComponent,
+        path: ''
+      },
+      {
+        component: CreateDiscussionPostComponent,
+        path: 'new'
+      },
+      {
+        component: DiscussionComponent,
+        path: ':discussionId'
+      }
+    ]
   },
   {
     path: ':discussionId',

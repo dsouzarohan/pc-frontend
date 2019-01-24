@@ -9,7 +9,7 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  loadProfile(userID: string) {
+  loadProfile(userID: number) {
     return this.http.get<GetProfileResponse>(
       `http://localhost:3000/api/users/profile/${userID}`
     );

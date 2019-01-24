@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {ClassroomDetails} from '../../../models/classroom.models';
 import {ClassroomsFacade} from '../../../states/classroom/classrooms.facade';
+import {Classroom} from '../../../models/classroom.models';
 
 @Component({
   selector: 'app-classroom-members',
@@ -10,7 +10,7 @@ import {ClassroomsFacade} from '../../../states/classroom/classrooms.facade';
 })
 export class ClassroomMembersComponent implements OnInit {
 
-  private classroomDetails$: Observable<ClassroomDetails>;
+  private classroomDetails$: Observable<Classroom>;
   private displayedColumns = [
     'masterUserID',
     'uid'

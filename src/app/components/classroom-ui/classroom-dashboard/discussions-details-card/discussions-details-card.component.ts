@@ -1,5 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Discussion} from '../../../../models/discussions.models';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-discussions-details-card',
@@ -7,8 +6,6 @@ import {Discussion} from '../../../../models/discussions.models';
   styleUrls: ['./discussions-details-card.component.scss']
 })
 export class DiscussionsDetailsCardComponent implements OnInit {
-  @Input('discussions')
-  discussions: Array<Discussion>;
 
   constructor() {
   }

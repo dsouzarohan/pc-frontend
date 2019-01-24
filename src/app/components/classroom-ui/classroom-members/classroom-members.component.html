@@ -6,12 +6,13 @@
     <p class="card-subtitle">{{ classroomDetails.name }}</p>
     <br>
 
-    <div *ngIf="classroomDetails.Students.length !== 0; else noStudentsMessage">
-      <mat-table [dataSource]="classroomDetails.Students" class="mat-elevation-z8">
+    <div *ngIf="classroomDetails.students.length !== 0; else noStudentsMessage">
+      <mat-table [dataSource]="classroomDetails.students" class="mat-elevation-z8">
 
         <ng-container matColumnDef="masterUserID">
           <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-          <mat-cell *matCellDef="let student;"> {{ student.MasterUser.MasterUserPersonal | userFullName }}</mat-cell>
+          <mat-cell
+            *matCellDef="let student;"> {{ student.masterUserDetails.personalDetails | userFullName }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="uid">

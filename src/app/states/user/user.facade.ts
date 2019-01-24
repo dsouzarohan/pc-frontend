@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import * as fromCore from '../core/core.reducer';
+import * as fromCore from '../core-feature/core-feature.reducer';
 import {Store} from '@ngrx/store';
 import {TryGetProfileAction} from './user.actions';
 

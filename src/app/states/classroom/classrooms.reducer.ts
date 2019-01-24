@@ -1,11 +1,10 @@
-import {Classroom, ClassroomDetails} from '../../models/classroom.models';
+import {classroomArrayToEntity} from '../../models/classroom.models';
 import * as ClassroomsActionBundle from './classrooms.action';
 import {ActionStatus} from '../../app.reducer';
 
 export interface ClassroomState {
-  classrooms: Array<Classroom>;
+  classrooms: { entities: any, result: Array<any> };
 
-  selectedClassroomDetails: ClassroomDetails;
   loadingClassroomDetails: boolean;
 
   //statuses
@@ -16,7 +15,6 @@ export interface ClassroomState {
 const initialState: ClassroomState = {
   classrooms: null,
 
-  selectedClassroomDetails: null,
   loadingClassroomDetails: false,
 
   joiningClassroomStatus: null,
@@ -29,11 +27,14 @@ export function classroomReducer(
 ): ClassroomState {
   switch (action.type) {
     case ClassroomsActionBundle.ClassroomsActionTypes.ON_GET_CLASSROOMS_SUCCESS:
+
+      let classrooms = (<ClassroomsActionBundle.OnGetClassroomsSuccessAction>(
+        action
+      )).payload;
+
       return {
         ...state,
-        classrooms: (<ClassroomsActionBundle.OnGetClassroomsSuccessAction>(
-          action
-        )).payload
+        classrooms: classroomArrayToEntity(classrooms)
       };
 
     case ClassroomsActionBundle.ClassroomsActionTypes.TRY_JOIN_CLASSROOM: {
@@ -49,15 +50,28 @@ export function classroomReducer(
         'New classroom#',
         (<ClassroomsActionBundle.OnJoinClassroomSuccessAction>action).payload
       );
+
+      let joinedClassroom = (<ClassroomsActionBundle.OnJoinClassroomSuccessAction>action).payload;
+
       return {
         ...state,
         joiningClassroomStatus: {
           type: 'SUCCESS'
         },
-        classrooms: [
+        classrooms: {
           ...state.classrooms,
-          (<ClassroomsActionBundle.OnJoinClassroomSuccessAction>action).payload
-        ]
+          entities: {
+            ...state.classrooms.entities,
+            classrooms: {
+              [joinedClassroom.id]: joinedClassroom,
+              ...state.classrooms.entities.classrooms
+            }
+          },
+          result: [
+            joinedClassroom.id,
+            ...state.classrooms.result
+          ]
+        }
       };
     case ClassroomsActionBundle.ClassroomsActionTypes.ON_JOIN_CLASSROOM_FAIL:
       return {
@@ -87,15 +101,31 @@ export function classroomReducer(
       };
     case ClassroomsActionBundle.ClassroomsActionTypes
       .ON_CREATE_CLASSROOM_SUCCESS:
-      let classroom = (<ClassroomsActionBundle.OnCreateClassroomSuccessAction>(
+      let createdClassroom = (<ClassroomsActionBundle.OnCreateClassroomSuccessAction>(
         action
       )).payload;
+
+      console.log('@ClassroomReducer#Created classroom', createdClassroom);
+
       return {
         ...state,
         creatingClassroomStatus: {
           type: 'SUCCESS'
         },
-        classrooms: [...state.classrooms, classroom]
+        classrooms: {
+          ...state.classrooms,
+          entities: {
+            ...state.classrooms.entities,
+            classrooms: {
+              [createdClassroom.id]: createdClassroom,
+              ...state.classrooms.entities.classrooms
+            }
+          },
+          result: [
+            createdClassroom.id,
+            ...state.classrooms.result
+          ]
+        }
       };
     case ClassroomsActionBundle.ClassroomsActionTypes.ON_CREATE_CLASSROOM_FAIL:
       return {
@@ -116,28 +146,9 @@ export function classroomReducer(
           : null
       };
 
-    case ClassroomsActionBundle.ClassroomsActionTypes.TRY_GET_CLASSROOM_DETAILS:
-      return {
-        ...state,
-        loadingClassroomDetails: true
-      };
-    case ClassroomsActionBundle.ClassroomsActionTypes
-      .ON_GET_CLASSROOM_DETAILS_SUCCESS:
-      return {
-        ...state,
-        selectedClassroomDetails: (<
-          ClassroomsActionBundle.OnGetClassroomDetailsSuccessAction
-          >action).payload,
-        loadingClassroomDetails: false
-      };
-    case ClassroomsActionBundle.ClassroomsActionTypes
-      .ON_GET_CLASSROOM_DETAILS_FAIL:
-      return {
-        ...state,
-        loadingClassroomDetails: false
-      };
-
     default:
       return state;
   }
 }
+
+

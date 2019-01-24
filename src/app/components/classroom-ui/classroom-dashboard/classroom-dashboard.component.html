@@ -3,10 +3,8 @@
   <app-classroom-details-card [classroomDetails]="classroomDetails"></app-classroom-details-card>
   <br>
   <app-discussions-details-card
-    (click)="onDiscussionsCardClick()"
-    [discussions]="classroomDetails.Discussions"></app-discussions-details-card>
+    [routerLink]="['discussions']"></app-discussions-details-card>
   <br>
-  <app-members-details-card (click)="onMembersCardClick()"
-                            [members]="classroomDetails.Students"></app-members-details-card>
+  <app-members-details-card [routerLink]="['members']"></app-members-details-card>
 
 </div>

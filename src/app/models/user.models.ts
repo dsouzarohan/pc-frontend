@@ -1,6 +1,6 @@
 export interface MasterUserName {
   typeOfUser: string,
-  MasterUserPersonal: {
+  personalDetails: {
     firstName: string,
     lastName: string
   }
@@ -8,7 +8,7 @@ export interface MasterUserName {
 
 export interface UserAuthInformation {
   userAuthStatus: boolean;
-  userID: string;
+  userID: number;
   userType: string;
   userToken: string;
   expiresIn: number;
@@ -20,14 +20,14 @@ export interface UserLoginCredentials {
 }
 
 export interface UserMaster {
-  id: string;
+  id: number;
   typeOfUser: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface UserPersonal {
-  id: string;
+  id: number;
   firstName: string;
   lastName: string;
   middleName: string;
@@ -38,7 +38,7 @@ export interface UserPersonal {
 }
 
 export interface UserContact {
-  id: string;
+  id: number;
   phoneNumber: string;
   alternateNumber: string;
   email: string;
@@ -49,25 +49,25 @@ export interface UserContact {
 }
 
 export interface Student {
-  id: string;
+  id: number;
   stream: string;
   uid: number;
   createdAt: string;
   updatedAt: string;
   masterUserId: string;
-  MasterUser: MasterUserName
+  masterUserDetails: MasterUserName
 }
 
 export interface Teacher {
-  id: string;
-  uid: string;
+  id: number;
+  uid: number;
   createdAt: string;
   updatedAt: string;
   masterUserId: string;
-  MasterUser: MasterUserName
+  masterUserDetails: MasterUserName
 }
 
 export interface Profile extends UserMaster {
-  MasterUserPersonal: UserPersonal;
-  MasterUserContact: UserContact;
+  personalDetails: UserPersonal;
+  contactDetails: UserContact;
 }

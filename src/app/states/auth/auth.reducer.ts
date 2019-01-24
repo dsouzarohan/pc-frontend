@@ -2,7 +2,7 @@ import * as AuthActionsBundle from './auth.actions';
 
 export interface AuthState {
   userAuthStatus: boolean;
-  userID: string;
+  userID: number;
   userType: string;
   userToken: string;
   isLoggingIn: boolean;

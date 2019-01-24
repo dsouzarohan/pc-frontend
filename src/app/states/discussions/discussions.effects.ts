@@ -1,15 +1,91 @@
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {HttpErrorResponse} from '@angular/common/http';
 import {of} from 'rxjs';
 import * as DiscussionsActionBundle from './discussions.actions';
 import {Injectable} from '@angular/core';
 import {DiscussionsService} from '../../services/discussions.service';
 import {MatSnackBar} from '@angular/material';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
+import * as fromRouter from '../router/router.reducer';
+import {RouterStateUrl} from '../router/router.reducer';
+import {RouterReducerState} from '@ngrx/router-store';
+import {Store} from '@ngrx/store';
 
 @Injectable()
 export class DiscussionsEffects {
+  //create discussion effects
+
+  @Effect()
+  tryCreateDiscussion = this.actions
+    .pipe(
+      ofType(
+        DiscussionsActionBundle.DiscussionsActionTypes.TRY_CREATE_DISCUSSION
+      )
+    )
+    .pipe(
+      map(
+        (action: DiscussionsActionBundle.TryCreateDiscussionAction) =>
+          action.payload
+      )
+    )
+    .pipe(
+      switchMap(discussionDetails => {
+        return this.discussionsService.createDiscussion(discussionDetails).pipe(
+          map(
+            response =>
+              new DiscussionsActionBundle.OnCreateDiscussionSuccess(
+                response.discussion
+              )
+          ),
+          catchError((errorResponse: HttpErrorResponse) =>
+            of(
+              new DiscussionsActionBundle.OnCreateDiscussionFail(
+                errorResponse.error.message
+              )
+            )
+          )
+        );
+      })
+    );
+
+  @Effect({
+    dispatch: false
+  })
+  onCreateDiscussionSuccess = this.actions
+    .pipe(
+      ofType(
+        DiscussionsActionBundle.DiscussionsActionTypes
+          .ON_CREATE_DISCUSSION_SUCCESS
+      )
+    )
+    .pipe(
+      map(() => {
+        this.snackBar.open('Discussion created successfully', null, {
+          duration: 3000,
+          panelClass: 'snack-bar-align-span-center'
+        });
+      })
+    );
+
+  @Effect({
+    dispatch: false
+  })
+  onCreateDiscussionFail = this.actions
+    .pipe(
+      ofType(
+        DiscussionsActionBundle.DiscussionsActionTypes.ON_CREATE_DISCUSSION_FAIL
+      )
+    )
+    .pipe(
+      map(() => {
+        this.snackBar.open('Discussion could not be created', null, {
+          duration: 3000,
+          panelClass: 'snack-bar-align-span-center'
+        });
+      })
+    );
+
   //comment effects
 
   @Effect()
@@ -44,58 +120,66 @@ export class DiscussionsEffects {
 
   @Effect({
     dispatch: false
-  }) onAddCommentSuccess = this.actions.pipe(
-    ofType(DiscussionsActionBundle.DiscussionsActionTypes.ON_ADD_COMMENT_SUCCESS)
-  ).pipe(
-    map((action: DiscussionsActionBundle.OnAddCommentSuccessAction) => {
-      this.snackBar.open('Comment added successfully', null, {
-        duration: 3000,
-        panelClass: 'snack-bar-align-span-center'
-      });
-    })
-  );
+  })
+  onAddCommentSuccess = this.actions
+    .pipe(
+      ofType(
+        DiscussionsActionBundle.DiscussionsActionTypes.ON_ADD_COMMENT_SUCCESS
+      )
+    )
+    .pipe(
+      map((action: DiscussionsActionBundle.OnAddCommentSuccessAction) => {
+        this.snackBar.open('Comment added successfully', null, {
+          duration: 3000,
+          panelClass: 'snack-bar-align-span-center'
+        });
+      })
+    );
 
   @Effect({
     dispatch: false
-  }) onAddCommentFail = this.actions.pipe(
-    ofType(DiscussionsActionBundle.DiscussionsActionTypes.ON_ADD_COMMENT_FAIL)
-  ).pipe(
-    map((action: DiscussionsActionBundle.OnAddCommentFailAction) => {
-      this.snackBar.open(action.payload, null, {
-        duration: 3000,
-        panelClass: 'snack-bar-align-span-center'
-      });
-    })
-  );
+  })
+  onAddCommentFail = this.actions
+    .pipe(
+      ofType(DiscussionsActionBundle.DiscussionsActionTypes.ON_ADD_COMMENT_FAIL)
+    )
+    .pipe(
+      map((action: DiscussionsActionBundle.OnAddCommentFailAction) => {
+        this.snackBar.open(action.payload, null, {
+          duration: 3000,
+          panelClass: 'snack-bar-align-span-center'
+        });
+      })
+    );
 
   //post effects
 
   @Effect({
     dispatch: false
   })
-  onCreatePostSuccess = this.actions
-    .pipe(
-      ofType(DiscussionsActionBundle.DiscussionsActionTypes.ON_ADD_POST_SUCCESS)
-    )
-    .pipe(
-      map(
-        (action: DiscussionsActionBundle.OnAddPostSuccessAction) =>
-          action.payload
-      )
-    )
-    .pipe(
-      map(discussionPost => {
+  onCreatePostSuccess = this.actions.pipe(
+    ofType(DiscussionsActionBundle.DiscussionsActionTypes.ON_ADD_POST_SUCCESS),
+    withLatestFrom(
+      this.store.select(fromRouter.getRouterState),
+      (action: DiscussionsActionBundle.OnAddPostSuccessAction, routerState) => {
         this.snackBar.open('Post created successfully', null, {
           duration: 3000,
           panelClass: 'snack-bar-align-span-center'
         });
 
+        let currentRouteParams = routerState.state.params;
+
+        console.log('CurrentRouteParams', currentRouteParams);
+
         this.router.navigate([
-          '/classroom/discussions',
-          discussionPost.discussionId
+          '/classroom',
+          currentRouteParams.classroomId,
+          'discussions',
+          currentRouteParams.discussionId
         ]);
-      })
-    );
+      }
+    )
+  );
 
   @Effect({
     dispatch: false
@@ -148,7 +232,7 @@ export class DiscussionsEffects {
   @Effect()
   tryGetDiscussion = this.actions
     .pipe(
-      ofType(DiscussionsActionBundle.DiscussionsActionTypes.TRY_GET_DISCUSSION)
+      ofType(DiscussionsActionBundle.DiscussionsActionTypes.TRY_GET_DISCUSSIONS)
     )
     .pipe(
       map(
@@ -157,16 +241,21 @@ export class DiscussionsEffects {
       )
     )
     .pipe(
-      switchMap(discussionId => {
-        return this.discussionsService.getDiscussion(discussionId).pipe(
+      switchMap(classroomId => {
+        return this.discussionsService.getDiscussions(classroomId).pipe(
           map(response => {
-            return new DiscussionsActionBundle.OnGetDiscussionSuccessAction(
+            console.log(
+              '@DiscussionEffects#GetDiscussionsResponse',
+              response.data
+            );
+
+            return new DiscussionsActionBundle.OnGetDiscussionsSuccessAction(
               response.data
             );
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
-              new DiscussionsActionBundle.OnGetDiscussionFailAction(
+              new DiscussionsActionBundle.OnGetDiscussionsFailAction(
                 errorResponse.error.message
               )
             );
@@ -180,7 +269,7 @@ export class DiscussionsEffects {
     private actions: Actions,
     private snackBar: MatSnackBar,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private store: Store<RouterReducerState<RouterStateUrl>>
   ) {
   }
 }

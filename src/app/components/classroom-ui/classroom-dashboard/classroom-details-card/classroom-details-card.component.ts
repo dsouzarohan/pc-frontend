@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ClassroomDetails} from '../../../../models/classroom.models';
+import {Classroom} from '../../../../models/classroom.models';
 
 @Component({
   selector: 'app-classroom-details-card',
@@ -8,7 +8,7 @@ import {ClassroomDetails} from '../../../../models/classroom.models';
 })
 export class ClassroomDetailsCardComponent implements OnInit {
   @Input('classroomDetails')
-  classroomDetails: ClassroomDetails;
+  classroomDetails: Classroom;
 
   constructor() {
   }

@@ -10,12 +10,12 @@ import {Discussion} from '../../../../models/discussions.models';
 })
 export class DiscussionComponent implements OnInit {
 
-  private discussions$: Observable<Discussion>;
+  private discussion$: Observable<Discussion>;
 
   constructor(
     private discussionsFacade: DiscussionsFacade
   ) {
-    this.discussions$ = this.discussionsFacade.discussions$;
+    this.discussion$ = this.discussionsFacade.discussion$;
   }
 
   ngOnInit() {

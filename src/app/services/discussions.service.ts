@@ -1,6 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {CreateCommentResponse, CreatePostResponse, GetDiscussionResponse} from '../models/responses/discussions-responses.models';
+import {
+  CreateCommentResponse,
+  CreateDiscussionResponse,
+  CreatePostResponse,
+  GetDiscussionsResponse
+} from '../models/responses/discussions-responses.models';
 import {environment} from '../../environments/environment';
 
 @Injectable()
@@ -8,20 +13,28 @@ export class DiscussionsService {
   constructor(private http: HttpClient) {
   }
 
-  getDiscussion(discussionId: string) {
-    return this.http.get<GetDiscussionResponse>(
-      environment.apiUrl + 'discussions/' + discussionId
+  getDiscussions(classroomId: number) {
+    return this.http.get<GetDiscussionsResponse>(
+      environment.apiUrl + 'discussions?classroomId=' + classroomId
     );
   }
 
-  createPost(postDetails: { discussionId: string; body: string }) {
+  createDiscussion(discussionDetails: {
+    discussionTopic: string,
+    discussionBody: string,
+    classroomId: string
+  }) {
+    return this.http.post<CreateDiscussionResponse>(environment.apiUrl + 'discussions/create', discussionDetails);
+  }
+
+  createPost(postDetails: { discussionId: number; body: string }) {
     return this.http.post<CreatePostResponse>(
       environment.apiUrl + 'discussions/discussionPost/create',
       postDetails
     );
   }
 
-  createComment(commentDetails: { discussionPostId: string; body: string }) {
+  createComment(commentDetails: { discussionPostId: number; body: string }) {
     return this.http.post<CreateCommentResponse>(
       environment.apiUrl +
       'discussions/discussionPost/discussionPostComment/create',

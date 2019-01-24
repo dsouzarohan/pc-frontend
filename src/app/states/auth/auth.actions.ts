@@ -56,7 +56,7 @@ export class UserTokenAction implements Action {
 export class UserIDAction implements Action {
   public readonly type: string = AuthActionTypes.USER_ID;
 
-  constructor(public payload: string) {
+  constructor(public payload: number) {
   }
 }
 

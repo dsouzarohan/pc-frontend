@@ -9,6 +9,10 @@ import {DiscussionsDetailsCardComponent} from '../../components/classroom-ui/cla
 import {MembersDetailsCardComponent} from '../../components/classroom-ui/classroom-dashboard/members-details-card/members-details-card.component';
 import {ClassroomMembersComponent} from '../../components/classroom-ui/classroom-members/classroom-members.component';
 import {ClassroomCoreComponent} from '../../components/classroom-ui/classroom-core/classroom-core.component';
+import {StoreModule} from '@ngrx/store';
+
+import * as fromClassroomFeature from '../../states/classroom-feature/classroom-feature.reducer';
+import {EffectsModule} from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -16,16 +20,17 @@ import {ClassroomCoreComponent} from '../../components/classroom-ui/classroom-co
     CreateClassroomComponent,
     ClassroomDashboardComponent,
     ClassroomDetailsCardComponent,
-
     DiscussionsDetailsCardComponent,
-
     MembersDetailsCardComponent,
-
     ClassroomMembersComponent,
-
     ClassroomCoreComponent
   ],
-  imports: [SharedModule, ClassroomRoutingModule],
+  imports: [
+    SharedModule,
+    ClassroomRoutingModule,
+    StoreModule.forFeature('classroom', fromClassroomFeature.classroomFeatureReducers),
+    EffectsModule.forFeature(fromClassroomFeature.classroomFeatureEffects)
+  ],
   exports: []
 })
 export class ClassroomModule {

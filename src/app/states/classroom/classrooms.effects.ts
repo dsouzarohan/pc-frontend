@@ -6,47 +6,10 @@ import {of} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ClassroomsService} from '../../services/classrooms.service';
 import {MatSnackBar} from '@angular/material';
-import {GetClassroomDetailsResponse} from '../../models/responses/classroom-responses.models';
 import {DiscussionsService} from '../../services/discussions.service';
 
 @Injectable()
 export class ClassroomsEffects {
-
-  //get classroom details lifecycle
-
-  @Effect()
-  tryGetClassroomDetails = this.actions
-    .pipe(
-      ofType(
-        ClassroomsActionBundle.ClassroomsActionTypes.TRY_GET_CLASSROOM_DETAILS
-      )
-    )
-    .pipe(
-      map(
-        (action: ClassroomsActionBundle.TryGetClassroomDetailsAction) =>
-          action.payload
-      )
-    )
-    .pipe(
-      switchMap(classroomID => {
-        return this.classroomsService.getClassroomDetails(classroomID).pipe(
-          map((response: GetClassroomDetailsResponse) => {
-            console.log('@ClassroomEffects#GetClassroomDetailResponse', response);
-            return new ClassroomsActionBundle.OnGetClassroomDetailsSuccessAction(
-              response.classroomDetails
-            );
-          }),
-          catchError((errorResponse: HttpErrorResponse) => {
-            console.log('@ClassroomEffects#GetClassroomDetailError', errorResponse);
-            return of(
-              new ClassroomsActionBundle.OnGetClassroomDetailsFailAction(
-                errorResponse.error.message
-              )
-            );
-          })
-        );
-      })
-    );
 
   //create classroom action lifecycle
 
@@ -65,8 +28,11 @@ export class ClassroomsEffects {
       switchMap(classroomDetails => {
         return this.classroomsService.createClassroom(classroomDetails).pipe(
           map(response => {
+
+            console.log('@ClassroomEffects#Create response', response);
+
             return new ClassroomsActionBundle.OnCreateClassroomSuccessAction(
-              response.classroom
+              response.createdClassroom
             );
           }),
           catchError((errorResponse: HttpErrorResponse) => {
@@ -89,6 +55,9 @@ export class ClassroomsEffects {
     )
     .pipe(
       map((action: ClassroomsActionBundle.OnCreateClassroomSuccessAction) => {
+
+        console.log('@ClassroomEffects#Created Classroom payload', action.payload);
+
         this.snackBarService.open(
           `'${action.payload.name}' created successfully`,
           null,

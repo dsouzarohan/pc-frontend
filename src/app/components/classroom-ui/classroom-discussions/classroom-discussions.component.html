@@ -1,28 +1,28 @@
 <mat-card>
-  <div *ngIf="(classroomDetails$ | async) as classroomDetails; else classroomDetailsLoading">
-    <h3 class="card-title">
-      Discussions
-    </h3>
-    <p class="card-subtitle">{{classroomDetails.name}}</p>
-    <br>
+  <div *ngIf="(discussions$ | async) as discussions; else discussionsLoading">
+    <div *ngIf="(classroom$ | async) as classroom; else discussionsLoading">
+      <h3 class="card-title">
+        Discussions
+      </h3>
+      <p class="card-subtitle">{{classroom.name}}</p>
+      <br>
 
-    <div *ngIf="classroomDetails.Discussions.length !== 0; else noDiscussionsMessage">
+      <div *ngIf="discussions.length !== 0; else noDiscussionsMessage">
 
-      <app-discussion-card
-        *ngFor="let discussion of classroomDetails.Discussions"
-        [discussion]="discussion"
-        [routerLink]="discussion.id"
-        class="discussion-card"
-      ></app-discussion-card>
+        <app-discussion-card
+          *ngFor="let discussion of discussions"
+          [discussion]="discussion"
+          [routerLink]="discussion.id"
+          class="discussion-card"
+        ></app-discussion-card>
 
+      </div>
+      <ng-template #noDiscussionsMessage>
+        <p class="card-subtitle">There are no discussions in this classroom</p>
+      </ng-template>
     </div>
-    <ng-template #noDiscussionsMessage>
-      <p class="card-subtitle">There are no discussions in this classroom</p>
-    </ng-template>
-
-
   </div>
-  <ng-template #classroomDetailsLoading>
-    Loading...
+  <ng-template #discussionsLoading>
+    Loading... haha
   </ng-template>
 </mat-card>

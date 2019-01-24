@@ -42,11 +42,6 @@ export class ClassroomMenuComponent implements OnInit {
     });
   }
 
-  onClassroomClick(classroomID: string) {
-    console.log('@ClassroomMenu#SelectedClassroom', classroomID);
-    this.classroomsFacade._loadClassroomDetails(classroomID);
-  }
-
   ngOnInit() {
   }
 }

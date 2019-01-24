@@ -5,7 +5,7 @@ export interface SignUpResponse {
 export interface SignInResponse {
   token: string;
   expiresIn: number;
-  userID: string;
+  userID: number;
   type: string;
 }
 

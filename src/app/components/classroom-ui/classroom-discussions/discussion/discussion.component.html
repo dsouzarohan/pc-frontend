@@ -1,6 +1,6 @@
-<div *ngIf="(discussions$ | async) as discussions; else discussionLoading" class="discussion-container">
+<div *ngIf="(discussion$ | async) as discussion; else discussionLoading" class="discussion-container">
 
-  <app-discussion-body-card [discussion]="discussions"></app-discussion-body-card>
+  <app-discussion-body-card [discussion]="discussion"></app-discussion-body-card>
   <button class="new-post-button" mat-icon-button
           routerLink="new">
     <mat-icon>library_add</mat-icon>

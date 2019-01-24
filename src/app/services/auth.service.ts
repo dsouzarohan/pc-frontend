@@ -86,7 +86,7 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  saveUser(token: string, expiresIn: number, id: string, type: string) {
+  saveUser(token: string, expiresIn: number, id: number, type: string) {
     const date = new Date();
     const expirationDate = new Date(date.getTime() + expiresIn * 1000);
 
@@ -106,7 +106,7 @@ export class AuthService {
   getUserFromLocalStorage() {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expirationDate');
-    const userID = localStorage.getItem('userID');
+    const userID = +localStorage.getItem('userID');
     const type = localStorage.getItem('type');
 
     if (!(token && expirationDate && userID && type)) {

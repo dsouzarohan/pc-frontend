@@ -17,7 +17,7 @@ export class CoreComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    //All user related data will be loaded during the initiation of the core component
+    //All user related data will be loaded during the initiation of the core-feature component
     console.log('CoreComponent#Initialized');
     this.userFacade._loadProfile();
     console.log('UserData#loaded');

@@ -10,7 +10,7 @@ export enum UserActionTypes {
 export class TryGetProfileAction implements Action {
   readonly type = UserActionTypes.TRY_GET_PROFILE;
 
-  constructor(public payload: string) {
+  constructor(public payload: number) {
   }
 }
 

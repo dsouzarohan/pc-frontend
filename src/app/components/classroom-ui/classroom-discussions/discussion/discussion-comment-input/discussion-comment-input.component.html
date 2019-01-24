@@ -1,0 +1,10 @@
+<div class="comment-input">
+  <mat-form-field appearance="outline">
+    <mat-label>Add a comment</mat-label>
+    <input [(ngModel)]="discussionComment" matInput name="comment" placeholder="Type here...">
+    <button (click)="onCommentClick(discussionPostId)" [disabled]="discussionComment.length === 0" mat-icon-button
+            matSuffix>
+      <mat-icon>send</mat-icon>
+    </button>
+  </mat-form-field>
+</div>

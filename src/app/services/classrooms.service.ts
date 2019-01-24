@@ -30,8 +30,4 @@ export class ClassroomsService {
       classroomDetails
     );
   }
-
-  getClassroomDetails(classroomID: string) {
-    return this.http.get(environment.apiUrl + 'classrooms/' + classroomID);
-  }
 }

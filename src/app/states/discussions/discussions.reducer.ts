@@ -3,7 +3,7 @@ import {discussionToEntity} from '../../models/discussions.models';
 import * as DiscussionsActionBundle from './discussions.actions';
 
 export interface DiscussionState {
-  discussion: {
+  discussions: {
     result: any;
     entities: any;
   };
@@ -13,7 +13,7 @@ export interface DiscussionState {
 }
 
 const initialState: DiscussionState = {
-  discussion: null,
+  discussions: null,
   isPosting: false,
   isCommenting: false
 };
@@ -24,9 +24,9 @@ export const discussionsReducer = (
 ): DiscussionState => {
   switch (action.type) {
     case DiscussionsActionBundle.DiscussionsActionTypes
-      .ON_GET_DISCUSSION_SUCCESS:
+      .ON_GET_DISCUSSIONS_SUCCESS:
       let fetchedDiscussion = (<
-        DiscussionsActionBundle.OnGetDiscussionSuccessAction
+        DiscussionsActionBundle.OnGetDiscussionsSuccessAction
         >action).payload;
       console.log('@DiscussionsReducer#FetchedDiscussion', fetchedDiscussion);
       let fetchedDiscussionEntity = discussionToEntity(fetchedDiscussion);
@@ -37,7 +37,7 @@ export const discussionsReducer = (
 
       return {
         ...state,
-        discussion: fetchedDiscussionEntity
+        discussions: fetchedDiscussionEntity
       };
 
     case DiscussionsActionBundle.DiscussionsActionTypes.TRY_ADD_POST:
@@ -47,36 +47,47 @@ export const discussionsReducer = (
       };
 
     case DiscussionsActionBundle.DiscussionsActionTypes.ON_ADD_POST_SUCCESS:
+
+      console.log('@DiscussionsReducer#OnAddPostSuccessCase');
+
       let createdPost = (<DiscussionsActionBundle.OnAddPostSuccessAction>action)
         .payload;
+      console.log('New discussion post state', {
+        ...state,
+        isPosting: false,
+        discussions: {
+          ...state.discussions,
+          entities: {
+            ...state.discussions.entities
+          }
+        }
+      });
 
       return {
         ...state,
         isPosting: false,
-        discussion: {
-          ...state.discussion,
+        discussions: {
+          ...state.discussions,
           entities: {
-            ...state.discussion.entities,
-            Discussion: {
-              ...state.discussion.entities.Discussion,
+            ...state.discussions.entities,
+            discussion: {
+              ...state.discussions.entities.discussion,
               [createdPost.discussionId]: {
-                ...state.discussion.entities.Discussion[
-                  createdPost.discussionId
-                  ],
-                DiscussionPosts: [
+                ...state.discussions.entities.discussion[createdPost.discussionId],
+                discussionPosts: [
                   createdPost.id,
-                  ...state.discussion.entities.Discussion[
+                  ...state.discussions.entities.discussion[
                     createdPost.discussionId
-                    ].DiscussionPosts
+                    ].discussionPosts
                 ]
               }
             },
-            DiscussionPost: {
+            discussionPost: {
               [createdPost.id]: {
                 ...createdPost,
-                DiscussionComments: []
+                discussionComments: []
               },
-              ...state.discussion.entities.DiscussionPost
+              ...state.discussions.entities.discussionPost
             }
           }
         }
@@ -104,25 +115,25 @@ export const discussionsReducer = (
       return {
         ...state,
         isCommenting: true,
-        discussion: {
-          ...state.discussion,
+        discussions: {
+          ...state.discussions,
           entities: {
-            ...state.discussion.entities,
-            DiscussionPostComment: {
+            ...state.discussions.entities,
+            discussionPostComment: {
               [createdComment.id]: createdComment,
-              ...state.discussion.entities.DiscussionPostComment
+              ...state.discussions.entities.discussionPostComment
             },
-            DiscussionPost: {
-              ...state.discussion.entities.DiscussionPost,
+            discussionPost: {
+              ...state.discussions.entities.discussionPost,
               [createdComment.discussionPostId]: {
-                ...state.discussion.entities.DiscussionPost[
+                ...state.discussions.entities.discussionPost[
                   createdComment.discussionPostId
                   ],
-                DiscussionPostComments: [
+                discussionPostComments: [
                   createdComment.id,
-                  ...state.discussion.entities.DiscussionPost[
+                  ...state.discussions.entities.discussionPost[
                     createdComment.discussionPostId
-                    ].DiscussionPostComments
+                    ].discussionPostComments
                 ]
               }
             }

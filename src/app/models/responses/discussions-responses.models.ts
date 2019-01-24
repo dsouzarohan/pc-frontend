@@ -1,8 +1,8 @@
 import {Discussion, DiscussionPost, DiscussionPostComment} from '../discussions.models';
 
-export interface GetDiscussionResponse {
+export interface GetDiscussionsResponse {
   message: string;
-  data: Discussion
+  data: Array<Discussion>
 }
 
 export interface CreatePostResponse {
@@ -13,4 +13,9 @@ export interface CreatePostResponse {
 export interface CreateCommentResponse {
   message: string;
   discussionComment: DiscussionPostComment
+}
+
+export interface CreateDiscussionResponse {
+  message: string;
+  discussion: Discussion
 }

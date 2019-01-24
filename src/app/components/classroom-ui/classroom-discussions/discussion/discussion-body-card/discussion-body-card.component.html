@@ -5,13 +5,13 @@
   <br>
   <mat-divider></mat-divider>
 
-  <p class="card-lt-text">Started by {{discussion.MasterUser.MasterUserPersonal | userFullName }}
+  <p class="card-lt-text">Started by {{discussion.author.personalDetails | userFullName }}
     on {{ discussion.createdAt | date:'MMMM d, y, h:mm:ss a'}}</p>
 </mat-card>
 
 <mat-divider class="card-divider"></mat-divider>
 
-<app-discussion-posts-card *ngFor="let discussionPost of discussion.DiscussionPosts"
+<app-discussion-posts-card *ngFor="let discussionPost of discussion.discussionPosts"
                            [discussionPost]="discussionPost"
 ></app-discussion-posts-card>
 

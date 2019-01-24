@@ -17,9 +17,9 @@ export class DiscussionCoreComponent implements OnInit {
 
   ngOnInit() {
 
-    let discussionId = this.routerSnapshot.snapshot.params.discussionId;
-    console.log('@DiscussionCoreComponent#Loading discussion: ', discussionId);
-    this.discussionsFacade._loadDiscussion(discussionId);
+    let classroomId = this.routerSnapshot.snapshot.params.classroomId;
+    console.log('@DiscussionCoreComponent#Current classroom: ', classroomId);
+    this.discussionsFacade._loadDiscussions(classroomId);
 
   }
 

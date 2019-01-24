@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ClassroomDetails} from '../../../models/classroom.models';
-import {Router} from '@angular/router';
+import {Classroom} from '../../../models/classroom.models';
 
 @Component({
   selector: 'app-classroom-dashboard',
@@ -9,21 +8,12 @@ import {Router} from '@angular/router';
 })
 export class ClassroomDashboardComponent implements OnInit {
   @Input('classroomDetails')
-  classroomDetails: ClassroomDetails;
+  classroomDetails: Classroom;
 
   constructor(
-    private router: Router
   ) {
   }
 
   ngOnInit() {
-  }
-
-  onDiscussionsCardClick() {
-    this.router.navigate(['/classroom', 'discussions']);
-  }
-
-  onMembersCardClick() {
-    this.router.navigate(['/classroom', 'members']);
   }
 }

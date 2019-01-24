@@ -15,12 +15,15 @@ import {AuthModule} from './modules/auth/auth.module';
 import {SharedModule} from './modules/shared/shared.module';
 import {NavigationModule} from './modules/navigation/navigation.module';
 import {StoreModule} from '@ngrx/store';
+
 import {effects, reducers} from './app.reducer';
+import * as fromRouter from './states/router/router.reducer';
+
 import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 
-import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +37,7 @@ import {StoreRouterConnectingModule} from '@ngrx/router-store';
     NavigationModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
-    StoreRouterConnectingModule.forRoot(),
+    StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [
@@ -47,7 +50,14 @@ import {StoreRouterConnectingModule} from '@ngrx/router-store';
       useClass: AuthInterceptor,
       multi: true
     },
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}}
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {hasBackdrop: true}
+    },
+    {
+      provide: RouterStateSerializer,
+      useClass: fromRouter.RouterSerializer
+    }
   ],
   bootstrap: [AppComponent]
 })

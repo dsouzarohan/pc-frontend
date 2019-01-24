@@ -2,64 +2,82 @@ import {MasterUserName} from './user.models';
 import {denormalize, normalize, schema} from 'normalizr';
 
 export interface Discussion {
-  id: string;
+  id: number;
   topic: string;
   body: string;
   startedBy: string;
   classroomId: string;
   createdAt: string;
   updatedAt: string;
-  MasterUser: MasterUserName;
-  DiscussionPosts?: Array<DiscussionPost>;
+  author: MasterUserName;
+  discussionPosts?: Array<DiscussionPost>;
 }
 
 export interface DiscussionPost {
-  id: string;
+  id: number;
   body: string;
   createdAt: string;
   updatedAt: string;
   discussionId: string;
   postedBy: string;
-  MasterUser: MasterUserName;
-  DiscussionPostComments?: Array<DiscussionPostComment>;
+  poster: MasterUserName;
+  discussionPostComments?: Array<DiscussionPostComment>;
 }
 
 export interface DiscussionPostComment {
-  id: string;
+  id: number;
   body: string;
   discussionPostId: string;
   commentedBy: string;
   createdAt: string;
   updatedAt: string;
-  MasterUser: MasterUserName;
+  commenter: MasterUserName;
 }
 
 //for discussion to entity conversions
 
-const MasterUserPersonal = new schema.Entity('MasterUserPersonal');
+const discussionPostCommentSchema = new schema.Entity('discussionPostComment');
 
-const MasterUser = new schema.Entity('MasterUser', {
-  MasterUserPersonal
+const discussionPostSchema = new schema.Entity('discussionPost', {
+  discussionPostComments: [discussionPostCommentSchema]
 });
 
-const DiscussionPostComment = new schema.Entity('DiscussionPostComment', {
-  MasterUser
+const discussionSchema = new schema.Entity('discussion', {
+  discussionPosts: [discussionPostSchema]
 });
 
-const DiscussionPost = new schema.Entity('DiscussionPost', {
-  DiscussionPostComments: [DiscussionPostComment],
-  MasterUser
-});
+const discussionListSchema = [discussionSchema];
 
-const Discussion = new schema.Entity('Discussion', {
-  MasterUser,
-  DiscussionPosts: [DiscussionPost]
-});
-
-export const discussionToEntity = (discussion: Discussion): { entities: any, result: any } => {
-  return normalize(discussion, Discussion);
+export const discussionToEntity = (discussions: Array<Discussion>): { entities: any, result: any } => {
+  return normalize(discussions, discussionListSchema);
 };
 
-export const entityToDiscussion = (discussionEntity: { entities: any, result: any }): Discussion => {
-  return discussionEntity ? denormalize(discussionEntity.result, Discussion, discussionEntity.entities) : null;
+export const entityToDiscussion = (discussionEntity: { entities: any, result: any }, discussionId: number): Discussion => {
+
+  console.log('@DiscussionModel#Params', discussionEntity, discussionId);
+
+  if (discussionEntity) {
+    let denormalized = denormalize(discussionId, discussionSchema, discussionEntity.entities);
+    console.log('@DiscussionsModel#Denormalized', denormalized);
+    return denormalized;
+  }
+
+  return null;
+};
+
+export const getDiscussionsFromEntity = (discussionEntity: { entities: any, result: any }): Array<Discussion> => {
+
+  if (discussionEntity) {
+    console.log('@DiscussionsModel#DiscussionEntity', discussionEntity);
+    let discussions = discussionEntity.entities.discussion;
+
+    if (discussionEntity.entities.discussion) {
+      return Object.keys(discussions).map(key => discussions[key]);
+    } else {
+      return [];
+    }
+  } else {
+    return null;
+  }
+
 };

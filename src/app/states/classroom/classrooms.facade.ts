@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {filter, map, mapTo} from 'rxjs/operators';
+import {filter, map, mapTo, take} from 'rxjs/operators';
 import {merge} from 'rxjs';
 
-import * as fromCore from '../core/core.reducer';
+import * as fromCore from '../core-feature/core-feature.reducer';
 
 import * as ClassroomsActionBundle from './classrooms.action';
 import * as classroomsSelectors from './classrooms.selectors';
@@ -15,6 +15,11 @@ import {Router} from '@angular/router';
 export class ClassroomsFacade {
   public classrooms$ = this.store.select(classroomsSelectors.getClassrooms);
 
+  public classroomsEntity$ = this.store.select(
+    classroomsSelectors.getClassroomsEntity
+  ).pipe(
+    take(1)
+  );
 
   public classroomDetails$ = this.store.select(
     classroomsSelectors.getClassroomDetails
@@ -77,13 +82,6 @@ export class ClassroomsFacade {
     );
     this.store.dispatch(
       new ClassroomsActionBundle.TryCreateClassroomAction(classDetails)
-    );
-  }
-
-  _loadClassroomDetails(classroomID: string) {
-    this.router.navigate(['/classroom']);
-    this.store.dispatch(
-      new ClassroomsActionBundle.TryGetClassroomDetailsAction(classroomID)
     );
   }
 }
