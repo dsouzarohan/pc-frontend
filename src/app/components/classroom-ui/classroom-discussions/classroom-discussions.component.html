@@ -1,4 +1,7 @@
-<mat-card>
+<mat-card class="discussions-card">
+  <button class="new-discussion-button" mat-icon-button routerLink="new">
+    <mat-icon>library_add</mat-icon>
+  </button>
   <div *ngIf="(discussions$ | async) as discussions; else discussionsLoading">
     <div *ngIf="(classroom$ | async) as classroom; else discussionsLoading">
       <h3 class="card-title">

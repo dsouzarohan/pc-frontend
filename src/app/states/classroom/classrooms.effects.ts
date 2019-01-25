@@ -29,7 +29,7 @@ export class ClassroomsEffects {
         return this.classroomsService.createClassroom(classroomDetails).pipe(
           map(response => {
 
-            console.log('@ClassroomEffects#Create response', response);
+            console.log('@ClassroomEffects#Created classroom', response.createdClassroom);
 
             return new ClassroomsActionBundle.OnCreateClassroomSuccessAction(
               response.createdClassroom
@@ -55,8 +55,6 @@ export class ClassroomsEffects {
     )
     .pipe(
       map((action: ClassroomsActionBundle.OnCreateClassroomSuccessAction) => {
-
-        console.log('@ClassroomEffects#Created Classroom payload', action.payload);
 
         this.snackBarService.open(
           `'${action.payload.name}' created successfully`,
@@ -97,7 +95,7 @@ export class ClassroomsEffects {
       switchMap(() => {
         return this.classroomsService.getClassrooms().pipe(
           map(response => {
-            console.log('@ClassroomEffects#GetClassroomResponse', response);
+            console.log('@ClassroomEffects#FetchedClassrooms', response.data);
             return new ClassroomsActionBundle.OnGetClassroomsSuccessAction(
               response.data
             );
@@ -147,10 +145,10 @@ export class ClassroomsEffects {
       )
     )
     .pipe(
-      switchMap(classcode => {
-        return this.classroomsService.joinClassroom(classcode).pipe(
+      switchMap(classCode => {
+        return this.classroomsService.joinClassroom(classCode).pipe(
           map(response => {
-            console.log('@ClassroomEffect#JoinClassroomResponse', response);
+            console.log('@ClassroomEffect#Joined classroom', response.classroom);
             return new ClassroomsActionBundle.OnJoinClassroomSuccessAction(
               response.classroom
             );

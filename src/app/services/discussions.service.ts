@@ -22,7 +22,7 @@ export class DiscussionsService {
   createDiscussion(discussionDetails: {
     discussionTopic: string,
     discussionBody: string,
-    classroomId: string
+    classroomId: number
   }) {
     return this.http.post<CreateDiscussionResponse>(environment.apiUrl + 'discussions/create', discussionDetails);
   }

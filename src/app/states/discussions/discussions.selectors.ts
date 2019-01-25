@@ -19,8 +19,7 @@ export const getDiscussionEntity = createSelector(
 
 export const getDiscussions = createSelector(
   getDiscussionEntity,
-  (discussionEntity: { entities: any, result: any }) => {
-    console.log('@DiscussionSelector#getDiscussions', discussionEntity);
+  (discussionEntity: { entities: any; result: any }) => {
     let discussions = getDiscussionsFromEntity(discussionEntity);
     return discussions;
   }
@@ -30,12 +29,10 @@ export const getDiscussion = createSelector(
   getDiscussionEntity,
   fromRouter.getRouterState,
   (discussionEntity, routerState) => {
-
-    console.log('@DiscussionSelector#getDiscussion', discussionEntity, routerState);
-
-    let discussion = entityToDiscussion(discussionEntity, routerState.state.params.discussionId);
-
-    console.log('@DiscussionSelector#discussion object', discussion);
+    let discussion = entityToDiscussion(
+      discussionEntity,
+      routerState.state.params.discussionId
+    );
 
     return discussion;
   }

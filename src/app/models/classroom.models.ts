@@ -10,24 +10,30 @@ export interface Classroom {
   createdAt: string;
   updatedAt: string;
   teacher: {
-    id: number,
-    masterUserDetails: MasterUserName
+    id: number;
+    masterUserDetails: MasterUserName;
   };
-  students: Array<Student>
+  students: Array<Student>;
 }
 
 const classroomSchema = new schema.Entity('classrooms');
 const classroomListSchema = new schema.Array(classroomSchema);
 
-export const classroomArrayToEntity = (classrooms: Array<Classroom>): { entities: any, result: Array<any> } => {
+export const classroomArrayToEntity = (
+  classrooms: Array<Classroom>
+): { entities: any; result: Array<any> } => {
   return normalize(classrooms, classroomListSchema);
 };
 
-export const classroomEntityToArray = (classroomEntity: { entities: any, result: Array<any> }): Array<Classroom> => {
-
-  console.log('To denormalize', classroomEntity);
-  const classrooms: Array<Classroom> = denormalize(classroomEntity.result, classroomListSchema, classroomEntity.entities);
-  console.log('Denormalized', classrooms);
+export const classroomEntityToArray = (classroomEntity: {
+  entities: any;
+  result: Array<any>;
+}): Array<Classroom> => {
+  const classrooms: Array<Classroom> = denormalize(
+    classroomEntity.result,
+    classroomListSchema,
+    classroomEntity.entities
+  );
 
   return classrooms;
 };

@@ -28,16 +28,37 @@ export const discussionsReducer = (
       let fetchedDiscussion = (<
         DiscussionsActionBundle.OnGetDiscussionsSuccessAction
         >action).payload;
-      console.log('@DiscussionsReducer#FetchedDiscussion', fetchedDiscussion);
+
       let fetchedDiscussionEntity = discussionToEntity(fetchedDiscussion);
-      console.log(
-        '@DiscussionsReducer#FetchedDiscussionEntity',
-        fetchedDiscussionEntity
-      );
 
       return {
         ...state,
         discussions: fetchedDiscussionEntity
+      };
+
+    case DiscussionsActionBundle.DiscussionsActionTypes.ON_CREATE_DISCUSSION_SUCCESS:
+
+      let discussion = (<DiscussionsActionBundle.OnCreateDiscussionSuccess>action).payload;
+
+      return {
+        ...state,
+        discussions: {
+          ...state.discussions,
+          entities: {
+            ...state.discussions.entities,
+            discussion: {
+              ...state.discussions.entities.discussion,
+              [discussion.id]: {
+                ...discussion,
+                discussionPosts: []
+              }
+            }
+          },
+          result: [
+            discussion.id,
+            ...state.discussions.result
+          ]
+        }
       };
 
     case DiscussionsActionBundle.DiscussionsActionTypes.TRY_ADD_POST:
@@ -47,21 +68,8 @@ export const discussionsReducer = (
       };
 
     case DiscussionsActionBundle.DiscussionsActionTypes.ON_ADD_POST_SUCCESS:
-
-      console.log('@DiscussionsReducer#OnAddPostSuccessCase');
-
       let createdPost = (<DiscussionsActionBundle.OnAddPostSuccessAction>action)
         .payload;
-      console.log('New discussion post state', {
-        ...state,
-        isPosting: false,
-        discussions: {
-          ...state.discussions,
-          entities: {
-            ...state.discussions.entities
-          }
-        }
-      });
 
       return {
         ...state,
@@ -73,7 +81,9 @@ export const discussionsReducer = (
             discussion: {
               ...state.discussions.entities.discussion,
               [createdPost.discussionId]: {
-                ...state.discussions.entities.discussion[createdPost.discussionId],
+                ...state.discussions.entities.discussion[
+                  createdPost.discussionId
+                  ],
                 discussionPosts: [
                   createdPost.id,
                   ...state.discussions.entities.discussion[
@@ -109,8 +119,6 @@ export const discussionsReducer = (
       let createdComment = (<DiscussionsActionBundle.OnAddCommentSuccessAction>(
         action
       )).payload;
-
-      console.log('@DiscussionsReducer#CreatedComment', createdComment);
 
       return {
         ...state,

@@ -4,6 +4,7 @@ import {ClassroomDiscussionsComponent} from '../../components/classroom-ui/class
 import {DiscussionComponent} from '../../components/classroom-ui/classroom-discussions/discussion/discussion.component';
 import {CreateDiscussionPostComponent} from '../../components/classroom-ui/classroom-discussions/discussion/create-discussion-post/create-discussion-post.component';
 import {DiscussionCoreComponent} from '../../components/classroom-ui/classroom-discussions/discussion-core/discussion-core.component';
+import {CreateDiscussionComponent} from '../../components/classroom-ui/classroom-discussions/create-discussion/create-discussion.component';
 
 const discussionsRoutes: Routes = [
   {
@@ -15,26 +16,22 @@ const discussionsRoutes: Routes = [
         path: ''
       },
       {
-        component: CreateDiscussionPostComponent,
+        component: CreateDiscussionComponent,
         path: 'new'
       },
       {
-        component: DiscussionComponent,
-        path: ':discussionId'
-      }
-    ]
-  },
-  {
-    path: ':discussionId',
-    component: DiscussionCoreComponent,
-    children: [
-      {
-        component: DiscussionComponent,
-        path: ''
-      },
-      {
-        component: CreateDiscussionPostComponent,
-        path: 'new'
+        path: ':discussionId',
+        component: DiscussionCoreComponent,
+        children: [
+          {
+            component: DiscussionComponent,
+            path: ''
+          },
+          {
+            component: CreateDiscussionPostComponent,
+            path: 'new'
+          }
+        ]
       }
     ]
   }

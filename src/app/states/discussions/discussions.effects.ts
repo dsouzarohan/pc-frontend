@@ -57,15 +57,26 @@ export class DiscussionsEffects {
       ofType(
         DiscussionsActionBundle.DiscussionsActionTypes
           .ON_CREATE_DISCUSSION_SUCCESS
+      ),
+      withLatestFrom(
+        this.store.select(fromRouter.getRouterState),
+        (action: DiscussionsActionBundle.OnCreateDiscussionSuccess, routerState) => {
+          this.snackBar.open('Discussion created successfully', null, {
+            duration: 3000,
+            panelClass: 'snack-bar-align-span-center'
+          });
+
+          let discussion = action.payload;
+          let currentRouteParams = routerState.state.params;
+
+          this.router.navigate([
+            '/classroom',
+            currentRouteParams.classroomId,
+            'discussions',
+            discussion.id
+          ]);
+        }
       )
-    )
-    .pipe(
-      map(() => {
-        this.snackBar.open('Discussion created successfully', null, {
-          duration: 3000,
-          panelClass: 'snack-bar-align-span-center'
-        });
-      })
     );
 
   @Effect({
@@ -169,7 +180,7 @@ export class DiscussionsEffects {
 
         let currentRouteParams = routerState.state.params;
 
-        console.log('CurrentRouteParams', currentRouteParams);
+
 
         this.router.navigate([
           '/classroom',
@@ -244,10 +255,8 @@ export class DiscussionsEffects {
       switchMap(classroomId => {
         return this.discussionsService.getDiscussions(classroomId).pipe(
           map(response => {
-            console.log(
-              '@DiscussionEffects#GetDiscussionsResponse',
-              response.data
-            );
+
+            console.log('@DiscussionsEffects#FetchedDiscussions', response.data);
 
             return new DiscussionsActionBundle.OnGetDiscussionsSuccessAction(
               response.data

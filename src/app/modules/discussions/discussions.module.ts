@@ -11,15 +11,22 @@ import {DiscussionCoreComponent} from '../../components/classroom-ui/classroom-d
 import {EditorModule} from 'primeng/editor';
 import {DiscussionCardComponent} from '../../components/classroom-ui/classroom-discussions/discussion-card/discussion-card.component';
 import {DiscussionCommentInputComponent} from '../../components/classroom-ui/classroom-discussions/discussion/discussion-comment-input/discussion-comment-input.component';
+import {CreateDiscussionComponent} from '../../components/classroom-ui/classroom-discussions/create-discussion/create-discussion.component';
 
 @NgModule({
-  declarations: [ClassroomDiscussionsComponent, DiscussionComponent, DiscussionBodyCardComponent, DiscussionPostsCardComponent, DiscussionCommentsCardComponent, CreateDiscussionPostComponent, DiscussionCoreComponent, DiscussionCardComponent, DiscussionCommentInputComponent],
-  imports: [
-    SharedModule,
-    DiscussionsRoutingModule,
-    EditorModule
-  ]
+  declarations: [
+    ClassroomDiscussionsComponent,
+    DiscussionComponent,
+    DiscussionBodyCardComponent,
+    DiscussionPostsCardComponent,
+    DiscussionCommentsCardComponent,
+    CreateDiscussionPostComponent,
+    DiscussionCoreComponent,
+    DiscussionCardComponent,
+    DiscussionCommentInputComponent,
+    CreateDiscussionComponent
+  ],
+  imports: [SharedModule, DiscussionsRoutingModule, EditorModule]
 })
 export class DiscussionsModule {
-
 }

@@ -9,14 +9,14 @@ import {map} from 'rxjs/operators';
 export class DiscussionsFacade {
   public discussions$ = this.store.select(discussionsSelectors.getDiscussions).pipe(
     map(discussion => {
-      console.log('@DiscussionFacade#discussionSelector', discussion);
+
       return discussion;
     })
   );
 
   public discussion$ = this.store.select(discussionsSelectors.getDiscussion).pipe(
     map(discussion => {
-      console.log('@DiscussionFacade#discussionSelector', discussion);
+
       return discussion;
     })
   );
@@ -30,8 +30,16 @@ export class DiscussionsFacade {
     );
   }
 
+  _addDiscussion(discussionDetails: {
+    discussionBody: string,
+    discussionTopic: string,
+    classroomId: number
+  }) {
+    this.store.dispatch(new DiscussionsActionBundle.TryCreateDiscussionAction(discussionDetails));
+  }
+
   _addPost(postDetails: { discussionId: number; body: string }) {
-    console.log('@DiscussionFacade#addPostDetails', postDetails);
+
     this.store.dispatch(
       new DiscussionsActionBundle.TryAddPostAction(postDetails)
     );

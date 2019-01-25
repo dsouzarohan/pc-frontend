@@ -1,27 +1,43 @@
 <mat-card>
-  <div *ngIf="(discussion$ | async) as discussion; else discussionLoading">
-    <h3 class="card-title">{{ discussion.topic }}</h3>
-    <p class="card-subtitle">Add a post</p>
-    <br>
-    <p-editor #editor [(ngModel)]="discussionPost" [style]="{'height':'320px'}" styleClass="mat-elevation-z5">
-      <p-header>
+
+  <h3 class="card-title">
+    Start a discussion
+  </h3>
+
+  <!--todo: fix form appearance with proper validity messages-->
+
+  <br>
+
+  <mat-form-field appearance="fill">
+    <mat-label>The discussion topic</mat-label>
+    <input
+      [(ngModel)]="discussionTopic"
+      matInput
+      placeholder="Type here">
+
+  </mat-form-field>
+
+  <p class="card-subtitle">Enter a body</p>
+  <br>
+  <p-editor #editor [(ngModel)]="discussionBody" [style]="{'height':'320px'}" styleClass="mat-elevation-z5">
+    <p-header>
         <span class="ql-formats">
             <button aria-label="Bold" class="ql-bold"></button>
             <button aria-label="Italic" class="ql-italic"></button>
             <button aria-label="Underline" class="ql-underline"></button>
         </span>
-        <span class="ql-formats">
+      <span class="ql-formats">
           <select class="ql-size">
           <option value="small"></option><option selected="selected"></option>
           <option value="large"></option>
           <option value="huge"></option>
         </select>
         </span>
-        <span class="ql-formats">
+      <span class="ql-formats">
           <select class="ql-color"></select>
           <select class="ql-background"></select>
         </span>
-        <span class="ql-formats">
+      <span class="ql-formats">
           <button class="ql-list" value="ordered"></button>
           <button class="ql-list" value="bullet"></button>
           <select class="ql-align">
@@ -31,22 +47,14 @@
             <option value="justify"></option>
           </select>
         </span>
-        <span class="ql-formats">
+      <span class="ql-formats">
           <button class="ql-link"></button>
           <button class="ql-code"></button>
         </span>
-      </p-header>
-    </p-editor>
-    <div class="post-preview-container mat-elevation-z5">
-      <h3 class="card-dk-text">
-        Your post preview:
-      </h3>
-      <p [innerHTML]="discussionPost"></p>
-    </div>
-    <button (click)="onPostButtonClick(discussion.id)" mat-button>Post</button>
-  </div>
+    </p-header>
+  </p-editor>
+  <br>
 
-  <ng-template #discussionLoading>
-    Loading...
-  </ng-template>
+  <button (click)="onDiscussionSubmitClick()" [disabled]="!discussionFormIsValid()" mat-button>Post</button>
+
 </mat-card>

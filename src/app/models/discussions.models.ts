@@ -48,27 +48,34 @@ const discussionSchema = new schema.Entity('discussion', {
 
 const discussionListSchema = [discussionSchema];
 
-export const discussionToEntity = (discussions: Array<Discussion>): { entities: any, result: any } => {
+export const discussionToEntity = (
+  discussions: Array<Discussion>
+): { entities: any; result: any } => {
   return normalize(discussions, discussionListSchema);
 };
 
-export const entityToDiscussion = (discussionEntity: { entities: any, result: any }, discussionId: number): Discussion => {
-
-  console.log('@DiscussionModel#Params', discussionEntity, discussionId);
-
+export const entityToDiscussion = (
+  discussionEntity: { entities: any; result: any },
+  discussionId: number
+): Discussion => {
   if (discussionEntity) {
-    let denormalized = denormalize(discussionId, discussionSchema, discussionEntity.entities);
-    console.log('@DiscussionsModel#Denormalized', denormalized);
+    let denormalized = denormalize(
+      discussionId,
+      discussionSchema,
+      discussionEntity.entities
+    );
+
     return denormalized;
   }
 
   return null;
 };
 
-export const getDiscussionsFromEntity = (discussionEntity: { entities: any, result: any }): Array<Discussion> => {
-
+export const getDiscussionsFromEntity = (discussionEntity: {
+  entities: any;
+  result: any;
+}): Array<Discussion> => {
   if (discussionEntity) {
-    console.log('@DiscussionsModel#DiscussionEntity', discussionEntity);
     let discussions = discussionEntity.entities.discussion;
 
     if (discussionEntity.entities.discussion) {
@@ -79,5 +86,4 @@ export const getDiscussionsFromEntity = (discussionEntity: { entities: any, resu
   } else {
     return null;
   }
-
 };

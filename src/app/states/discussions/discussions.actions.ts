@@ -28,7 +28,7 @@ export class TryCreateDiscussionAction implements Action {
   constructor(public payload: {
     discussionTopic: string,
     discussionBody: string,
-    classroomId: string
+    classroomId: number
   }) {
   }
 }
@@ -127,4 +127,8 @@ export type DiscussionsActions =
 
   | TryAddCommentAction
   | OnAddCommentSuccessAction
-  | OnAddCommentFailAction;
+  | OnAddCommentFailAction
+
+  | TryCreateDiscussionAction
+  | OnCreateDiscussionSuccess
+  | OnCreateDiscussionFail;

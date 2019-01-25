@@ -35,8 +35,6 @@ export const getClassroomDetails = createSelector(
   fromRouter.getRouterState,
   (classroomEntity, routerState) => {
     if (classroomEntity) {
-      console.log('@ClassroomSelector#ClassroomEntity', classroomEntity);
-      console.log('@ClassroomSelector#RouterState', routerState);
       return <Classroom>classroomEntity.entities.classrooms[routerState.state.params.classroomId];
     } else {
       return null;

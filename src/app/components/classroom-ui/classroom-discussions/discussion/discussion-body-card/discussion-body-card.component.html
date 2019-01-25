@@ -11,7 +11,13 @@
 
 <mat-divider class="card-divider"></mat-divider>
 
-<app-discussion-posts-card *ngFor="let discussionPost of discussion.discussionPosts"
-                           [discussionPost]="discussionPost"
-></app-discussion-posts-card>
+<div *ngIf="discussion.discussionPosts.length > 0; else zeroPostsMessage">
+  <app-discussion-posts-card *ngFor="let discussionPost of discussion.discussionPosts"
+                             [discussionPost]="discussionPost"
+  ></app-discussion-posts-card>
+</div>
+<ng-template #zeroPostsMessage>
+  <p class="card-subtitle zero-posts-message">There are no posts in this discussion yet. Be the first one!</p>
+</ng-template>
+
 

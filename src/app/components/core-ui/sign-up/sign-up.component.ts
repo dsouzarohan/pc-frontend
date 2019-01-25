@@ -49,6 +49,8 @@ export class SignUpComponent implements OnInit {
     }
 
     return {'Passwords do not match': true};
+
+    // todo: fix validator, not working when input is modified after being validated
   }
 
   ngOnInit() {
