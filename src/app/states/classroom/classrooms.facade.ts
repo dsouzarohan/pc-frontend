@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {filter, map, mapTo, take} from 'rxjs/operators';
+import {filter, map, mapTo} from 'rxjs/operators';
 import {merge} from 'rxjs';
 
 import * as fromCore from '../core-feature/core-feature.reducer';
@@ -17,9 +17,20 @@ export class ClassroomsFacade {
 
   public classroomsEntity$ = this.store.select(
     classroomsSelectors.getClassroomsEntity
-  ).pipe(
-    take(1)
   );
+
+  public validClassrooms$ = this.store.select(
+    classroomsSelectors.getClassroomsEntity
+  );
+  //   .pipe(
+  //   tap((classroomEntity) => {
+  //     console.log("@ClassroomFacade#UserType", classroomEntity);
+  //   }),
+  //   skipWhile(classroomEntity => classroomEntity === null || classroomEntity.entities === undefined),
+  //   tap((classroomEntity) => {
+  //     console.log("@ClassroomFacade#UserTypeNotNull", classroomEntity);
+  //   })
+  // );
 
   public classroomDetails$ = this.store.select(
     classroomsSelectors.getClassroomDetails

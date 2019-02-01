@@ -14,6 +14,7 @@ export class CoreComponent implements OnInit, OnDestroy {
     private userFacade: UserFacade,
     private classroomsFacade: ClassroomsFacade
   ) {
+    console.log('CoreComponent instantiated');
   }
 
   ngOnInit() {

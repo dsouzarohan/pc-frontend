@@ -32,6 +32,8 @@ export function classroomReducer(
         action
       )).payload;
 
+      console.log('@ClassroomsReducer#UpdatingClassroomsState');
+
       return {
         ...state,
         classrooms: classroomArrayToEntity(classrooms)

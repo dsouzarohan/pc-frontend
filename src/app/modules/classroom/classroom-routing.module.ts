@@ -4,20 +4,23 @@ import {ClassroomComponent} from '../../components/classroom-ui/classroom/classr
 import {CreateClassroomComponent} from '../../components/classroom-ui/create-classroom/create-classroom.component';
 import {ClassroomMembersComponent} from '../../components/classroom-ui/classroom-members/classroom-members.component';
 import {ClassroomCoreComponent} from '../../components/classroom-ui/classroom-core/classroom-core.component';
-import {ClassroomAuthGuard} from '../../guards/classroom-auth.guard';
+import {TeacherOnlyGuard} from '../../guards/teacher-only.guard';
 
 const classroomRoutes: Routes = [
   {
     path: 'new',
-    component: CreateClassroomComponent
+    component: CreateClassroomComponent,
+    canActivate: [
+      TeacherOnlyGuard
+    ]
     //todo: write a guard to only only teachers to access this route
   }, {
     path: ':classroomId',
     component: ClassroomCoreComponent,
-    canActivate: [
-      ClassroomAuthGuard
-    ],
-    //todo: create a guard to allow users to only access classrooms they belong to (in classroom entities)
+    // canActivate: [
+    //   ClassroomAuthGuard
+    // ],
+    //todo: fix guard to wait for null state to give classroom entity
     children: [
       {
         path: '',
@@ -30,6 +33,10 @@ const classroomRoutes: Routes = [
       {
         path: 'discussions',
         loadChildren: '../discussions/discussions.module#DiscussionsModule'
+      },
+      {
+        path: 'announcements',
+        loadChildren: '../announcements/announcements.module#AnnouncementsModule'
       }
     ]
   },

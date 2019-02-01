@@ -1,0 +1,24 @@
+<mat-card>
+  <h3 class="card-title">Announcements</h3>
+  <ng-container *ngIf="($currentClassroomDetails | async) as currentClassroomDetails; else loading">
+
+    <p class="card-subtitle">{{currentClassroomDetails.name}}</p>
+
+  </ng-container>
+
+  <ng-template #loading>
+    <p class="card-subtitle">Loading...</p>
+  </ng-template>
+
+</mat-card>
+
+<mat-divider class="card-divider"></mat-divider>
+
+<ng-container *ngIf="($announcements | async) as announcements; else loading">
+
+  <app-announcement-card
+    *ngFor="let announcement of announcements"
+    [announcement]="announcement">
+  </app-announcement-card>
+
+</ng-container>

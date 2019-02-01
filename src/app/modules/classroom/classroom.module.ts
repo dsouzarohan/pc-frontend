@@ -13,6 +13,7 @@ import {StoreModule} from '@ngrx/store';
 
 import * as fromClassroomFeature from '../../states/classroom-feature/classroom-feature.reducer';
 import {EffectsModule} from '@ngrx/effects';
+import {AnnouncementsDetailsCardComponent} from '../../components/classroom-ui/classroom-dashboard/announcements-details-card/announcements-details-card.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {EffectsModule} from '@ngrx/effects';
     DiscussionsDetailsCardComponent,
     MembersDetailsCardComponent,
     ClassroomMembersComponent,
-    ClassroomCoreComponent
+    ClassroomCoreComponent,
+    AnnouncementsDetailsCardComponent
   ],
   imports: [
     SharedModule,

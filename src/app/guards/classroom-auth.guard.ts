@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
 import {ClassroomsFacade} from '../states/classroom/classrooms.facade';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,28 +10,37 @@ import {ClassroomsFacade} from '../states/classroom/classrooms.facade';
 export class ClassroomAuthGuard implements CanActivate {
 
   constructor(
-    private classroomsFacade: ClassroomsFacade
+    private classroomsFacade: ClassroomsFacade,
+    private router: Router
   ) {
+    console.log('ClassroomGuardCalled');
   }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    // return this.classroomsFacade.classroomsEntity$.pipe(
-    //   map( classrooms => {
-    //     let toBeFetchedClassroomId = next.params.classroomId;
-    //     let toBeFetchedClassroom = classrooms.entities.classroom[toBeFetchedClassroomId];
-    //
-    //     if(toBeFetchedClassroom){
-    //       return true;
-    //     } else {
-    //       return false;
-    //     }
-    //
-    //   })
-    // );
+    return this.classroomsFacade.validClassrooms$.pipe(
+      map(classroomsEntity => {
 
-    return true;
+        // console.log("@ClassroomAuthGuard#ValidClassrooms",classroomsEntity);
+        //
+        // let toBeFetchedClassroomId = next.params.classroomId;
+        //
+        // console.log("@ClassroomAuthGuard#ToBeFetchedClassroomId",toBeFetchedClassroomId);
+        // let toBeFetchedClassroom = classroomsEntity.entities.classrooms[toBeFetchedClassroomId];
+        // console.log("@ClassroomAuthGuard#ToBeFetchedClassroom",toBeFetchedClassroom);
+        //
+        // if(toBeFetchedClassroom){
+        //   return true;
+        // } else {
+        //   this.router.navigate(["/"])
+        //   return false;
+        // }
+
+        return true;
+
+      })
+    );
   }
 }

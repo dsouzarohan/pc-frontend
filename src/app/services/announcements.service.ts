@@ -13,7 +13,7 @@ export class AnnouncementsService {
   }
 
   getAnnouncements(classroomId: number) {
-    return this.http.get<GetAnnouncementsResponse>(environment.apiUrl + 'announcements/classroomId=' + classroomId);
+    return this.http.get<GetAnnouncementsResponse>(environment.apiUrl + 'announcements?classroomId=' + classroomId);
   }
 
   addAnnouncement(announcementDetails: {

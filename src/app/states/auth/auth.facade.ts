@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AppState} from '../../app.reducer';
 import {Store} from '@ngrx/store';
-import {take} from 'rxjs/operators';
+import {filter, map, take} from 'rxjs/operators';
 import {UserAuthInformation, UserLoginCredentials} from '../../models/user.models';
 import * as AuthActionsBundle from './auth.actions';
 import * as authSelectors from './auth.selectors';
@@ -12,6 +12,13 @@ import * as authSelectors from './auth.selectors';
 export class AuthFacade {
   public userID$ = this.store.select(authSelectors.getUserID).pipe(take(1));
   public userType$ = this.store.select(authSelectors.getUserType).pipe(take(1));
+
+  public userIsTeacher$ = this.store.select(authSelectors.getUserType).pipe(
+    filter(authType => authType !== null),
+    map(authType => authType === 'Teacher'),
+    take(1)
+  );
+
   public userToken$ = this.store
     .select(authSelectors.getUserToken)
     .pipe(take(1));

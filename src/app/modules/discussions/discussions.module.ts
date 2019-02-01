@@ -26,7 +26,8 @@ import {CreateDiscussionComponent} from '../../components/classroom-ui/classroom
     DiscussionCommentInputComponent,
     CreateDiscussionComponent
   ],
-  imports: [SharedModule, DiscussionsRoutingModule, EditorModule]
+  imports: [SharedModule, DiscussionsRoutingModule,
+    EditorModule]
 })
 export class DiscussionsModule {
 }

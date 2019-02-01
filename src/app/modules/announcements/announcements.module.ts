@@ -1,16 +1,16 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../shared/shared.module';
-import {AnnouncementsService} from '../../services/announcements.service';
-import {AnnouncementsFacade} from '../../states/announcements/announcements.facade';
+import {ClassroomAnnouncementsComponent} from '../../components/classroom-ui/classroom-announcements/classroom-announcements.component';
+import {AnnouncementsRoutingModule} from './announcements-routing.module';
+import {AnnouncementCardComponent} from '../../components/classroom-ui/classroom-announcements/announcement-card/announcement-card.component';
+import {CreateAnnouncementComponent} from '../../components/classroom-ui/classroom-announcements/create-announcement/create-announcement.component';
+import {AnnouncementsCoreComponent} from '../../components/classroom-ui/classroom-announcements/announcements-core/announcements-core.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [ClassroomAnnouncementsComponent, AnnouncementCardComponent, CreateAnnouncementComponent, AnnouncementsCoreComponent],
   imports: [
-    SharedModule
-  ],
-  providers: [
-    AnnouncementsService,
-    AnnouncementsFacade
+    SharedModule,
+    AnnouncementsRoutingModule
   ]
 })
 

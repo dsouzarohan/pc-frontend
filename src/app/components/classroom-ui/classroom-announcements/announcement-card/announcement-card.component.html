@@ -1,0 +1,6 @@
+<mat-card>
+  <p [innerHTML]="announcement.body" class="announcement-body-container"></p>
+  <mat-divider class="card-divider"></mat-divider>
+  <p class="card-lt-text posted-by-details">Posted on {{ announcement.createdAt | date:'MMMM d, y, h:mm a'}}</p>
+</mat-card>
+<br>
