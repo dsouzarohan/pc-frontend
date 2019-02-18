@@ -1,0 +1,50 @@
+<mat-card>
+  <h3 class="card-title">{{ question.name }}</h3>
+  <p [innerHTML]="question.body" class="card-subtitle"></p>
+  <br>
+  <mat-divider></mat-divider>
+  <p class="card-lt-text">Asked by {{question.author.personalDetails | userFullName}}
+    on {{ question.createdAt | date:'MMMM d, y, h:mm:ss a' }}</p>
+  <div class="vote-buttons-container flex-row">
+    <span><button
+      (click)="onVoteClick('U')"
+      [ngClass]="{'vote-button-selected': userVote === 'U'}" class="comment-up-vote" mat-icon-button><mat-icon>keyboard_arrow_up</mat-icon></button><span
+      (click)="onCountClick()"> Upvote ({{votes.upVotes.length}})</span></span>
+    <span><button
+      (click)="onVoteClick('D')"
+      [ngClass]="{'vote-button-selected': userVote === 'D'}" class="comment-down-vote" mat-icon-button><mat-icon>keyboard_arrow_down</mat-icon></button><span
+      (click)="onCountClick()"> Downvote ({{votes.downVotes.length}})</span></span>
+  </div>
+</mat-card>
+<br>
+<mat-card>
+  <h5 class="card-title">Comments ({{ question.questionComments.length }})</h5>
+  <br>
+  <div class="question-comments-container">
+    <app-question-comment-card
+      *ngFor="let questionComment of question.questionComments"
+      [questionComment]="questionComment"
+    ></app-question-comment-card>
+    <app-question-comment-input
+      [questionId]="question.id"></app-question-comment-input>
+  </div>
+
+</mat-card>
+
+<mat-divider class="card-divider"></mat-divider>
+
+<ng-container
+  *ngIf="question.questionAnswers.length > 0; else zeroAnswersMessage"
+>
+
+  <app-answer-card
+    *ngFor="let answer of question.questionAnswers"
+    [answer]="answer"
+    [questionAuthorId]="question.authorId"
+  ></app-answer-card>
+
+</ng-container>
+
+<ng-template #zeroAnswersMessage>
+  <p class="card-subtitle zero-answers-message">There are no answers in this discussion yet. Be the first one!</p>
+</ng-template>

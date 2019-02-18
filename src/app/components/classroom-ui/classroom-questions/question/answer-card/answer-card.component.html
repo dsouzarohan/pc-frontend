@@ -1,0 +1,48 @@
+<mat-card class="answer-container">
+  <p [innerHTML]="answer.body" class="card-dk-text"></p>
+  <span *ngIf="answer.isSelectedAnswer"
+        class="is-answered-star">
+    <mat-icon>
+      star
+    </mat-icon>
+  </span>
+  <p class="card-lt-text answerer">
+    Answered by {{ answer.answerer.personalDetails | userFullName }}
+    on {{ answer.createdAt |date:'MMMM d, y, h:mm:ss a' }}
+  </p>
+
+  <div class="vote-buttons-container flex-row">
+    <span><button
+      (click)="onVoteClick('U')"
+      [ngClass]="{'vote-button-selected': userVote === 'U'}" class="comment-up-vote" mat-icon-button><mat-icon>keyboard_arrow_up</mat-icon></button><span
+      (click)="onCountClick()"> Upvote ({{votes.upVotes.length}})</span></span>
+    <span><button
+      (click)="onVoteClick('D')"
+      [ngClass]="{'vote-button-selected': userVote === 'D'}" class="comment-down-vote" mat-icon-button><mat-icon>keyboard_arrow_down</mat-icon></button><span
+      (click)="onCountClick()"> Downvote ({{votes.downVotes.length}})</span></span>
+    <span *ngIf="isQuestionAuthor">
+      <button
+        (click)="onSelectAnswerClick()"
+        [ngClass]="{'vote-button-selected': answer.isSelectedAnswer}"
+        mat-icon-button>
+        <mat-icon>
+          done
+        </mat-icon>
+      </button> Select answer
+    </span>
+  </div>
+
+  <mat-divider class="card-divider answer-divider"></mat-divider>
+
+  <div class="answer-comments-container">
+    <app-answer-comment-card
+      *ngFor="let answerComment of answer.answerComments"
+      [answerComment]="answerComment"
+    ></app-answer-comment-card>
+    <app-answer-comment-input [answerId]="answer.id"></app-answer-comment-input>
+  </div>
+
+  <br>
+
+</mat-card>
+<br>

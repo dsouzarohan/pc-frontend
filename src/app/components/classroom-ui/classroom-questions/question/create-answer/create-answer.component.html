@@ -1,0 +1,48 @@
+<mat-card>
+  <ng-container *ngIf="(question$ | async) as question">
+    <h3 class="card-title">{{ question.name }}</h3>
+    <p class="card-subtitle">Add a post</p>
+    <br>
+    <p-editor [(ngModel)]="answer" [style]="{'height':'320px'}" styleClass="mat-elevation-z5">
+      <p-header>
+        <span class="ql-formats">
+            <button aria-label="Bold" class="ql-bold"></button>
+            <button aria-label="Italic" class="ql-italic"></button>
+            <button aria-label="Underline" class="ql-underline"></button>
+        </span>
+        <span class="ql-formats">
+          <select class="ql-size">
+          <option value="small"></option><option selected="selected"></option>
+          <option value="large"></option>
+          <option value="huge"></option>
+        </select>
+        </span>
+        <span class="ql-formats">
+          <select class="ql-color"></select>
+          <select class="ql-background"></select>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-list" value="ordered"></button>
+          <button class="ql-list" value="bullet"></button>
+          <select class="ql-align">
+            <option selected></option>
+            <option value="center"></option>
+            <option value="right"></option>
+            <option value="justify"></option>
+          </select>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-link"></button>
+          <button class="ql-code"></button>
+        </span>
+      </p-header>
+    </p-editor>
+    <mat-card class="answer-preview-container">
+      <h5 class="card-title">
+        Your post preview:
+      </h5>
+      <p [innerHTML]="answer"></p>
+    </mat-card>
+    <button (click)="onPostButtonClick(question.id)" mat-button>Post</button>
+  </ng-container>
+</mat-card>

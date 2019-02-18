@@ -5,7 +5,7 @@ export interface Discussion {
   id: number;
   topic: string;
   body: string;
-  startedBy: string;
+  startedBy: number;
   classroomId: string;
   createdAt: string;
   updatedAt: string;
@@ -19,7 +19,7 @@ export interface DiscussionPost {
   createdAt: string;
   updatedAt: string;
   discussionId: string;
-  postedBy: string;
+  postedBy: number;
   poster: MasterUserName;
   discussionPostComments?: Array<DiscussionPostComment>;
 }
@@ -55,7 +55,7 @@ export const discussionToEntity = (
 };
 
 export const entityToDiscussion = (
-  discussionEntity: { entities: any; result: any },
+  discussionEntity: DiscussionEntity,
   discussionId: number
 ): Discussion => {
   if (discussionEntity) {
@@ -71,10 +71,7 @@ export const entityToDiscussion = (
   return null;
 };
 
-export const getDiscussionsFromEntity = (discussionEntity: {
-  entities: any;
-  result: any;
-}): Array<Discussion> => {
+export const getDiscussionsFromEntity = (discussionEntity: DiscussionEntity): Array<Discussion> => {
   if (discussionEntity) {
     let discussions = discussionEntity.entities.discussion;
 
@@ -87,3 +84,37 @@ export const getDiscussionsFromEntity = (discussionEntity: {
     return null;
   }
 };
+
+export interface DiscussionEntity {
+  entities: {
+    discussion: {
+      [key: number]: {
+        id: number;
+        topic: string;
+        body: string;
+        startedBy: number;
+        classroomId: string;
+        createdAt: string;
+        updatedAt: string;
+        author: MasterUserName;
+        discussionPosts?: Array<number>;
+      };
+    };
+    discussionPost: {
+      [key: number]: {
+        id: number;
+        body: string;
+        createdAt: string;
+        updatedAt: string;
+        discussionId: string;
+        postedBy: number;
+        poster: MasterUserName;
+        discussionPostComments?: Array<number>;
+      };
+    };
+    discussionPostComment: {
+      [key: number]: DiscussionPostComment;
+    };
+  };
+  result: Array<number>;
+}

@@ -1,0 +1,19 @@
+<div *ngIf="(question$ | async) as question; else questionsLoading"
+     class="question-container"
+>
+
+  <app-question-body
+    [question]="question"
+  ></app-question-body>
+  <button [routerLink]="['answer','new']"
+          class="new-answer-button"
+          mat-icon-button
+  >
+    <mat-icon>library_add</mat-icon>
+  </button>
+
+</div>
+
+<ng-template #questionsLoading>
+  Loading...
+</ng-template>

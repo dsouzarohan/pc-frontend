@@ -30,7 +30,8 @@ export class CreateDiscussionComponent implements OnInit {
   };
 
   discussionFormIsValid = () => {
-    return this.discussionBody.length > 0 && this.discussionTopic.length > 0;
+    return this.discussionBody !== null && this.discussionTopic !== null &&
+      this.discussionBody.length > 0 && this.discussionTopic.length > 0;
   };
 
 }

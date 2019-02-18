@@ -1,0 +1,20 @@
+<div class="answer-comment">
+  <p class="card-lt-text comment-body">
+    {{answerComment.comment}}
+  </p>
+  <p class="comment-author">
+    Commented by {{ answerComment.answerCommenter.personalDetails | userFullName }} on
+    {{ answerComment.createdAt | date:'MMMM, d, y, hh:mm a'}}
+  </p>
+  <div class="vote-buttons-container flex-row">
+    <span><button
+      (click)="onVoteClick('U')"
+      [ngClass]="{'vote-button-selected': userVote === 'U'}" class="comment-up-vote" mat-icon-button><mat-icon>keyboard_arrow_up</mat-icon></button><span
+      (click)="onCountClick()"> Upvote ({{votes.upVotes.length}})</span></span>
+    <span><button
+      (click)="onVoteClick('D')"
+      [ngClass]="{'vote-button-selected': userVote === 'D'}" class="comment-down-vote" mat-icon-button><mat-icon>keyboard_arrow_down</mat-icon></button><span
+      (click)="onCountClick()"> Downvote ({{votes.downVotes.length}})</span></span>
+  </div>
+  <mat-divider class="card-divider comment-divider"></mat-divider>
+</div>

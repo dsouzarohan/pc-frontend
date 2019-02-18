@@ -1,0 +1,58 @@
+import {Component, Input, OnInit} from '@angular/core';
+import {QuestionComment, QuestionCommentVote} from '../../../../../models/questions.models';
+import {QuestionsFacade} from '../../../../../states/questions/questions.facade';
+import {AuthFacade} from '../../../../../states/auth/auth.facade';
+import {VotersListComponent} from '../../../../dialogs/voters-list/voters-list.component';
+import {MatDialog} from '@angular/material';
+
+@Component({
+  selector: 'app-question-comment-card',
+  templateUrl: './question-comment-card.component.html',
+  styleUrls: ['./question-comment-card.component.scss']
+})
+export class QuestionCommentCardComponent implements OnInit {
+
+  @Input('questionComment') questionComment: QuestionComment;
+  private userVote: 'U' | 'D' = null;
+  private votes: {
+    upVotes: QuestionCommentVote[],
+    downVotes: QuestionCommentVote[]
+  };
+
+  constructor(
+    private questionsFacade: QuestionsFacade,
+    private authFacade: AuthFacade,
+    public dialog: MatDialog
+  ) {
+  }
+
+  ngOnInit() {
+    this.authFacade.userID$.subscribe(userID => {
+      this.questionComment.questionCommentVotes.forEach(questionCommentVote => {
+        if (questionCommentVote.voterId === userID) {
+          this.userVote = questionCommentVote.voteType;
+        }
+      });
+    });
+
+    this.questionsFacade.questionCommentVotes$(this.questionComment.id).subscribe(votes => {
+      this.votes = votes;
+    });
+  }
+
+  onVoteClick(voteType: 'U' | 'D') {
+    this.questionsFacade._addQuestionCommentVote({
+      questionCommentId: this.questionComment.id,
+      voteType: voteType
+    });
+  }
+
+  onCountClick() {
+    this.dialog.open(VotersListComponent, {
+      data: this.votes,
+      height: '400px',
+      width: '600px'
+    });
+  }
+
+}

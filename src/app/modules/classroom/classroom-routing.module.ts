@@ -37,6 +37,10 @@ const classroomRoutes: Routes = [
       {
         path: 'announcements',
         loadChildren: '../announcements/announcements.module#AnnouncementsModule'
+      },
+      {
+        path: 'questions',
+        loadChildren: '../questions/questions.module#QuestionsModule'
       }
     ]
   },

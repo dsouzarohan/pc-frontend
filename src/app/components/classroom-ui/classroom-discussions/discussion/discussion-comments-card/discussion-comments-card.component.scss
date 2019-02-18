@@ -9,7 +9,3 @@
 .comment-divider {
   position: relative;
 }
-
-div.discussion-comment:not(:last-child) > .comment-divider {
-  display: none;
-}

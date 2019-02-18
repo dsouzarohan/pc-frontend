@@ -1,0 +1,56 @@
+<mat-card>
+
+  <h3 class="card-title">
+    Ask a question
+  </h3>
+
+  <br>
+
+  <mat-form-field appearance="fill">
+    <mat-label>
+      Question
+    </mat-label>
+    <input [(ngModel)]="questionName" matInput placeholder="Type here...">
+  </mat-form-field>
+
+  <p class="card-subtitle">Enter a body</p>
+  <br>
+  <p-editor [(ngModel)]="questionBody" [style]="{'height':'320px'}" styleClass="mat-elevation-z5">
+    <p-header>
+        <span class="ql-formats">
+            <button aria-label="Bold" class="ql-bold"></button>
+            <button aria-label="Italic" class="ql-italic"></button>
+            <button aria-label="Underline" class="ql-underline"></button>
+        </span>
+      <span class="ql-formats">
+          <select class="ql-size">
+          <option value="small"></option><option selected="selected"></option>
+          <option value="large"></option>
+          <option value="huge"></option>
+        </select>
+        </span>
+      <span class="ql-formats">
+          <select class="ql-color"></select>
+          <select class="ql-background"></select>
+        </span>
+      <span class="ql-formats">
+          <button class="ql-list" value="ordered"></button>
+          <button class="ql-list" value="bullet"></button>
+          <select class="ql-align">
+            <option selected></option>
+            <option value="center"></option>
+            <option value="right"></option>
+            <option value="justify"></option>
+          </select>
+        </span>
+      <span class="ql-formats">
+          <button class="ql-link"></button>
+          <button class="ql-code"></button>
+        </span>
+    </p-header>
+  </p-editor>
+  <br>
+
+  <button (click)="onQuestionSubmitClick()" [disabled]="!questionFormIsValid()" mat-button>Post</button>
+
+</mat-card>

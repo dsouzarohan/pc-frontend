@@ -14,6 +14,7 @@ import {StoreModule} from '@ngrx/store';
 import * as fromClassroomFeature from '../../states/classroom-feature/classroom-feature.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {AnnouncementsDetailsCardComponent} from '../../components/classroom-ui/classroom-dashboard/announcements-details-card/announcements-details-card.component';
+import {QuestionsDetailsCardComponent} from '../../components/classroom-ui/classroom-dashboard/questions-details-card/questions-details-card.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {AnnouncementsDetailsCardComponent} from '../../components/classroom-ui/c
     ClassroomDetailsCardComponent,
     DiscussionsDetailsCardComponent,
     MembersDetailsCardComponent,
+    QuestionsDetailsCardComponent,
     ClassroomMembersComponent,
     ClassroomCoreComponent,
     AnnouncementsDetailsCardComponent

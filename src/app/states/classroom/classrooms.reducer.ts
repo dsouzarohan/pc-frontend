@@ -3,7 +3,7 @@ import * as ClassroomsActionBundle from './classrooms.action';
 import {ActionStatus} from '../../app.reducer';
 
 export interface ClassroomState {
-  classrooms: { entities: any, result: Array<any> };
+  classrooms: { entities: any; result: Array<any> };
 
   loadingClassroomDetails: boolean;
 
@@ -27,7 +27,6 @@ export function classroomReducer(
 ): ClassroomState {
   switch (action.type) {
     case ClassroomsActionBundle.ClassroomsActionTypes.ON_GET_CLASSROOMS_SUCCESS:
-
       let classrooms = (<ClassroomsActionBundle.OnGetClassroomsSuccessAction>(
         action
       )).payload;
@@ -53,7 +52,9 @@ export function classroomReducer(
         (<ClassroomsActionBundle.OnJoinClassroomSuccessAction>action).payload
       );
 
-      let joinedClassroom = (<ClassroomsActionBundle.OnJoinClassroomSuccessAction>action).payload;
+      let joinedClassroom = (<
+        ClassroomsActionBundle.OnJoinClassroomSuccessAction
+        >action).payload;
 
       return {
         ...state,
@@ -69,10 +70,7 @@ export function classroomReducer(
               ...state.classrooms.entities.classrooms
             }
           },
-          result: [
-            joinedClassroom.id,
-            ...state.classrooms.result
-          ]
+          result: [joinedClassroom.id, ...state.classrooms.result]
         }
       };
     case ClassroomsActionBundle.ClassroomsActionTypes.ON_JOIN_CLASSROOM_FAIL:
@@ -103,9 +101,9 @@ export function classroomReducer(
       };
     case ClassroomsActionBundle.ClassroomsActionTypes
       .ON_CREATE_CLASSROOM_SUCCESS:
-      let createdClassroom = (<ClassroomsActionBundle.OnCreateClassroomSuccessAction>(
-        action
-      )).payload;
+      let createdClassroom = (<
+        ClassroomsActionBundle.OnCreateClassroomSuccessAction
+        >action).payload;
 
       console.log('@ClassroomReducer#Created classroom', createdClassroom);
 
@@ -123,10 +121,7 @@ export function classroomReducer(
               ...state.classrooms.entities.classrooms
             }
           },
-          result: [
-            createdClassroom.id,
-            ...state.classrooms.result
-          ]
+          result: [createdClassroom.id, ...state.classrooms.result]
         }
       };
     case ClassroomsActionBundle.ClassroomsActionTypes.ON_CREATE_CLASSROOM_FAIL:
@@ -152,5 +147,3 @@ export function classroomReducer(
       return state;
   }
 }
-
-

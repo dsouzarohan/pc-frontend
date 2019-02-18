@@ -1,0 +1,6 @@
+<mat-card>
+  <h4 class="card-title">{{ question.name }}</h4>
+  <p [innerHTML]="question.body.length > 50 ? (question.body | slice:0:49) + '...' : question.body"
+     class="card-subtitle"></p>
+</mat-card>
+<br>

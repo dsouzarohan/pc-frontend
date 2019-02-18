@@ -8,6 +8,7 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatListModule,
   MatNativeDateModule,
   MatOptionModule,
   MatRadioModule,
@@ -16,6 +17,7 @@ import {
   MatSnackBarModule,
   MatStepperModule,
   MatTableModule,
+  MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
 
@@ -37,7 +39,9 @@ import {
     MatIconModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    MatListModule,
+    MatTabsModule
   ]
 })
 export class MaterialModule {

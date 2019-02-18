@@ -1,0 +1,21 @@
+<ng-container *ngIf="(classroom$ | async) as classroom">
+  <div *ngIf="(questions$ | async) as questions" class="question-container">
+    <mat-card>
+
+      <button class="new-question-button"
+              mat-icon-button routerLink="new"
+      >
+        <mat-icon>library_add</mat-icon>
+      </button>
+      <h3 class="card-title">Questions</h3>
+      <p class="card-subtitle">{{classroom.name}}</p>
+      <br>
+      <app-classroom-questions-card
+        *ngFor="let question of questions"
+        [question]="question"
+        [routerLink]="question.id"
+        class="classroom-question-card"
+      ></app-classroom-questions-card>
+    </mat-card>
+  </div>
+</ng-container>

@@ -8,7 +8,7 @@ import {DiscussionsFacade} from '../../../../../states/discussions/discussions.f
 })
 export class DiscussionCommentInputComponent implements OnInit {
 
-  @Input('discussionPostId') discussionPostId: string;
+  @Input('discussionPostId') discussionPostId: number;
   private discussionComment: string = '';
 
   constructor(

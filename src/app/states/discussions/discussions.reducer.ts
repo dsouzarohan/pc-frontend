@@ -1,12 +1,9 @@
-import {discussionToEntity} from '../../models/discussions.models';
+import {DiscussionEntity, discussionToEntity} from '../../models/discussions.models';
 
 import * as DiscussionsActionBundle from './discussions.actions';
 
 export interface DiscussionState {
-  discussions: {
-    result: any;
-    entities: any;
-  };
+  discussions: DiscussionEntity;
 
   isPosting: boolean;
   isCommenting: boolean;
@@ -95,7 +92,7 @@ export const discussionsReducer = (
             discussionPost: {
               [createdPost.id]: {
                 ...createdPost,
-                discussionComments: []
+                discussionPostComments: []
               },
               ...state.discussions.entities.discussionPost
             }
