@@ -24,6 +24,7 @@ import {AnnouncementsService} from '../../services/announcements.service';
 import {AnnouncementsFacade} from '../../states/announcements/announcements.facade';
 import {QuestionsService} from '../../services/questions.service';
 import {QuestionsFacade} from '../../states/questions/questions.facade';
+import {EventsService} from '../../services/events.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {QuestionsFacade} from '../../states/questions/questions.facade';
     AnnouncementsService,
     AnnouncementsFacade,
     QuestionsService,
-    QuestionsFacade
+    QuestionsFacade,
+    EventsService
   ]
 })
 export class CoreModule {

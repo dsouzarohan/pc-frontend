@@ -25,7 +25,7 @@ export interface Answer {
   questionId: number;
   answerComments?: Array<AnswerComment>;
   answerVotes?: Array<AnswerVote>;
-  answerer: MasterUserName
+  answerer: MasterUserName;
 }
 
 export interface QuestionComment {
@@ -122,70 +122,70 @@ export interface QuestionsEntity {
   entities: {
     questions: {
       [key: number]: {
-        id: number,
-        name: string,
-        body: string,
-        createdAt: string,
-        updatedAt: string,
-        classroomId: number,
-        authorId: number,
-        questionAnswers: Array<number>,
-        questionComments: Array<number>,
-        questionVotes: Array<number>,
-        author: MasterUserName
-      },
-    },
+        id: number;
+        name: string;
+        body: string;
+        createdAt: string;
+        updatedAt: string;
+        classroomId: number;
+        authorId: number;
+        questionAnswers: Array<number>;
+        questionComments: Array<number>;
+        questionVotes: Array<number>;
+        author: MasterUserName;
+      };
+    };
     questionAnswers: {
       [key: number]: {
-        id: number,
-        body: string,
-        isSelectedAnswer: boolean,
-        createdAt: string,
-        updatedAt: string,
-        answererId: number,
-        questionId: number,
-        answerComments: Array<number>,
-        answerVotes: Array<number>
-      },
-    },
+        id: number;
+        body: string;
+        isSelectedAnswer: boolean;
+        createdAt: string;
+        updatedAt: string;
+        answererId: number;
+        questionId: number;
+        answerComments: Array<number>;
+        answerVotes: Array<number>;
+      };
+    };
     questionComments: {
       [key: number]: {
-        id: number,
-        comment: string,
-        createdAt: string,
-        updatedAt: string,
-        commenterId: number,
-        questionId: number,
-        questionCommenter: MasterUserName,
-        questionCommentVotes: Array<number>
-      },
-    },
+        id: number;
+        comment: string;
+        createdAt: string;
+        updatedAt: string;
+        commenterId: number;
+        questionId: number;
+        questionCommenter: MasterUserName;
+        questionCommentVotes: Array<number>;
+      };
+    };
     answerComments: {
       [key: number]: {
-        id: number,
-        comment: string,
-        createdAt: string,
-        updatedAt: string,
-        commenterId: string,
-        answerId: number,
-        answerCommentVotes: Array<number>,
-        answerCommenter: MasterUserName
-      },
-    },
+        id: number;
+        comment: string;
+        createdAt: string;
+        updatedAt: string;
+        commenterId: string;
+        answerId: number;
+        answerCommentVotes: Array<number>;
+        answerCommenter: MasterUserName;
+      };
+    };
     questionVotes: {
-      [key: number]: QuestionVote
-    },
+      [key: number]: QuestionVote;
+    };
     answerVotes: {
-      [key: number]: AnswerVote
-    },
+      [key: number]: AnswerVote;
+    };
     questionCommentVotes: {
-      [key: number]: QuestionCommentVote
-    },
+      [key: number]: QuestionCommentVote;
+    };
     answerCommentVotes: {
-      [key: number]: AnswerCommentVote
-    },
-  },
-  result: Array<number>
+      [key: number]: AnswerCommentVote;
+    };
+  };
+  result: Array<number>;
 }
 
 export const questionsToEntity = (
@@ -198,21 +198,21 @@ export const entityToQuestion = (
   questionsEntity: QuestionsEntity,
   questionId: number
 ): Question => {
-
   if (questionsEntity) {
-    let denormalized = denormalize(
+
+    return denormalize(
       questionId,
       questionSchema,
       questionsEntity.entities
     );
-
-    return denormalized;
   }
 
   return null;
 };
 
-export const getQuestionsFromEntity = (questionsEntity: QuestionsEntity): Array<Question> => {
+export const getQuestionsFromEntity = (
+  questionsEntity: QuestionsEntity
+): Array<Question> => {
   if (questionsEntity) {
     let questions = questionsEntity.entities.questions;
     if (questions) {
