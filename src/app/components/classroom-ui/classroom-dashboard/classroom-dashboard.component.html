@@ -1,18 +1,30 @@
 <div class="dashboard-container">
 
-  <app-classroom-details-card [classroomDetails]="classroomDetails"></app-classroom-details-card>
+
+  <app-classroom-details-card [classroomDetails]="classroomDetails"
+                              class="dashboard-card"></app-classroom-details-card>
+  <br>
+  <app-classroom-events-card
+    [routerLink]="['events']"
+    class="dashboard-card"
+  ></app-classroom-events-card>
   <br>
   <app-announcements-details-card
     routerLink="announcements"
+    class="dashboard-card"
   ></app-announcements-details-card>
   <br>
   <app-discussions-details-card
+    class="dashboard-card"
     [routerLink]="['discussions']"></app-discussions-details-card>
   <br>
-  <app-members-details-card [routerLink]="['members']"></app-members-details-card>
+  <app-members-details-card [routerLink]="['members']"
+                            class="dashboard-card"></app-members-details-card>
   <br>
   <app-questions-details-card
+    class="dashboard-card"
     [routerLink]="['questions']"
   ></app-questions-details-card>
+
 
 </div>

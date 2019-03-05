@@ -82,7 +82,7 @@ export class EventsEffects {
           .pipe(
             map(
               response =>
-                new EventsActionBundle.OnCreateEventSuccessAction(
+                new EventsActionBundle.OnUpdateEventSuccessAction(
                   response.updatedEvent
                 )
             ),

@@ -55,6 +55,6 @@ export class EventsService {
   }
 
   public deleteEvent(eventId: number) {
-    return this.http.delete<DeleteEventResponse>('events/' + eventId);
+    return this.http.delete<DeleteEventResponse>(environment.apiUrl + 'events/' + eventId);
   }
 }

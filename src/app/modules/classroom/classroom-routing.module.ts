@@ -10,11 +10,10 @@ const classroomRoutes: Routes = [
   {
     path: 'new',
     component: CreateClassroomComponent,
-    canActivate: [
-      TeacherOnlyGuard
-    ]
+    canActivate: [TeacherOnlyGuard]
     //todo: write a guard to only only teachers to access this route
-  }, {
+  },
+  {
     path: ':classroomId',
     component: ClassroomCoreComponent,
     // canActivate: [
@@ -36,14 +35,23 @@ const classroomRoutes: Routes = [
       },
       {
         path: 'announcements',
-        loadChildren: '../announcements/announcements.module#AnnouncementsModule'
+        loadChildren:
+          '../announcements/announcements.module#AnnouncementsModule'
       },
       {
         path: 'questions',
         loadChildren: '../questions/questions.module#QuestionsModule'
+      },
+      {
+        path: 'events',
+        loadChildren: '../events/events.module#EventsModule'
+      },
+      {
+        path: 'notes',
+        loadChildren: '../notes/notes.module#NotesModule'
       }
     ]
-  },
+  }
 ];
 
 @NgModule({

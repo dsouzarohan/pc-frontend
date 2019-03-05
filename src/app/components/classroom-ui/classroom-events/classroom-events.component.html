@@ -1,0 +1,26 @@
+<ng-container
+  *ngIf="(classroomEvents$ | async) as classroomEvents; else loading"
+>
+  <mat-card>
+    <h3 class="card-title text-center">
+      Classroom calendar
+    </h3>
+    <p class="card-subtitle text-center">{{classroomEvents.classroomDetails.subject}}
+      | {{classroomEvents.classroomDetails.name}}</p>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    <p class="card-subtitle text-center">
+      Click on a date or select multiple dates to add an event
+    </p>
+  </mat-card>
+  <br>
+  <div class="mat-elevation-z5 calendar-container">
+    <p-fullCalendar [events]="classroomEvents.events" [options]="options"
+    ></p-fullCalendar>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  Loading...
+</ng-template>

@@ -1,0 +1,14 @@
+<h3 class="card-title">Upload</h3>
+<p class="card-subtitle">Click on choose to select the files</p>
+<div class="mat-elevation-z4">
+  <p-fileUpload name="files[]" customUpload="true"
+                (uploadHandler)="onUploadClick($event)"
+                multiple="multiple" maxFileSize="1000000">
+    <ng-template pTemplate="content">
+      <ul *ngIf="uploadedFiles.length">
+        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+      </ul>
+    </ng-template>
+  </p-fileUpload>
+
+</div>

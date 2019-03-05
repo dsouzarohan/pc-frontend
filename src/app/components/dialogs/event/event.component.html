@@ -1,0 +1,90 @@
+<ng-container
+  *ngIf="!isUpdating; else eventViewTemplate"
+>
+  <h3 class="card-title">
+    {{ data.event.title }}
+  </h3>
+
+  <p class="card-subtitle">
+    {{event.body}}
+  </p>
+
+
+  <div class="start-date-time-container">
+    <h3 class="card-dk-text">Start date</h3>
+    <p class="card-lt-text">{{data.event.start | date:'EEEE, MMMM d, y, h:mm a'}}</p>
+  </div>
+  <div
+    *ngIf="data.event.end"
+    class="end-date-time-container">
+    <h3 class="card-dk-text">End date</h3>
+    <p class="card-lt-text">{{data.event.end | date:'EEEE, MMMM d, y, h:mm a'}}</p>
+  </div>
+
+  <div class="update-delete-buttons-container flex-row">
+    <button (click)="isUpdating = true" mat-button>
+      Update
+    </button>
+    <button (click)="onDeleteButtonClick()" mat-button>
+      Delete
+    </button>
+  </div>
+
+</ng-container>
+
+<ng-template #eventViewTemplate>
+  <form [formGroup]="updateEventForm" class="flex-column">
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="title"
+        placeholder="Title"
+        required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Start date"
+        [matDatepicker]="startDatePicker"
+        formControlName="start"
+        required>
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput formControlName="startTime"
+             required [ngxTimepicker]="toggleStartTimepicker" [disableClick]="true" placeholder="Start time" readonly>
+      <ngx-material-timepicker-toggle matSuffix [for]="toggleStartTimepicker"></ngx-material-timepicker-toggle>
+      <ngx-material-timepicker #toggleStartTimepicker></ngx-material-timepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="End date"
+        [matDatepicker]="endDatePicker"
+        formControlName="end">
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [ngxTimepicker]="toggleEndTimepicker" [disableClick]="true" placeholder="End time"
+             formControlName="endTime" readonly>
+      <ngx-material-timepicker-toggle matSuffix [for]="toggleEndTimepicker"></ngx-material-timepicker-toggle>
+      <ngx-material-timepicker #toggleEndTimepicker></ngx-material-timepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea formControlName="body" placeholder="Body (optional)" matInput></textarea>
+    </mat-form-field>
+
+    <button mat-button [disabled]="!updateEventForm.valid" (click)="onUpdateButtonClick()">
+      Update
+    </button>
+
+  </form>
+
+</ng-template>

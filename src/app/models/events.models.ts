@@ -40,8 +40,8 @@ export interface EventsEntity {
 export const eventsToEntity = (events: Array<Event>): EventsEntity =>
   normalize(events, eventsListSchema);
 
-export const entityToEvent = (eventsEntity: EventsEntity, eventId: number): Event => {
+export const entityToEvents = (eventsEntity: EventsEntity): Array<Event> => {
   if (eventsEntity) {
-    return denormalize(eventId, eventSchema, eventsEntity.entities);
+    return denormalize(eventsEntity.result, eventsListSchema, eventsEntity.entities);
   }
 };
