@@ -1,20 +1,26 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../environments/environment';
+import {NotesFacade} from '../../../states/notes/notes.facade';
 
 @Component({
   selector: 'app-file-upload-dialog',
   templateUrl: './file-upload-dialog.component.html',
   styleUrls: ['./file-upload-dialog.component.scss']
 })
-export class FileUploadDialogComponent implements OnInit {
+export class FileUploadDialogComponent implements OnInit, AfterViewInit {
+
   private uploadedFiles: File[] = [];
+  private uploadTitle: string = '';
+  private uploadBody: string = '';
 
   constructor(
     private dialogRef: MatDialogRef<FileUploadDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private http: HttpClient
+    @Inject(MAT_DIALOG_DATA) public data: {
+      classroomId: number
+    },
+    private http: HttpClient,
+    private notesFacade: NotesFacade,
   ) {
   }
 
@@ -25,17 +31,20 @@ export class FileUploadDialogComponent implements OnInit {
     let files: File[] = event.files;
     console.log('@FileUploadDialog#onCustomUploadClick', files);
     const uploadFormData = new FormData();
-    uploadFormData.append('title', 'This is an upload');
-    uploadFormData.append('body', 'This is the upload body');
-    uploadFormData.append('classroomId', '4');
+    uploadFormData.append('title', this.uploadTitle);
+    uploadFormData.append('body', this.uploadBody);
+    uploadFormData.append('classroomId', this.data.classroomId.toString());
     for (let i = 0; i < files.length; i++) {
       uploadFormData.append('fileUploads', files[i], files[i]['name']);
     }
 
-    this.http
-      .post(environment.apiUrl + 'notes/upload', uploadFormData)
-      .subscribe(response => {
-        console.log('@FileUploadResponse', response);
-      });
+    this.notesFacade._upload(uploadFormData);
+  }
+
+  isUploadDetailsValid() {
+    return !!this.uploadTitle;
+  }
+
+  ngAfterViewInit(): void {
   }
 }

@@ -5,6 +5,7 @@ import {
   MatDatepickerModule,
   MatDialogModule,
   MatDividerModule,
+  MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -41,7 +42,8 @@ import {
     MatDialogModule,
     MatTableModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatExpansionModule
   ]
 })
 export class MaterialModule {

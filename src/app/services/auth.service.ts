@@ -6,6 +6,7 @@ import {AppState} from '../app.reducer';
 import {UserLoginCredentials} from '../models/user.models';
 import {EmailExistsResponse, PhoneNumberExistsResponse, SignInResponse, UIDExistsResponse} from '../models/responses/auth-responses.models';
 import {AuthFacade} from '../states/auth/auth.facade';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -26,24 +27,24 @@ export class AuthService {
   // Sign up form methods for validation
 
   createUser(user: object) {
-    return this.http.post('http://localhost:3000/api/users/signup', user);
+    return this.http.post(environment.apiUrl + 'users/signup', user);
   }
 
   emailExists(email: string) {
     return this.http.get<EmailExistsResponse>(
-      `http://localhost:3000/api/users/email/${email}`
+      environment.apiUrl + `users/email/${email}`
     );
   }
 
   numberExists(number: string) {
     return this.http.get<PhoneNumberExistsResponse>(
-      `http://localhost:3000/api/users/number/${number}`
+      environment.apiUrl + `users/number/${number}`
     );
   }
 
   uidExists(uid: number, type: string) {
     return this.http.get<UIDExistsResponse>(
-      `http://localhost:3000/api/users/uid/${uid}/type/${type}`
+      environment.apiUrl + `users/uid/${uid}/type/${type}`
     );
   }
 

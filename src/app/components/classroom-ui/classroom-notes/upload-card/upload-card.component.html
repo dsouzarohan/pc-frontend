@@ -1,0 +1,30 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ upload.title }}
+    </mat-panel-title>
+    <mat-panel-description>
+      {{ upload.files.length }} file(s)
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <p class="card-lt-text">
+    {{ upload.body }}
+  </p>
+
+  <button (click)="onDownloadClick(upload.id, upload.title)" mat-button>DOWNLOAD</button>
+
+  <mat-divider></mat-divider>
+
+  <div class="files-list-container">
+    <mat-list>
+      <h3 mat-subheader>Files</h3>
+      <mat-list-item *ngFor="let file of upload.files">
+        <mat-icon mat-list-icon>folder</mat-icon>
+        <h4 mat-line>{{file.originalName}}</h4>
+        <p mat-line> {{file.size}} bytes</p>
+        <button (click)="onDownloadFileClick(file.id, file.originalName)" mat-button>DOWNLOAD</button>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</mat-expansion-panel>
