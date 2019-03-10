@@ -14,10 +14,10 @@ const initialState: QuestionsState = {
   isLoading: false
 };
 
-export const questionsReducer = (
+export function questionsReducer(
   state: QuestionsState = initialState,
   action: Action
-): QuestionsState => {
+): QuestionsState {
   switch (action.type) {
     case QuestionsActionTypes.TRY_SELECT_ANSWER:
     case QuestionsActionTypes.TRY_GET_QUESTIONS:
@@ -649,4 +649,4 @@ export const questionsReducer = (
     default:
       return state;
   }
-};
+}

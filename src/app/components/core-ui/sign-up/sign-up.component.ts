@@ -16,25 +16,25 @@ export class SignUpComponent implements OnInit {
   divisions of the entire sign up form
    */
 
-  private signUpForm: FormGroup;
+  public signUpForm: FormGroup;
 
-  private typeFormGroup: FormGroup;
-  private personalFormGroup: FormGroup;
-  private contactFormGroup: FormGroup;
-  private credentialFormGroup: FormGroup;
+  public typeFormGroup: FormGroup;
+  public personalFormGroup: FormGroup;
+  public contactFormGroup: FormGroup;
+  public credentialFormGroup: FormGroup;
 
-  private types = ['Student', 'Teacher'];
+  public types = ['Student', 'Teacher'];
 
-  private genders = ['Male', 'Female', 'Other'];
+  public genders = ['Male', 'Female', 'Other'];
 
-  private maxDate: Date;
+  public maxDate: Date;
 
-  private formIsSubmitted: boolean = false;
+  public formIsSubmitted: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private router: Router
+    public formBuilder: FormBuilder,
+    public authService: AuthService,
+    public router: Router
   ) {
   }
 
@@ -222,7 +222,7 @@ export class SignUpComponent implements OnInit {
 
   //On submit handler
 
-  private onUserTypeChange() {
+  public onUserTypeChange() {
     if (this.typeFormGroup.get('type').value !== 'Student') {
       this.typeFormGroup.get('stream').disable();
     } else {

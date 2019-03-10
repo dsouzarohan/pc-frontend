@@ -15,10 +15,10 @@ const initialState: DiscussionState = {
   isCommenting: false
 };
 
-export const discussionsReducer = (
+export function discussionsReducer(
   state: DiscussionState = initialState,
   action: DiscussionsActionBundle.DiscussionsActions
-): DiscussionState => {
+): DiscussionState {
   switch (action.type) {
     case DiscussionsActionBundle.DiscussionsActionTypes
       .ON_GET_DISCUSSIONS_SUCCESS:
@@ -155,4 +155,4 @@ export const discussionsReducer = (
     default:
       return state;
   }
-};
+}

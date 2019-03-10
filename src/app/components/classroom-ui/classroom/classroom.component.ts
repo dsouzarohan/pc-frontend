@@ -7,8 +7,8 @@ import {ClassroomsFacade} from '../../../states/classroom/classrooms.facade';
   styleUrls: ['./classroom.component.scss']
 })
 export class ClassroomComponent implements OnInit {
-  private classroomDetails$ = this.classroomFacade.classroomDetails$;
-  private isLoadingClassroomDetails$ = this.classroomFacade
+  public classroomDetails$ = this.classroomFacade.classroomDetails$;
+  public isLoadingClassroomDetails$ = this.classroomFacade
     .isLoadingClassroomDetails$;
 
   constructor(private classroomFacade: ClassroomsFacade) {

@@ -12,10 +12,10 @@ export const initialState: AnnouncementsState = {
   announcements: null
 };
 
-export const announcementsReducer = (
+export function announcementsReducer(
   state: AnnouncementsState = initialState,
   action: AnnouncementsActionBundle.AnnouncementsActions
-): AnnouncementsState => {
+): AnnouncementsState {
   switch (action.type) {
     case AnnouncementsActionBundle.AnnouncementActionTypes
       .ON_GET_ANNOUNCEMENTS_SUCCESS:
@@ -58,4 +58,4 @@ export const announcementsReducer = (
     default:
       return state;
   }
-};
+}

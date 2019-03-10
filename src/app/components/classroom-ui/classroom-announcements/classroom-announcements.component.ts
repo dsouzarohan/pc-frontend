@@ -12,8 +12,8 @@ import {ClassroomsFacade} from '../../../states/classroom/classrooms.facade';
 })
 export class ClassroomAnnouncementsComponent implements OnInit {
 
-  private $announcements: Observable<Array<Announcement>>;
-  private $currentClassroomDetails: Observable<Classroom>;
+  public $announcements: Observable<Array<Announcement>>;
+  public $currentClassroomDetails: Observable<Classroom>;
 
   constructor(
     private announcementsFacade: AnnouncementsFacade,

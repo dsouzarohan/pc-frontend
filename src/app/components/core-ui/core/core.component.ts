@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../../services/user.service';
 import {UserFacade} from '../../../states/user/user.facade';
 import {ClassroomsFacade} from '../../../states/classroom/classrooms.facade';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-core',
@@ -24,6 +25,7 @@ export class CoreComponent implements OnInit, OnDestroy {
     console.log('UserData#loaded');
     this.classroomsFacade._loadClassrooms();
     //loads the classrooms from the backend and saves it in the state
+    console.log('Is development?', !environment.production);
   }
 
   ngOnDestroy(): void {

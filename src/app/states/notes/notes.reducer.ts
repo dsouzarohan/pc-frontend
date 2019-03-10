@@ -18,7 +18,7 @@ const initialState: NotesState = {
   isUploading: false
 };
 
-export const notesReducer = (state: NotesState, action: Action): NotesState => {
+export function notesReducer(state: NotesState, action: Action): NotesState {
   switch (action.type) {
     case Types.TRY_GET_UPLOADS:
       return {
@@ -103,4 +103,4 @@ export const notesReducer = (state: NotesState, action: Action): NotesState => {
     default:
       return state;
   }
-};
+}

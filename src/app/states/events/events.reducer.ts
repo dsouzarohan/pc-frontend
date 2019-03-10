@@ -20,10 +20,10 @@ const initialState: EventsState = {
   isUpdating: false
 };
 
-export const eventsReducer = (
+export function eventsReducer(
   state: EventsState = initialState,
   action: Action
-): EventsState => {
+): EventsState {
   switch (action.type) {
     case EventsActionsTypes.ON_CREATE_EVENT_SUCCESS:
       let createdEvent = (<EventsActionBundle.OnCreateEventSuccessAction>action)
@@ -102,4 +102,4 @@ export const eventsReducer = (
     default:
       return state;
   }
-};
+}

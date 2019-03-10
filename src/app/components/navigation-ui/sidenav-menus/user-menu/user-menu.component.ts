@@ -15,9 +15,9 @@ export class UserMenuComponent implements OnInit {
   @ViewChild('profileRla')
   profileRla: RouterLinkActive;
 
-  private profileObservable: Observable<Profile>;
+  public profileObservable: Observable<Profile>;
 
-  constructor(private userFacade: UserFacade) {
+  constructor(public userFacade: UserFacade) {
     this.profileObservable = this.userFacade.profile$;
   }
 

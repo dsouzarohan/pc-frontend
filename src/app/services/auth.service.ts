@@ -53,7 +53,7 @@ export class AuthService {
   //sends the credentials to the backend
   login(credentials: UserLoginCredentials) {
     return this.http.post<SignInResponse>(
-      'http://localhost:3000/api/users/signin',
+      environment.apiUrl + 'users/signin',
       {credentials}
     );
   }
