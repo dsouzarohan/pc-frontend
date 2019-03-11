@@ -12,9 +12,9 @@ import {MatDialog} from '@angular/material';
 })
 export class QuestionCommentCardComponent implements OnInit {
 
-  @Input('questionComment') questionComment: QuestionComment;
-  private userVote: 'U' | 'D' = null;
-  private votes: {
+  @Input('questionComment') public questionComment: QuestionComment;
+  public userVote: 'U' | 'D' = null;
+  public votes: {
     upVotes: QuestionCommentVote[],
     downVotes: QuestionCommentVote[]
   };

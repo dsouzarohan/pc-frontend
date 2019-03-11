@@ -10,9 +10,9 @@ import {NotesFacade} from '../../../states/notes/notes.facade';
 })
 export class FileUploadDialogComponent implements OnInit, AfterViewInit {
 
-  private uploadedFiles: File[] = [];
-  private uploadTitle: string = '';
-  private uploadBody: string = '';
+  public uploadedFiles: File[] = [];
+  public uploadTitle: string = '';
+  public uploadBody: string = '';
 
   constructor(
     private dialogRef: MatDialogRef<FileUploadDialogComponent>,

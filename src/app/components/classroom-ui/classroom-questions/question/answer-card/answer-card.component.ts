@@ -15,10 +15,10 @@ export class AnswerCardComponent implements OnInit {
   answer: Answer;
   @Input('questionAuthorId')
   questionAuthorId: number;
-  private userVote: 'U' | 'D' = null;
-  private isQuestionAuthor: boolean = false;
+  public userVote: 'U' | 'D' = null;
+  public isQuestionAuthor: boolean = false;
 
-  private votes: {
+  public votes: {
     upVotes: AnswerVote[];
     downVotes: AnswerVote[];
   };

@@ -10,8 +10,8 @@ import {Classroom} from '../../../models/classroom.models';
 })
 export class ClassroomMembersComponent implements OnInit {
 
-  private classroomDetails$: Observable<Classroom>;
-  private displayedColumns = [
+  public classroomDetails$: Observable<Classroom>;
+  public displayedColumns = [
     'masterUserID',
     'uid'
   ];

@@ -17,13 +17,13 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./classroom-events.component.scss']
 })
 export class ClassroomEventsComponent implements OnInit {
-  private canUserSelect: boolean = false;
-  private selectionInfo: any = null;
-  private classroomEvents$: Observable<{
+  public canUserSelect: boolean = false;
+  public selectionInfo: any = null;
+  public classroomEvents$: Observable<{
     classroomDetails: Classroom;
     events: Array<Event>;
   }>;
-  private options: any;
+  public options: any;
 
   constructor(
     private eventsFacade: EventsFacade,

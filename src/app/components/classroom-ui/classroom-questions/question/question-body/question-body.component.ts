@@ -14,8 +14,8 @@ export class QuestionBodyComponent implements OnInit {
   @Input('question')
   question: Question;
 
-  private userVote: 'U' | 'D' = null;
-  private votes: {
+  public userVote: 'U' | 'D' = null;
+  public votes: {
     upVotes: QuestionVote[],
     downVotes: QuestionVote[]
   };

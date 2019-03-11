@@ -9,8 +9,8 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class CreateDiscussionComponent implements OnInit {
 
-  private discussionBody: string = '';
-  private discussionTopic: string = '';
+  public discussionBody: string = '';
+  public discussionTopic: string = '';
 
   constructor(
     private discussionsFacade: DiscussionsFacade,

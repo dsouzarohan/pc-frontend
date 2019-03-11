@@ -8,8 +8,8 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./create-question.component.scss']
 })
 export class CreateQuestionComponent implements OnInit {
-  private questionName: string = '';
-  private questionBody: string = '';
+  public questionName: string = '';
+  public questionBody: string = '';
 
   constructor(
     private questionsFacade: QuestionsFacade,

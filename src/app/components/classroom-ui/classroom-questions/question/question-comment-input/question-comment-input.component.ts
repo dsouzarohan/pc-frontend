@@ -9,7 +9,7 @@ import {QuestionsFacade} from '../../../../../states/questions/questions.facade'
 export class QuestionCommentInputComponent implements OnInit {
 
   @Input('questionId') questionId: number;
-  private questionComment: string = '';
+  public questionComment: string = '';
 
   constructor(
     private questionsFacade: QuestionsFacade

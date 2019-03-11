@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./classroom-events-card.component.scss']
 })
 export class ClassroomEventsCardComponent implements OnInit {
-  private currentDate: Date;
+  public currentDate: Date;
 
   constructor() {
   }

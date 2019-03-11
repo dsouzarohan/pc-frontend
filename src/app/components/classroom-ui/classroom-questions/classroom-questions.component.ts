@@ -12,8 +12,8 @@ import {Classroom} from '../../../models/classroom.models';
 })
 export class ClassroomQuestionsComponent implements OnInit {
 
-  private questions$: Observable<Array<Question>>;
-  private classroom$: Observable<Classroom>;
+  public questions$: Observable<Array<Question>>;
+  public classroom$: Observable<Classroom>;
 
   constructor(
     private questionsFacade: QuestionsFacade,

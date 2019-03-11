@@ -10,8 +10,8 @@ import {QuestionsFacade} from '../../../../../states/questions/questions.facade'
 })
 export class CreateAnswerComponent implements OnInit {
 
-  private question$: Observable<Question>;
-  private answer: string = '';
+  public question$: Observable<Question>;
+  public answer: string = '';
 
   constructor(
     private questionsFacade: QuestionsFacade

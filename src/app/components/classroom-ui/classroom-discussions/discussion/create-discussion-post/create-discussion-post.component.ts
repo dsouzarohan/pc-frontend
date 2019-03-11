@@ -10,8 +10,8 @@ import {Discussion} from '../../../../../models/discussions.models';
 })
 export class CreateDiscussionPostComponent implements OnInit {
 
-  private discussion$: Observable<Discussion>;
-  private discussionPost: string = '';
+  public discussion$: Observable<Discussion>;
+  public discussionPost: string = '';
 
   constructor(
     private discussionsFacade: DiscussionsFacade

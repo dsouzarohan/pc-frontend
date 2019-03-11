@@ -10,8 +10,8 @@ import {AnnouncementsFacade} from '../../../../states/announcements/announcement
   styleUrls: ['./create-announcement.component.scss']
 })
 export class CreateAnnouncementComponent implements OnInit {
-  private announcement: string = null;
-  private currentClassroomDetails$: Observable<Classroom>;
+  public announcement: string = null;
+  public currentClassroomDetails$: Observable<Classroom>;
 
   constructor(
     private classroomsFacade: ClassroomsFacade,

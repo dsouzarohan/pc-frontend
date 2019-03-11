@@ -9,8 +9,8 @@ import {AuthFacade} from '../../../states/auth/auth.facade';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-  private credentials: FormGroup;
-  private isLoggingIn: boolean = false;
+  public credentials: FormGroup;
+  public isLoggingIn: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,

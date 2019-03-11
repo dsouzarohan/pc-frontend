@@ -14,8 +14,8 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ClassroomNotesComponent implements OnInit {
 
-  private uploads$: Observable<Array<Upload>> = null;
-  private isFetching$: Observable<boolean> = null;
+  public uploads$: Observable<Array<Upload>> = null;
+  public isFetching$: Observable<boolean> = null;
 
   constructor(
     private dialogRef: MatDialog,

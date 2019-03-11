@@ -10,9 +10,9 @@ import {EventsFacade} from '../../../states/events/events.facade';
   styleUrls: ['./event.component.scss']
 })
 export class EventComponent implements OnInit {
-  private event: Event = null;
-  private isUpdating: boolean = false;
-  private updateEventForm: FormGroup;
+  public event: Event = null;
+  public isUpdating: boolean = false;
+  public updateEventForm: FormGroup;
 
   constructor(
     dialogRef: MatDialogRef<EventComponent>,

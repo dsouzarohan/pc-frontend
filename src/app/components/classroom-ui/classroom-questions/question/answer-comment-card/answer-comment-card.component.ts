@@ -13,8 +13,8 @@ import {MatDialog} from '@angular/material';
 export class AnswerCommentCardComponent implements OnInit {
   @Input('answerComment')
   answerComment: AnswerComment;
-  private userVote: 'U' | 'D' = null;
-  private votes: {
+  public userVote: 'U' | 'D' = null;
+  public votes: {
     upVotes: AnswerCommentVote[];
     downVotes: AnswerCommentVote[];
   };

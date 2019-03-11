@@ -10,7 +10,7 @@ import {Discussion} from '../../../../models/discussions.models';
 })
 export class DiscussionComponent implements OnInit {
 
-  private discussion$: Observable<Discussion>;
+  public discussion$: Observable<Discussion>;
 
   constructor(
     private discussionsFacade: DiscussionsFacade

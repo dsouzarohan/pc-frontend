@@ -16,6 +16,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {AnnouncementsDetailsCardComponent} from '../../components/classroom-ui/classroom-dashboard/announcements-details-card/announcements-details-card.component';
 import {QuestionsDetailsCardComponent} from '../../components/classroom-ui/classroom-dashboard/questions-details-card/questions-details-card.component';
 import {ClassroomEventsCardComponent} from '../../components/classroom-ui/classroom-dashboard/classroom-events-card/classroom-events-card.component';
+import {ClassroomNotesCardComponent} from '../../components/classroom-ui/classroom-dashboard/classroom-notes-card/classroom-notes-card.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {ClassroomEventsCardComponent} from '../../components/classroom-ui/classr
     ClassroomMembersComponent,
     ClassroomCoreComponent,
     AnnouncementsDetailsCardComponent,
-    ClassroomEventsCardComponent
+    ClassroomEventsCardComponent,
+    ClassroomNotesCardComponent
   ],
   imports: [
     SharedModule,

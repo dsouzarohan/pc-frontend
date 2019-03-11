@@ -9,7 +9,7 @@ import {ClassroomsFacade} from '../../../states/classroom/classrooms.facade';
   styleUrls: ["./join-classroom-dialog.component.scss"]
 })
 export class JoinClassroomDialogComponent implements OnInit {
-  private classcodeForm = this.formBuilder.group({
+  public classcodeForm = this.formBuilder.group({
     classcodeInput: ['', [Validators.required]]
   });
 

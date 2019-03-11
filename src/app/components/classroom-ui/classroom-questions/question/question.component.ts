@@ -10,7 +10,7 @@ import {Question} from '../../../../models/questions.models';
 })
 export class QuestionComponent implements OnInit {
 
-  private question$: Observable<Question>;
+  public question$: Observable<Question>;
 
   constructor(
     private questionsFacade: QuestionsFacade

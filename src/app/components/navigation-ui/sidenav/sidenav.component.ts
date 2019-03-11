@@ -13,7 +13,7 @@ import {NavigationEnd, Router} from '@angular/router';
 export class SidenavComponent implements OnInit, OnDestroy {
   @Input('sideNav')
   sideNav: MatSidenav;
-  private navItem: string = '';
+  public navItem: string = '';
 
   private navigationSubscription: Subscription = this.navigationService
     .getNavigationListener()

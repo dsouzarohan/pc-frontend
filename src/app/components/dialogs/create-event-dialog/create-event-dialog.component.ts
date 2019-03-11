@@ -9,7 +9,7 @@ import {EventsFacade} from '../../../states/events/events.facade';
   styleUrls: ['./create-event-dialog.component.scss']
 })
 export class CreateEventDialogComponent implements OnInit {
-  private createEventForm: FormGroup;
+  public createEventForm: FormGroup;
 
   constructor(
     dialogRef: MatDialogRef<CreateEventDialogComponent>,

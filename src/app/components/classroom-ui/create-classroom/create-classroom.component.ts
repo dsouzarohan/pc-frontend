@@ -8,7 +8,7 @@ import {ClassroomsFacade} from '../../../states/classroom/classrooms.facade';
   styleUrls: ['./create-classroom.component.scss']
 })
 export class CreateClassroomComponent implements OnInit {
-  private createClassroomForm: FormGroup;
+  public createClassroomForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,7 +23,7 @@ export class CreateClassroomComponent implements OnInit {
   ngOnInit() {
   }
 
-  private onCreateClassroomClick() {
+  public onCreateClassroomClick() {
     console.log(
       '@CreateClassroomComponent#Create classroom form',
       this.createClassroomForm.value
