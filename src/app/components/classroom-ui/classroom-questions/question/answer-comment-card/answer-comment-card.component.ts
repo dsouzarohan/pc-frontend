@@ -18,6 +18,7 @@ export class AnswerCommentCardComponent implements OnInit {
     upVotes: AnswerCommentVote[];
     downVotes: AnswerCommentVote[];
   };
+  public isVoting: boolean = false;
 
   constructor(
     private questionsFacade: QuestionsFacade,
@@ -27,10 +28,12 @@ export class AnswerCommentCardComponent implements OnInit {
   }
 
   onVoteClick(voteType: 'U' | 'D') {
-    this.questionsFacade._addAnswerCommentVote({
-      answerCommentId: this.answerComment.id,
-      voteType: voteType
-    });
+    if(!this.isVoting){
+      this.questionsFacade._addAnswerCommentVote({
+        answerCommentId: this.answerComment.id,
+        voteType: voteType
+      });
+    }
   }
 
   onCountClick() {
@@ -43,6 +46,11 @@ export class AnswerCommentCardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.questionsFacade.isVoting$.subscribe(isVoting => {
+      this.isVoting = isVoting;
+    });
+
+
     this.authFacade.userID$.subscribe(userID => {
       this.answerComment.answerCommentVotes.forEach(answerCommentVote => {
         if (answerCommentVote.voterId === userID) {

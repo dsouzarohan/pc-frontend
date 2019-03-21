@@ -1,16 +1,14 @@
-import {Injectable} from '@angular/core';
-import {Store} from '@ngrx/store';
-import * as fromEvents from './events.reducer';
-import * as eventsSelectors from './events.selectors';
-import * as EventsActionBundle from './events.actions';
+import { Injectable } from "@angular/core";
+import { Store } from "@ngrx/store";
+import * as fromEvents from "./events.reducer";
+import * as eventsSelectors from "./events.selectors";
+import * as EventsActionBundle from "./events.actions";
 
 @Injectable()
 export class EventsFacade {
-  public events$ = this.store
-    .select(eventsSelectors.getEvents);
+  public events$ = this.store.select(eventsSelectors.getEvents);
 
-  constructor(private store: Store<fromEvents.EventsState>) {
-  }
+  constructor(private store: Store<fromEvents.EventsState>) {}
 
   public _getEvents(classroomId: number) {
     this.store.dispatch(new EventsActionBundle.TryGetEventsAction(classroomId));

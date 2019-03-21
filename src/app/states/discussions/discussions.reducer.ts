@@ -1,16 +1,20 @@
-import {DiscussionEntity, discussionToEntity} from '../../models/discussions.models';
+import {
+  DiscussionEntity,
+  discussionToEntity
+} from "../../models/discussions.models";
 
-import * as DiscussionsActionBundle from './discussions.actions';
+import * as DiscussionsActionBundle from "./discussions.actions";
 
 export interface DiscussionState {
   discussions: DiscussionEntity;
-
+  isFetching: boolean;
   isPosting: boolean;
   isCommenting: boolean;
 }
 
 const initialState: DiscussionState = {
   discussions: null,
+  isFetching: false,
   isPosting: false,
   isCommenting: false
 };
@@ -20,25 +24,48 @@ export function discussionsReducer(
   action: DiscussionsActionBundle.DiscussionsActions
 ): DiscussionState {
   switch (action.type) {
+    case DiscussionsActionBundle.DiscussionsActionTypes.TRY_GET_DISCUSSIONS:
+      return {
+        ...state,
+        discussions: null,
+        isFetching: true
+      };
+
     case DiscussionsActionBundle.DiscussionsActionTypes
       .ON_GET_DISCUSSIONS_SUCCESS:
       let fetchedDiscussion = (<
         DiscussionsActionBundle.OnGetDiscussionsSuccessAction
-        >action).payload;
+      >action).payload;
 
       let fetchedDiscussionEntity = discussionToEntity(fetchedDiscussion);
 
       return {
         ...state,
-        discussions: fetchedDiscussionEntity
+        discussions: fetchedDiscussionEntity,
+        isFetching: false
       };
 
-    case DiscussionsActionBundle.DiscussionsActionTypes.ON_CREATE_DISCUSSION_SUCCESS:
+    case DiscussionsActionBundle.DiscussionsActionTypes.ON_GET_DISCUSSIONS_FAIL:
+      return {
+        ...state,
+        isFetching: false
+      };
 
-      let discussion = (<DiscussionsActionBundle.OnCreateDiscussionSuccess>action).payload;
+    case DiscussionsActionBundle.DiscussionsActionTypes.TRY_CREATE_DISCUSSION:
+      return {
+        ...state,
+        isPosting: true
+      };
+
+    case DiscussionsActionBundle.DiscussionsActionTypes
+      .ON_CREATE_DISCUSSION_SUCCESS:
+      let discussion = (<DiscussionsActionBundle.OnCreateDiscussionSuccess>(
+        action
+      )).payload;
 
       return {
         ...state,
+        isPosting: false,
         discussions: {
           ...state.discussions,
           entities: {
@@ -51,11 +78,15 @@ export function discussionsReducer(
               }
             }
           },
-          result: [
-            discussion.id,
-            ...state.discussions.result
-          ]
+          result: [discussion.id, ...state.discussions.result]
         }
+      };
+
+    case DiscussionsActionBundle.DiscussionsActionTypes
+      .ON_CREATE_DISCUSSION_FAIL:
+      return {
+        ...state,
+        isPosting: false
       };
 
     case DiscussionsActionBundle.DiscussionsActionTypes.TRY_ADD_POST:
@@ -80,12 +111,12 @@ export function discussionsReducer(
               [createdPost.discussionId]: {
                 ...state.discussions.entities.discussion[
                   createdPost.discussionId
-                  ],
+                ],
                 discussionPosts: [
                   createdPost.id,
                   ...state.discussions.entities.discussion[
                     createdPost.discussionId
-                    ].discussionPosts
+                  ].discussionPosts
                 ]
               }
             },
@@ -119,7 +150,7 @@ export function discussionsReducer(
 
       return {
         ...state,
-        isCommenting: true,
+        isCommenting: false,
         discussions: {
           ...state.discussions,
           entities: {
@@ -133,12 +164,12 @@ export function discussionsReducer(
               [createdComment.discussionPostId]: {
                 ...state.discussions.entities.discussionPost[
                   createdComment.discussionPostId
-                  ],
+                ],
                 discussionPostComments: [
                   createdComment.id,
                   ...state.discussions.entities.discussionPost[
                     createdComment.discussionPostId
-                    ].discussionPostComments
+                  ].discussionPostComments
                 ]
               }
             }

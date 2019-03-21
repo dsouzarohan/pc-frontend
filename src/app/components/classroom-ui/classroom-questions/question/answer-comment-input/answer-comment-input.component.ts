@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {QuestionsFacade} from '../../../../../states/questions/questions.facade';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-answer-comment-input',
@@ -8,8 +9,10 @@ import {QuestionsFacade} from '../../../../../states/questions/questions.facade'
 })
 export class AnswerCommentInputComponent implements OnInit {
 
+  @ViewChild("commentForm") form: NgForm;
   @Input('answerId') answerId: number;
   public answerComment: string = '';
+  public isCommenting: boolean = false;
 
   constructor(
     private questionsFacade: QuestionsFacade
@@ -17,13 +20,17 @@ export class AnswerCommentInputComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.questionsFacade.isCommenting$.subscribe(isCommenting => {
+      this.isCommenting = isCommenting;
+    });
   }
 
-  onCommentClick(answerId: number) {
+  onCommentClick() {
+    console.log("Form", this.form.value);
     this.questionsFacade._createAnswerComment({
-      comment: this.answerComment,
-      questionAnswerId: answerId
-    });
+      comment: this.form.value['answerComment'],
+      questionAnswerId: this.answerId
+    })
   }
 
 }

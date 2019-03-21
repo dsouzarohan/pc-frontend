@@ -18,6 +18,26 @@ export const getQuestionsState = createSelector(
   (state: fromClassroomFeature.ClassroomFeatureState) => state.questions
 );
 
+export const isPosting = createSelector(
+  getQuestionsState,
+  state => state.isPosting
+);
+
+export const isLoading = createSelector(
+  getQuestionsState,
+  state => state.isLoading
+);
+
+export const isCommenting = createSelector(
+  getQuestionsState,
+  state => state.isCommenting
+);
+
+export const isVoting = createSelector(
+  getQuestionsState,
+  state => state.isVoting
+);
+
 export const getQuestionsEntity = createSelector(
   getQuestionsState,
   (state: fromQuestions.QuestionsState) => state.questions
@@ -38,17 +58,19 @@ export const getQuestionVotes = (questionId: number) =>
     let upVotes: QuestionVote[] = [];
     let downVotes: QuestionVote[] = [];
 
-    let questionVoteIds =
-      questionEntity.entities.questions[questionId].questionVotes;
+    if(questionEntity){
+      let questionVoteIds =
+        questionEntity.entities.questions[questionId].questionVotes;
 
-    for (let i = 0; i < questionVoteIds.length; i++) {
-      let questionVote =
-        questionEntity.entities.questionVotes[questionVoteIds[i]];
+      for (let i = 0; i < questionVoteIds.length; i++) {
+        let questionVote =
+          questionEntity.entities.questionVotes[questionVoteIds[i]];
 
-      if (questionVote.voteType === 'U') {
-        upVotes.push(questionVote);
-      } else {
-        downVotes.push(questionVote);
+        if (questionVote.voteType === 'U') {
+          upVotes.push(questionVote);
+        } else {
+          downVotes.push(questionVote);
+        }
       }
     }
 
@@ -62,17 +84,19 @@ export const getQuestionCommentVotes = (questionCommentId: number) => createSele
   let upVotes: QuestionCommentVote[] = [];
   let downVotes: QuestionCommentVote[] = [];
 
-  let questionCommentVoteIds =
-    questionEntity.entities.questionComments[questionCommentId].questionCommentVotes;
+  if(questionEntity){
+    let questionCommentVoteIds =
+      questionEntity.entities.questionComments[questionCommentId].questionCommentVotes;
 
-  for (let i = 0; i < questionCommentVoteIds.length; i++) {
-    let questionCommentVote =
-      questionEntity.entities.questionCommentVotes[questionCommentVoteIds[i]];
+    for (let i = 0; i < questionCommentVoteIds.length; i++) {
+      let questionCommentVote =
+        questionEntity.entities.questionCommentVotes[questionCommentVoteIds[i]];
 
-    if (questionCommentVote.voteType === 'U') {
-      upVotes.push(questionCommentVote);
-    } else {
-      downVotes.push(questionCommentVote);
+      if (questionCommentVote.voteType === 'U') {
+        upVotes.push(questionCommentVote);
+      } else {
+        downVotes.push(questionCommentVote);
+      }
     }
   }
 
@@ -86,18 +110,21 @@ export const getAnswerVotes = (answerId: number) => createSelector(getQuestionsE
   let upVotes: AnswerVote[] = [];
   let downVotes: AnswerVote[] = [];
 
-  let answerVoteIds =
-    questionEntity.entities.questionAnswers[answerId].answerVotes;
+  if(questionEntity){
+    let answerVoteIds =
+      questionEntity.entities.questionAnswers[answerId].answerVotes;
 
-  for (let i = 0; i < answerVoteIds.length; i++) {
-    let answerVote =
-      questionEntity.entities.answerVotes[answerVoteIds[i]];
+    for (let i = 0; i < answerVoteIds.length; i++) {
+      let answerVote =
+        questionEntity.entities.answerVotes[answerVoteIds[i]];
 
-    if (answerVote.voteType === 'U') {
-      upVotes.push(answerVote);
-    } else {
-      downVotes.push(answerVote);
+      if (answerVote.voteType === 'U') {
+        upVotes.push(answerVote);
+      } else {
+        downVotes.push(answerVote);
+      }
     }
+
   }
 
   return {
@@ -110,17 +137,19 @@ export const getAnswerCommentVotes = (answerCommentId: number) => createSelector
   let upVotes: AnswerCommentVote[] = [];
   let downVotes: AnswerCommentVote[] = [];
 
-  let answerCommentVoteIds =
-    questionEntity.entities.answerComments[answerCommentId].answerCommentVotes;
+  if(questionEntity){
+    let answerCommentVoteIds =
+      questionEntity.entities.answerComments[answerCommentId].answerCommentVotes;
 
-  for (let i = 0; i < answerCommentVoteIds.length; i++) {
-    let answerCommentVote =
-      questionEntity.entities.answerCommentVotes[answerCommentVoteIds[i]];
+    for (let i = 0; i < answerCommentVoteIds.length; i++) {
+      let answerCommentVote =
+        questionEntity.entities.answerCommentVotes[answerCommentVoteIds[i]];
 
-    if (answerCommentVote.voteType === 'U') {
-      upVotes.push(answerCommentVote);
-    } else {
-      downVotes.push(answerCommentVote);
+      if (answerCommentVote.voteType === 'U') {
+        upVotes.push(answerCommentVote);
+      } else {
+        downVotes.push(answerCommentVote);
+      }
     }
   }
 

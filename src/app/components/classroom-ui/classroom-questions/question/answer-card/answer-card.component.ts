@@ -17,6 +17,7 @@ export class AnswerCardComponent implements OnInit {
   questionAuthorId: number;
   public userVote: 'U' | 'D' = null;
   public isQuestionAuthor: boolean = false;
+  public isVoting: boolean = false;
 
   public votes: {
     upVotes: AnswerVote[];
@@ -31,6 +32,10 @@ export class AnswerCardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.questionsFacade.isVoting$.subscribe(isVoting => {
+      this.isVoting = isVoting;
+    });
+
     this.authFacade.userID$.subscribe(userID => {
       this.isQuestionAuthor = userID === this.questionAuthorId;
       this.answer.answerVotes.forEach(answerVote => {
@@ -45,10 +50,12 @@ export class AnswerCardComponent implements OnInit {
   }
 
   onVoteClick(voteType: 'U' | 'D') {
-    this.questionsFacade._addAnswerVote({
-      questionAnswerId: this.answer.id,
-      voteType: voteType
-    });
+    if(!this.isVoting){
+      this.questionsFacade._addAnswerVote({
+        questionAnswerId: this.answer.id,
+        voteType: voteType
+      });
+    }
   }
 
   onCountClick() {

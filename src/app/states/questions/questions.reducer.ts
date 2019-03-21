@@ -1,17 +1,26 @@
-import {Action} from '@ngrx/store';
-import {QuestionsEntity, questionsToEntity} from '../../models/questions.models';
-import * as QuestionsActionBundle from './questions.actions';
+import { Action } from "@ngrx/store";
+import {
+  QuestionsEntity,
+  questionsToEntity
+} from "../../models/questions.models";
+import * as QuestionsActionBundle from "./questions.actions";
 
-const {QuestionsActionTypes} = QuestionsActionBundle;
+const { QuestionsActionTypes } = QuestionsActionBundle;
 
 export interface QuestionsState {
   questions: QuestionsEntity;
   isLoading: boolean;
+  isPosting: boolean;
+  isCommenting: boolean;
+  isVoting: boolean;
 }
 
 const initialState: QuestionsState = {
   questions: null,
-  isLoading: false
+  isLoading: false,
+  isPosting: false,
+  isCommenting: false,
+  isVoting: false
 };
 
 export function questionsReducer(
@@ -19,28 +28,13 @@ export function questionsReducer(
   action: Action
 ): QuestionsState {
   switch (action.type) {
-    case QuestionsActionTypes.TRY_SELECT_ANSWER:
     case QuestionsActionTypes.TRY_GET_QUESTIONS:
-    case QuestionsActionTypes.TRY_CREATE_QUESTION:
-    case QuestionsActionTypes.TRY_CREATE_QUESTION_COMMENT:
-    case QuestionsActionTypes.TRY_CREATE_ANSWER:
-    case QuestionsActionTypes.TRY_CREATE_ANSWER_COMMENT:
-    case QuestionsActionTypes.TRY_ADD_QUESTION_VOTE:
-    case QuestionsActionTypes.TRY_ADD_QUESTION_COMMENT_VOTE:
-    case QuestionsActionTypes.TRY_ADD_ANSWER_COMMENT_VOTE:
       return {
         ...state,
+        questions: null,
         isLoading: true
       };
-    case QuestionsActionTypes.ON_SELECT_ANSWER_FAIL:
     case QuestionsActionTypes.ON_GET_QUESTIONS_FAIL:
-    case QuestionsActionTypes.ON_CREATE_QUESTION_FAIL:
-    case QuestionsActionTypes.ON_CREATE_QUESTION_COMMENT_FAIL:
-    case QuestionsActionTypes.ON_CREATE_ANSWER_FAIL:
-    case QuestionsActionTypes.ON_CREATE_ANSWER_COMMENT_FAIL:
-    case QuestionsActionTypes.ON_ADD_QUESTION_VOTE_FAIL:
-    case QuestionsActionTypes.ON_ADD_QUESTION_COMMENT_VOTE_FAIL:
-    case QuestionsActionTypes.ON_ADD_ANSWER_COMMENT_VOTE_FAIL:
       return {
         ...state,
         isLoading: false
@@ -57,6 +51,20 @@ export function questionsReducer(
         questions: questionsEntity
       };
 
+    case QuestionsActionTypes.TRY_CREATE_QUESTION:
+    case QuestionsActionTypes.TRY_CREATE_ANSWER:
+      return {
+        ...state,
+        isPosting: true
+      };
+
+    case QuestionsActionTypes.ON_CREATE_QUESTION_FAIL:
+    case QuestionsActionTypes.ON_CREATE_ANSWER_FAIL:
+      return {
+        ...state,
+        isPosting: false
+      };
+
     case QuestionsActionTypes.ON_CREATE_QUESTION_SUCCESS:
       let question = (<QuestionsActionBundle.OnCreateQuestionSuccessAction>(
         action
@@ -64,7 +72,7 @@ export function questionsReducer(
 
       return {
         ...state,
-        isLoading: false,
+        isPosting: false,
         questions: {
           ...state.questions,
           entities: {
@@ -88,7 +96,7 @@ export function questionsReducer(
         .payload;
       return {
         ...state,
-        isLoading: false,
+        isPosting: false,
         questions: {
           ...state.questions,
           entities: {
@@ -116,14 +124,28 @@ export function questionsReducer(
         }
       };
 
+    case QuestionsActionTypes.TRY_CREATE_QUESTION_COMMENT:
+    case QuestionsActionTypes.TRY_CREATE_ANSWER_COMMENT:
+      return {
+        ...state,
+        isCommenting: true
+      };
+
+    case QuestionsActionTypes.ON_CREATE_QUESTION_COMMENT_FAIL:
+    case QuestionsActionTypes.ON_CREATE_ANSWER_COMMENT_FAIL:
+      return {
+        ...state,
+        isCommenting: false
+      };
+
     case QuestionsActionTypes.ON_CREATE_QUESTION_COMMENT_SUCCESS:
       let questionComment = (<
         QuestionsActionBundle.OnCreateQuestionCommentSuccessAction
-        >action).payload;
+      >action).payload;
 
       return {
         ...state,
-        isLoading: false,
+        isCommenting: false,
         questions: {
           ...state.questions,
           entities: {
@@ -133,12 +155,12 @@ export function questionsReducer(
               [questionComment.questionId]: {
                 ...state.questions.entities.questions[
                   questionComment.questionId
-                  ],
+                ],
                 questionComments: [
                   questionComment.id,
                   ...state.questions.entities.questions[
                     questionComment.questionId
-                    ].questionComments
+                  ].questionComments
                 ]
               }
             },
@@ -156,11 +178,11 @@ export function questionsReducer(
     case QuestionsActionTypes.ON_CREATE_ANSWER_COMMENT_SUCCESS:
       let answerComment = (<
         QuestionsActionBundle.OnCreateAnswerCommentSuccessAction
-        >action).payload;
+      >action).payload;
 
       return {
         ...state,
-        isLoading: false,
+        isCommenting: false,
         questions: {
           ...state.questions,
           entities: {
@@ -170,12 +192,12 @@ export function questionsReducer(
               [answerComment.answerId]: {
                 ...state.questions.entities.questionAnswers[
                   answerComment.answerId
-                  ],
+                ],
                 answerComments: [
                   answerComment.id,
                   ...state.questions.entities.questionAnswers[
                     answerComment.answerId
-                    ].answerComments
+                  ].answerComments
                 ]
               }
             },
@@ -190,10 +212,28 @@ export function questionsReducer(
         }
       };
 
+    case QuestionsActionTypes.TRY_ADD_QUESTION_VOTE:
+    case QuestionsActionTypes.TRY_ADD_ANSWER_VOTE:
+    case QuestionsActionTypes.TRY_ADD_QUESTION_COMMENT_VOTE:
+    case QuestionsActionTypes.TRY_ADD_ANSWER_COMMENT_VOTE:
+      return {
+        ...state,
+        isVoting: true
+      };
+
+    case QuestionsActionTypes.ON_ADD_QUESTION_VOTE_FAIL:
+    case QuestionsActionTypes.ON_ADD_ANSWER_VOTE_FAIL:
+    case QuestionsActionTypes.ON_ADD_QUESTION_COMMENT_VOTE_FAIL:
+    case QuestionsActionTypes.ON_ADD_ANSWER_COMMENT_VOTE_FAIL:
+      return {
+        ...state,
+        isVoting: true
+      };
+
     case QuestionsActionTypes.ON_ADD_QUESTION_VOTE_SUCCESS:
       let questionVote = (<
         QuestionsActionBundle.OnAddQuestionVoteSuccessAction
-        >action).payload;
+      >action).payload;
 
       let oldQuestionVote =
         state.questions.entities.questionVotes[questionVote.id];
@@ -202,7 +242,7 @@ export function questionsReducer(
         if (oldQuestionVote.voteType !== questionVote.voteType) {
           return {
             ...state,
-            isLoading: false,
+            isVoting: false,
             questions: {
               ...state.questions,
               entities: {
@@ -212,7 +252,7 @@ export function questionsReducer(
                   [oldQuestionVote.id]: {
                     ...state.questions.entities.questionVotes[
                       oldQuestionVote.id
-                      ],
+                    ],
                     voteType: questionVote.voteType
                   }
                 }
@@ -220,7 +260,7 @@ export function questionsReducer(
             }
           };
         } else {
-          let newQuestionVotes = {...state.questions.entities.questionVotes};
+          let newQuestionVotes = { ...state.questions.entities.questionVotes };
           let newQuestionVotesArray = [
             ...state.questions.entities.questions[questionVote.questionId]
               .questionVotes
@@ -232,7 +272,7 @@ export function questionsReducer(
 
           return {
             ...state,
-            isLoading: false,
+            isVoting: false,
             questions: {
               ...state.questions,
               entities: {
@@ -243,7 +283,7 @@ export function questionsReducer(
                   [questionVote.questionId]: {
                     ...state.questions.entities.questions[
                       questionVote.questionId
-                      ],
+                    ],
                     questionVotes: newQuestionVotesArray
                   }
                 }
@@ -254,7 +294,7 @@ export function questionsReducer(
       } else {
         return {
           ...state,
-          isLoading: false,
+          isVoting: false,
           questions: {
             ...state.questions,
             entities: {
@@ -264,12 +304,12 @@ export function questionsReducer(
                 [questionVote.questionId]: {
                   ...state.questions.entities.questions[
                     questionVote.questionId
-                    ],
+                  ],
                   questionVotes: [
                     questionVote.id,
                     ...state.questions.entities.questions[
                       questionVote.questionId
-                      ].questionVotes
+                    ].questionVotes
                   ]
                 }
               },
@@ -289,7 +329,7 @@ export function questionsReducer(
         action
       )).payload;
 
-      console.log('@QuestionsReducer#AnswerVote', answerVote);
+      console.log("@QuestionsReducer#AnswerVote", answerVote);
 
       let oldAnswerVote = state.questions.entities.answerVotes[answerVote.id];
 
@@ -297,7 +337,7 @@ export function questionsReducer(
         if (oldAnswerVote.voteType !== answerVote.voteType) {
           return {
             ...state,
-            isLoading: false,
+            isVoting: false,
             questions: {
               ...state.questions,
               entities: {
@@ -313,11 +353,11 @@ export function questionsReducer(
             }
           };
         } else {
-          let newAnswerVotes = {...state.questions.entities.answerVotes};
+          let newAnswerVotes = { ...state.questions.entities.answerVotes };
           let newAnswerVotesArray = [
             ...state.questions.entities.questionAnswers[
               answerVote.questionAnswerId
-              ].answerVotes
+            ].answerVotes
           ];
           let voteIndex = newAnswerVotesArray.indexOf(answerVote.id);
           newAnswerVotesArray.splice(voteIndex, 1);
@@ -326,7 +366,7 @@ export function questionsReducer(
 
           return {
             ...state,
-            isLoading: false,
+            isVoting: false,
             questions: {
               ...state.questions,
               entities: {
@@ -337,7 +377,7 @@ export function questionsReducer(
                   [answerVote.questionAnswerId]: {
                     ...state.questions.entities.questionAnswers[
                       answerVote.questionAnswerId
-                      ],
+                    ],
                     answerVotes: newAnswerVotesArray
                   }
                 }
@@ -348,7 +388,7 @@ export function questionsReducer(
       } else {
         return {
           ...state,
-          isLoading: false,
+          isVoting: false,
           questions: {
             ...state.questions,
             entities: {
@@ -358,12 +398,12 @@ export function questionsReducer(
                 [answerVote.questionAnswerId]: {
                   ...state.questions.entities.questionAnswers[
                     answerVote.questionAnswerId
-                    ],
+                  ],
                   answerVotes: [
                     answerVote.id,
                     ...state.questions.entities.questionAnswers[
                       answerVote.questionAnswerId
-                      ].answerVotes
+                    ].answerVotes
                   ]
                 }
               },
@@ -381,7 +421,7 @@ export function questionsReducer(
     case QuestionsActionTypes.ON_ADD_QUESTION_COMMENT_VOTE_SUCCESS:
       let questionCommentVote = (<
         QuestionsActionBundle.OnAddQuestionCommentVoteSuccessAction
-        >action).payload;
+      >action).payload;
 
       let oldQuestionCommentVote =
         state.questions.entities.questionCommentVotes[questionCommentVote.id];
@@ -390,7 +430,7 @@ export function questionsReducer(
         if (oldQuestionCommentVote.voteType !== questionCommentVote.voteType) {
           return {
             ...state,
-            isLoading: false,
+            isVoting: false,
             questions: {
               ...state.questions,
               entities: {
@@ -400,7 +440,7 @@ export function questionsReducer(
                   [oldQuestionCommentVote.id]: {
                     ...state.questions.entities.questionCommentVotes[
                       oldQuestionCommentVote.id
-                      ],
+                    ],
                     voteType: questionCommentVote.voteType
                   }
                 }
@@ -414,7 +454,7 @@ export function questionsReducer(
           let newQuestionCommentVotesArray = [
             ...state.questions.entities.questionComments[
               questionCommentVote.questionCommentId
-              ].questionCommentVotes
+            ].questionCommentVotes
           ];
           let voteIndex = newQuestionCommentVotesArray.indexOf(
             questionCommentVote.id
@@ -425,7 +465,7 @@ export function questionsReducer(
 
           return {
             ...state,
-            isLoading: false,
+            isVoting: false,
             questions: {
               ...state.questions,
               entities: {
@@ -436,7 +476,7 @@ export function questionsReducer(
                   [questionCommentVote.questionCommentId]: {
                     ...state.questions.entities.questionComments[
                       questionCommentVote.questionCommentId
-                      ],
+                    ],
                     questionCommentVotes: newQuestionCommentVotesArray
                   }
                 }
@@ -447,7 +487,7 @@ export function questionsReducer(
       } else {
         return {
           ...state,
-          isLoading: false,
+          isVoting: false,
           questions: {
             ...state.questions,
             entities: {
@@ -457,12 +497,12 @@ export function questionsReducer(
                 [questionCommentVote.questionCommentId]: {
                   ...state.questions.entities.questionComments[
                     questionCommentVote.questionCommentId
-                    ],
+                  ],
                   questionCommentVotes: [
                     questionCommentVote.id,
                     ...state.questions.entities.questionComments[
                       questionCommentVote.questionCommentId
-                      ].questionCommentVotes
+                    ].questionCommentVotes
                   ]
                 }
               },
@@ -480,9 +520,9 @@ export function questionsReducer(
     case QuestionsActionTypes.ON_ADD_ANSWER_COMMENT_VOTE_SUCCESS:
       let answerCommentVote = (<
         QuestionsActionBundle.OnAddAnswerCommentVoteSuccessAction
-        >action).payload;
+      >action).payload;
 
-      console.log('@QuestionsReducer#AnswerVote', answerCommentVote);
+      console.log("@QuestionsReducer#AnswerVote", answerCommentVote);
 
       let oldAnswerCommentVote =
         state.questions.entities.answerCommentVotes[answerCommentVote.id];
@@ -491,7 +531,7 @@ export function questionsReducer(
         if (oldAnswerCommentVote.voteType !== answerCommentVote.voteType) {
           return {
             ...state,
-            isLoading: false,
+            isVoting: false,
             questions: {
               ...state.questions,
               entities: {
@@ -501,7 +541,7 @@ export function questionsReducer(
                   [oldAnswerCommentVote.id]: {
                     ...state.questions.entities.answerCommentVotes[
                       oldAnswerCommentVote.id
-                      ],
+                    ],
                     voteType: answerCommentVote.voteType
                   }
                 }
@@ -515,7 +555,7 @@ export function questionsReducer(
           let newAnswerCommentVotesArray = [
             ...state.questions.entities.answerComments[
               answerCommentVote.answerCommentId
-              ].answerCommentVotes
+            ].answerCommentVotes
           ];
           let voteIndex = newAnswerCommentVotesArray.indexOf(
             answerCommentVote.id
@@ -526,7 +566,7 @@ export function questionsReducer(
 
           return {
             ...state,
-            isLoading: false,
+            isVoting: false,
             questions: {
               ...state.questions,
               entities: {
@@ -537,7 +577,7 @@ export function questionsReducer(
                   [answerCommentVote.answerCommentId]: {
                     ...state.questions.entities.answerComments[
                       answerCommentVote.answerCommentId
-                      ],
+                    ],
                     answerCommentVotes: newAnswerCommentVotesArray
                   }
                 }
@@ -548,7 +588,7 @@ export function questionsReducer(
       } else {
         return {
           ...state,
-          isLoading: false,
+          isVoting: false,
           questions: {
             ...state.questions,
             entities: {
@@ -558,12 +598,12 @@ export function questionsReducer(
                 [answerCommentVote.answerCommentId]: {
                   ...state.questions.entities.answerComments[
                     answerCommentVote.answerCommentId
-                    ],
+                  ],
                   answerCommentVotes: [
                     answerCommentVote.id,
                     ...state.questions.entities.answerComments[
                       answerCommentVote.answerCommentId
-                      ].answerCommentVotes
+                    ].answerCommentVotes
                   ]
                 }
               },
@@ -579,14 +619,14 @@ export function questionsReducer(
       }
 
     case QuestionsActionTypes.ON_SELECT_ANSWER_SUCCESS:
-      let {selectedAnswer, oldAnswerId, status} = (<
+      let { selectedAnswer, oldAnswerId, status } = (<
         QuestionsActionBundle.OnSelectAnswerSuccessAction
-        >action).payload;
+      >action).payload;
 
-      if (status === 'CHANGED') {
+      if (status === "CHANGED") {
         return {
           ...state,
-          isLoading: false,
+          isVoting: false,
           questions: {
             ...state.questions,
             entities: {
@@ -596,7 +636,7 @@ export function questionsReducer(
                 [selectedAnswer.id]: {
                   ...state.questions.entities.questionAnswers[
                     selectedAnswer.id
-                    ],
+                  ],
                   isSelectedAnswer: selectedAnswer.isSelectedAnswer
                 },
                 [oldAnswerId]: {
@@ -607,10 +647,10 @@ export function questionsReducer(
             }
           }
         };
-      } else if (status === 'SELECTED') {
+      } else if (status === "SELECTED") {
         return {
           ...state,
-          isLoading: false,
+          isVoting: false,
           questions: {
             ...state.questions,
             entities: {
@@ -620,7 +660,7 @@ export function questionsReducer(
                 [selectedAnswer.id]: {
                   ...state.questions.entities.questionAnswers[
                     selectedAnswer.id
-                    ],
+                  ],
                   isSelectedAnswer: selectedAnswer.isSelectedAnswer
                 }
               }

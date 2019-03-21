@@ -19,7 +19,7 @@ import {ActivatedRoute} from '@angular/router';
 export class ClassroomEventsComponent implements OnInit {
   public canUserSelect: boolean = false;
   public selectionInfo: any = null;
-  public classroomEvents$: Observable<{
+  public eventsObs$: Observable<{
     classroomDetails: Classroom;
     events: Array<Event>;
   }>;
@@ -35,7 +35,7 @@ export class ClassroomEventsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.classroomEvents$ = combineLatest(
+    this.eventsObs$ = combineLatest(
       this.classroomsFacade.classroomDetails$.pipe(
         filter(classroomDetails => classroomDetails !== null)
       ),

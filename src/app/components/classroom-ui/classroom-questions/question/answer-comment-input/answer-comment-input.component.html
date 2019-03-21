@@ -1,9 +1,11 @@
 <div class="comment-input">
-  <mat-form-field appearance="outline">
-    <mat-label>Add a comment</mat-label>
-    <input [(ngModel)]="answerComment" matInput name="comment" placeholder="Type here...">
-    <button (click)="onCommentClick(answerId)" [disabled]="answerComment.length === 0" mat-icon-button matSuffix>
-      <mat-icon>send</mat-icon>
-    </button>
-  </mat-form-field>
+  <form (ngSubmit)="onCommentClick()" #commentForm="ngForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Add a comment</mat-label>
+      <input [(ngModel)]="answerComment" matInput name="answerComment" placeholder="Type here...">
+      <button [disabled]="isCommenting || answerComment.length === 0" mat-icon-button matSuffix>
+        <mat-icon>send</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
 </div>

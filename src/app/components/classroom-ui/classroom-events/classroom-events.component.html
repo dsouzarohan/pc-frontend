@@ -1,12 +1,12 @@
 <ng-container
-  *ngIf="(classroomEvents$ | async) as classroomEvents; else loading"
+  *ngIf="(eventsObs$ | async) as eventsObs; else loading"
 >
   <mat-card>
     <h3 class="card-title text-center">
       Classroom calendar
     </h3>
-    <p class="card-subtitle text-center">{{classroomEvents.classroomDetails.subject}}
-      | {{classroomEvents.classroomDetails.name}}</p>
+    <p class="card-subtitle text-center">{{eventsObs.classroomDetails.subject}}
+      | {{eventsObs.classroomDetails.name}}</p>
     <br>
     <mat-divider></mat-divider>
     <br>
@@ -16,7 +16,7 @@
   </mat-card>
   <br>
   <div class="mat-elevation-z5 calendar-container">
-    <p-fullCalendar [events]="classroomEvents.events" [options]="options"
+    <p-fullCalendar [events]="eventsObs.events" [options]="options"
     ></p-fullCalendar>
   </div>
 </ng-container>

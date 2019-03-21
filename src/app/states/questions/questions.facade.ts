@@ -8,11 +8,17 @@ import * as questionSelectors from './questions.selectors';
 
 @Injectable()
 export class QuestionsFacade {
-  public question$ = this.store.select(questionSelectors.getQuestion);
-  public questions$ = this.store.select(questionSelectors.getQuestions);
 
   constructor(private store: Store<fromQuestions.QuestionsState>) {
   }
+
+  public isPosting$ = this.store.select(questionSelectors.isPosting);
+  public isCommenting$ = this.store.select(questionSelectors.isCommenting);
+  public isLoading$ = this.store.select(questionSelectors.isLoading);
+  public isVoting$ = this.store.select(questionSelectors.isVoting);
+
+  public question$ = this.store.select(questionSelectors.getQuestion);
+  public questions$ = this.store.select(questionSelectors.getQuestions);
 
   public questionVotes$ = (questionId: number) =>
     this.store.select(questionSelectors.getQuestionVotes(questionId));

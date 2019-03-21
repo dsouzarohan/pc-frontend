@@ -1,11 +1,13 @@
 <div class="comment-input">
-  <mat-form-field appearance="outline">
-    <mat-label>Add a comment</mat-label>
-    <input [(ngModel)]="questionComment" matInput name="comment" placeholder="Type here...">
-    <button (click)="onCommentClick(questionId)" [disabled]="questionComment.length === 0" mat-icon-button matSuffix>
-      <mat-icon>send</mat-icon>
-    </button>
-  </mat-form-field>
+  <form #questionCommentForm="ngForm" (ngSubmit)="onCommentClick()">
+    <mat-form-field appearance="outline">
+      <mat-label>Add a comment</mat-label>
+      <input [(ngModel)]="questionComment" matInput name="questionComment" placeholder="Type here...">
+      <button [disabled]="!questionComment || isCommenting ||  questionComment.length === 0" mat-icon-button matSuffix>
+        <mat-icon>send</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
   <!--todo: input field should get cleared after submitting comment
     USE ngForm for all comment inputs
   -->

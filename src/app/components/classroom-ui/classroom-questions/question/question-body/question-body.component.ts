@@ -4,7 +4,6 @@ import {QuestionsFacade} from '../../../../../states/questions/questions.facade'
 import {AuthFacade} from '../../../../../states/auth/auth.facade';
 import {MatDialog} from '@angular/material';
 import {VotersListComponent} from '../../../../dialogs/voters-list/voters-list.component';
-
 @Component({
   selector: 'app-question-body',
   templateUrl: './question-body.component.html',
@@ -19,6 +18,7 @@ export class QuestionBodyComponent implements OnInit {
     upVotes: QuestionVote[],
     downVotes: QuestionVote[]
   };
+  public isVoting: boolean = false;
 
   constructor(
     private questionsFacade: QuestionsFacade,
@@ -28,6 +28,11 @@ export class QuestionBodyComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.questionsFacade.isVoting$.subscribe(isVoting => {
+      this.isVoting = isVoting;
+    });
+
     this.authFacade.userID$.subscribe(userID => {
       this.question.questionVotes.forEach(questionVote => {
         if (questionVote.voterId === userID) {
@@ -49,10 +54,12 @@ export class QuestionBodyComponent implements OnInit {
       this.userVote = null;
     }
 
-    this.questionsFacade._addQuestionVote({
-      questionId: this.question.id,
-      voteType: voteType
-    });
+    if(!this.isVoting){
+      this.questionsFacade._addQuestionVote({
+        questionId: this.question.id,
+        voteType: voteType
+      })
+    }
   }
 
   onCountClick() {

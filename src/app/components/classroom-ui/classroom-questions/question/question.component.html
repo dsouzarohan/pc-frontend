@@ -1,4 +1,4 @@
-<div *ngIf="(question$ | async) as question; else questionsLoading"
+<div *ngIf="(question$ | async) as question;"
      class="question-container"
 >
 
@@ -14,6 +14,6 @@
 
 </div>
 
-<ng-template #questionsLoading>
+<div *ngIf="(isLoading$ | async)">
   Loading...
-</ng-template>
+</div>
