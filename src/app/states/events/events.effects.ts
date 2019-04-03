@@ -6,6 +6,7 @@ import {catchError, map, switchMap} from 'rxjs/operators';
 import * as EventsActionBundle from './events.actions';
 import {HttpErrorResponse} from '@angular/common/http';
 import {of} from 'rxjs';
+import {MatSnackBar} from '@angular/material';
 
 const {EventsActionsTypes} = EventsActionBundle;
 
@@ -123,6 +124,72 @@ export class EventsEffects {
       )
     );
 
-  constructor(private eventsService: EventsService, private actions: Actions) {
+  @Effect({
+    dispatch: false
+  }) onCreateSuccessEffect = this.actions.pipe(
+    ofType(EventsActionBundle.EventsActionsTypes.ON_CREATE_EVENT_SUCCESS)
+  ).pipe(map(() => {
+    this.matSnackBar.open('Event created successfully', null, {
+      duration: 3000,
+      panelClass: 'snack-bar-align-span-center'
+    });
+  }));
+
+  @Effect({
+    dispatch: false
+  }) onCreateFailEffect = this.actions.pipe(
+    ofType(EventsActionBundle.EventsActionsTypes.ON_CREATE_EVENT_FAIL)
+  ).pipe(map(() => {
+    this.matSnackBar.open('Event could not be created', null, {
+      duration: 3000,
+      panelClass: 'snack-bar-align-span-center'
+    });
+  }));
+
+  @Effect({
+    dispatch: false
+  }) onUpdateSuccessEffect = this.actions.pipe(
+    ofType(EventsActionBundle.EventsActionsTypes.ON_UPDATE_EVENT_SUCCESS)
+  ).pipe(map(() => {
+    this.matSnackBar.open('Event updated successfully', null, {
+      duration: 3000,
+      panelClass: 'snack-bar-align-span-center'
+    });
+  }));
+
+  @Effect({
+    dispatch: false
+  }) onUpdateFailEffect = this.actions.pipe(
+    ofType(EventsActionBundle.EventsActionsTypes.ON_UPDATE_EVENT_FAIL)
+  ).pipe(map(() => {
+    this.matSnackBar.open('Event could not be updated', null, {
+      duration: 3000,
+      panelClass: 'snack-bar-align-span-center'
+    });
+  }));
+
+  @Effect({
+    dispatch: false
+  }) onDeleteSuccessEffect = this.actions.pipe(
+    ofType(EventsActionBundle.EventsActionsTypes.ON_DELETE_EVENT_SUCCESS)
+  ).pipe(map(() => {
+    this.matSnackBar.open('Event deleted successfully', null, {
+      duration: 3000,
+      panelClass: 'snack-bar-align-span-center'
+    });
+  }));
+
+  @Effect({
+    dispatch: false
+  }) onDeleteFailEffect = this.actions.pipe(
+    ofType(EventsActionBundle.EventsActionsTypes.ON_DELETE_EVENT_FAIL)
+  ).pipe(map(() => {
+    this.matSnackBar.open('Event could not be deleted', null, {
+      duration: 3000,
+      panelClass: 'snack-bar-align-span-center'
+    });
+  }));
+
+  constructor(private eventsService: EventsService, private actions: Actions, private matSnackBar: MatSnackBar) {
   }
 }

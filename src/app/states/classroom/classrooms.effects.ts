@@ -7,6 +7,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {ClassroomsService} from '../../services/classrooms.service';
 import {MatSnackBar} from '@angular/material';
 import {DiscussionsService} from '../../services/discussions.service';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class ClassroomsEffects {
@@ -64,6 +65,9 @@ export class ClassroomsEffects {
             panelClass: 'snack-bar-align-span-center'
           }
         );
+
+        this.router.navigate(['classroom', action.payload.id]);
+
         return new ClassroomsActionBundle.IsCreatingClassroomAction(false);
       })
     );
@@ -211,6 +215,8 @@ export class ClassroomsEffects {
             panelClass: 'snack-bar-align-span-center'
           }
         );
+
+        this.router.navigate(['classroom', joinedClassroom.id]);
         return new ClassroomsActionBundle.IsJoiningClassroomAction(false);
       })
     );
@@ -219,7 +225,8 @@ export class ClassroomsEffects {
     private actions: Actions,
     private classroomsService: ClassroomsService,
     private snackBarService: MatSnackBar,
-    private discussionsService: DiscussionsService
+    private discussionsService: DiscussionsService,
+    private router: Router
   ) {
   }
 }

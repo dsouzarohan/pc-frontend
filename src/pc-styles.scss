@@ -333,3 +333,22 @@ td.fc-today {
 .ui-fileupload-row > div:nth-child(3), .ui-messages-error {
   font-family: "Product Sans Italic", serif;
 }
+
+//time picker
+
+header.timepicker__header,
+div.timepicker-dial__container,
+span.active,
+span.clock-face__clock-hand {
+  background: #FF5A7B !important;
+}
+
+button.timepicker-button * {
+  color: #FF5A7B !important;
+  font-family: "Product Sans Regular", serif !important;
+}
+
+.timepicker__actions {
+  justify-content: center !important;
+  text-transform: capitalize !important;
+}

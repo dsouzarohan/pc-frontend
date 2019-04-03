@@ -1,8 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
 import {Event} from '../../../models/events.models';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EventsFacade} from '../../../states/events/events.facade';
+import {AuthFacade} from '../../../states/auth/auth.facade';
 
 @Component({
   selector: 'app-event',
@@ -13,14 +14,25 @@ export class EventComponent implements OnInit {
   public event: Event = null;
   public isUpdating: boolean = false;
   public updateEventForm: FormGroup;
+  public userIsTeacher: boolean = false;
+  public areEventDatesAfterToday: boolean = false;
 
   constructor(
     dialogRef: MatDialogRef<EventComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
-    private eventsFacade: EventsFacade
+    private eventsFacade: EventsFacade,
+    private authFacade: AuthFacade,
+    private matSnackBar: MatSnackBar
   ) {
     this.event = this.data.event.def.extendedProps;
+    let date = new Date();
+    let start = new Date(this.event.start);
+    let end = new Date(this.event.end);
+    this.areEventDatesAfterToday = (start > date) && (end > date);
+    this.authFacade.userIsTeacher$.subscribe(userIsTeacher => {
+      this.userIsTeacher = userIsTeacher;
+    });
   }
 
   private static getTimeFromDate(date: Date) {
@@ -74,6 +86,7 @@ export class EventComponent implements OnInit {
   }
 
   onUpdateButtonClick() {
+    let today = new Date();
     let title = this.updateEventForm.get('title').value;
     let start = new Date(this.updateEventForm.get('start').value);
     let startTime = this.updateEventForm.get('startTime').value;
@@ -91,14 +104,33 @@ export class EventComponent implements OnInit {
     end.setMinutes(endHHMM.minutes);
     end.setHours(endHHMM.hours);
 
-    console.log('@EventComponentUpdate#TimeSet', start, end);
+    console.log('@EventComponentUpdate#TimeSet', start, end, today);
+    console.log('@EventComponentUpdate#StartBeforeEnd?', end > start);
 
-    // this.eventsFacade._updateEvent(this.data.event.id, {
-    //   title,
-    //   start,
-    //   end,
-    //   body
-    // });
+    let isStartBeforeEnd = end > start;
+    let areDatesAfterToday = (start > today) && (end > today);
+
+    console.log(isStartBeforeEnd, areDatesAfterToday);
+
+    if (!isStartBeforeEnd) {
+      this.createToast('The end date should be after the start date');
+    } else if (!areDatesAfterToday) {
+      this.createToast('Event dates should be after today');
+    } else {
+      this.eventsFacade._updateEvent(this.data.event.id, {
+        title,
+        start: start.toISOString(),
+        end: end.toISOString(),
+        body
+      });
+    }
+  }
+
+  private createToast(message: string) {
+    this.matSnackBar.open(message, null, {
+      duration: 3000,
+      panelClass: 'snack-bar-align-span-center'
+    });
   }
 
   onDeleteButtonClick() {

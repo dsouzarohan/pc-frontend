@@ -40,7 +40,7 @@
       formControlName="end">
     <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
     <mat-datepicker #endDatePicker></mat-datepicker>
-    <mat-hint>The start date of the event</mat-hint>
+    <mat-hint>The end date of the event</mat-hint>
     <mat-error>This field is required</mat-error>
   </mat-form-field>
 
@@ -54,8 +54,9 @@
   </mat-form-field>
 
   <mat-form-field>
-    <textarea formControlName="body" placeholder="Body (optional)" matInput></textarea>
+    <textarea formControlName="body" matInput placeholder="Body" required></textarea>
     <mat-hint>A short description of the event</mat-hint>
+    <mat-error>This field is required</mat-error>
   </mat-form-field>
 
   <button (click)="onEventSubmit()" [disabled]="!createEventForm.valid" class="pc-btn">

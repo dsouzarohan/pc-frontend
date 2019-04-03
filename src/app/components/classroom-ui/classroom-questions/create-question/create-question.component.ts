@@ -13,7 +13,7 @@ import {Classroom} from '../../../../models/classroom.models';
 export class CreateQuestionComponent implements OnInit {
   public questionName: string = '';
   public questionBody: string = '';
-  private currentClassroom$: Observable<Classroom> = null;
+  public currentClassroom$: Observable<Classroom> = null;
 
   constructor(
     private questionsFacade: QuestionsFacade,

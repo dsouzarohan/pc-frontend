@@ -90,12 +90,17 @@ snack-bar-container.mat-snack-bar-container {
   text-align: center !important;
   min-width: auto;
   max-width: fit-content;
+  border-radius: 15px;
   //adjusts the snackbar and places it 30px from the bottom
 }
 
 .snack-bar-align-span-center > simple-snack-bar {
   justify-content: center;
   padding: 0px 20px;
+}
+
+simple-snack-bar.mat-simple-snackbar * {
+  font-family: "Product Sans Regular", serif !important;
 }
 
 //text-classes

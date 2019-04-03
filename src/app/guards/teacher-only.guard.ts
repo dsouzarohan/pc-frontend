@@ -24,6 +24,7 @@ export class TeacherOnlyGuard implements CanActivate {
     return this.authFacade.userIsTeacher$.pipe(
       map((userIsTeacher) => {
 
+
         if (userIsTeacher) {
           return userIsTeacher;
         } else {

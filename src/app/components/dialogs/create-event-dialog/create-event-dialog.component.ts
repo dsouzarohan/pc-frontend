@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EventsFacade} from '../../../states/events/events.facade';
 
@@ -27,7 +27,8 @@ export class CreateEventDialogComponent implements OnInit {
       classroomId: number;
     },
     private formBuilder: FormBuilder,
-    private eventsFacade: EventsFacade
+    private eventsFacade: EventsFacade,
+    private matSnackBar: MatSnackBar
   ) {
   }
 
@@ -63,44 +64,75 @@ export class CreateEventDialogComponent implements OnInit {
     });
   }
 
+  private static ampmToHHMM(time: string) {
+    let timestamp = time.split(' ')[0];
+    let meridian = time.split(' ')[1];
+
+    let hours = +timestamp.split(':')[0];
+    let minutes = +timestamp.split(':')[1];
+
+    console.log(hours, minutes, meridian);
+
+    if (meridian === 'am') {
+      if (hours === 12) {
+        hours = 0;
+      }
+    } else {
+      if (hours === 12) {
+        hours = 12;
+      } else {
+        hours = hours + 12;
+      }
+    }
+
+    return {
+      hours,
+      minutes
+    };
+  }
+
   onEventSubmit() {
-    let startDate: string = this.createEventForm.get('start').value;
-    let endDate: string = this.createEventForm.get('end').value;
-    let title: string = this.createEventForm.get('title').value;
-    let body: string = this.createEventForm.get('body').value;
-    let startTime: string = this.createEventForm.get('startTime').value;
-    let endTime: string = this.createEventForm.get('endTime').value;
+    let today = new Date();
+    let title = this.createEventForm.get('title').value;
+    let start = new Date(this.createEventForm.get('start').value);
+    let startTime = this.createEventForm.get('startTime').value;
+    let end = new Date(this.createEventForm.get('end').value);
+    let endTime = this.createEventForm.get('endTime').value;
+    let body = this.createEventForm.get('body').value;
 
-    let finalStartHH = +startTime.split(' ')[0].split(':')[0];
-    let finalStartMM = +startTime.split(' ')[0].split(':')[1];
-    finalStartHH =
-      startTime.split(' ')[1] === 'am' ? finalStartHH : finalStartHH + 12;
+    let startHHMM = CreateEventDialogComponent.ampmToHHMM(startTime);
+    let endHHMM = CreateEventDialogComponent.ampmToHHMM(endTime);
 
-    let finalEndHH = +endTime.split(' ')[0].split(':')[0];
-    finalEndHH = endTime.split(' ')[1] === 'am' ? finalEndHH : finalEndHH + 12;
-    let finalEndMM = +endTime.split(' ')[0].split(':')[1];
+    start.setMinutes(startHHMM.minutes);
+    start.setHours(startHHMM.hours);
+    end.setMinutes(endHHMM.minutes);
+    end.setHours(endHHMM.hours);
 
-    let startDateTime = new Date(startDate);
-    let endDateTime = new Date(endDate);
+    console.log('@EventComponentUpdate#FinalDates', start, end, today);
 
-    // startDateTime.setHours(finalStartHH);
-    // startDateTime.setMinutes(finalStartMM);
-    // endDateTime.setHours(finalEndHH);
-    // endDateTime.setMinutes(finalEndMM);
+    let isStartBeforeEnd = end > start;
+    let areDatesAfterToday = (start > today) && (end > today);
 
-    // todo: set time for start and end date from the time picker input correctly
+    console.log(start.toString(), end.toString());
 
-    console.log('@CreateEventComponent#EventDetails', {
-      startDateTime,
-      endDateTime,
-      classroomId: this.data.classroomId
-    });
+    if (!isStartBeforeEnd) {
+      this.createToast('The end date should be after the start date');
+    } else if (!areDatesAfterToday) {
+      this.createToast('Event dates should be after today');
+    } else {
+      this.eventsFacade._createEvent(this.data.classroomId, {
+        start: start.toISOString(),
+        end: end.toISOString(),
+        body: body,
+        title: title
+      });
+    }
+  }
 
-    this.eventsFacade._createEvent(this.data.classroomId, {
-      start: startDateTime.toISOString(),
-      end: endDateTime.toISOString(),
-      body: body,
-      title: title
+  private createToast(message: string) {
+    this.matSnackBar.open(message, null, {
+      duration: 3000,
+      panelClass: 'snack-bar-align-span-center'
     });
   }
 }
