@@ -1,8 +1,7 @@
 <mat-card>
   <div *ngIf="(discussion$ | async) as discussion; else discussionLoading">
-    <h3 class="card-title">{{ discussion.topic }}</h3>
-    <p class="card-subtitle">Add a post</p>
-    <br>
+    <h3 class="card-title pc-text-rb">{{ discussion.topic }}</h3>
+    <p class="card-subtitle pc-text-psr enter-post-message">Enter the post*</p>
     <p-editor [(ngModel)]="discussionPost" [style]="{'height':'320px'}" styleClass="mat-elevation-z5">
       <p-header>
         <span class="ql-formats">
@@ -38,12 +37,14 @@
       </p-header>
     </p-editor>
     <mat-card class="post-preview-container">
-      <h5 class="card-title">
+      <h5 class="card-title pc-text-psr">
         Your post preview:
       </h5>
-      <p [innerHTML]="discussionPost"></p>
+      <p [innerHTML]="discussionPost" class="pc-text-psr"></p>
     </mat-card>
-    <button (click)="onPostButtonClick(discussion.id)" mat-button>Post</button>
+    <button (click)="onPostButtonClick(discussion.id)" [disabled]="!discussionPost || discussionPost.length === 0"
+            class="pc-btn">Post
+    </button>
   </div>
 
   <ng-template #discussionLoading>

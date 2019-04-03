@@ -1,19 +1,19 @@
 <mat-card class="flex-column">
 
   <div class="card-header">
-    <h3 class="card-title">
+    <h3 class="card-title pc-text-rb pc-text-pink">
       {{ classroomDetails.name }}
     </h3>
-    <p class="card-subtitle">
+    <p class="card-subtitle pc-text-lr">
       {{ classroomDetails.subject }}
     </p>
   </div>
 
   <div class="card-footer">
-    <p class="card-dk-text">
+    <p class="card-dk-text pc-text-psb">
       Classroom Code: {{classroomDetails.classCode}}
     </p>
-    <p class="card-lt-text">
+    <p class="card-lt-text pc-text-li">
       Created by {{ classroomDetails.teacher.masterUserDetails.personalDetails | userFullName}}
       on {{ classroomDetails.createdAt | date:'MMMM d, y, h:mm:ss a'}}
     </p>

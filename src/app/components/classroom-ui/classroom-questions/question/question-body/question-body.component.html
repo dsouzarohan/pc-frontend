@@ -1,26 +1,24 @@
 <mat-card>
-  <h3 class="card-title">{{ question.name }}</h3>
-  <p [innerHTML]="question.body" class="card-subtitle"></p>
+  <h3 class="card-title pc-text-psr">{{ question.name }}</h3>
+  <p [innerHTML]="question.body" class="card-subtitle pc-text-lr"></p>
   <br>
   <mat-divider></mat-divider>
-  <p class="card-lt-text">Asked by {{question.author.personalDetails | userFullName}}
+  <p class="card-lt-text pc-text-li">Asked by {{question.author.personalDetails | userFullName}}
     on {{ question.createdAt | date:'MMMM d, y, h:mm:ss a' }}</p>
   <div class="vote-buttons-container flex-row">
     <span><button
       (click)="onVoteClick('U')"
-      [ngClass]="{'vote-button-selected': userVote === 'U'}" class="comment-up-vote" mat-icon-button><mat-icon>keyboard_arrow_up</mat-icon></button><span
-      (click)="onCountClick()"> Upvote ({{votes.upVotes.length}})</span></span>
+      [ngClass]="{'vote-button-selected': userVote === 'U'}" class="
+     comment-up-vote" mat-icon-button><mat-icon>keyboard_arrow_up</mat-icon></button><span (click)="onCountClick()"
+                                                                                           class="pc-text-psr"> {{votes.upVotes.length}}</span></span>
     <span><button
       (click)="onVoteClick('D')"
       [ngClass]="{'vote-button-selected': userVote === 'D'}" class="comment-down-vote" mat-icon-button><mat-icon>keyboard_arrow_down</mat-icon></button><span
-      (click)="onCountClick()"> Downvote ({{votes.downVotes.length}})</span></span>
+      (click)="onCountClick()"
+      class="pc-text-psr"> {{votes.downVotes.length}}</span></span>
   </div>
-</mat-card>
-<br>
-<mat-card>
-  <h5 class="card-title">Comments ({{ question.questionComments.length }})</h5>
-  <br>
   <div class="question-comments-container">
+    <h3 class="card-lt-text pc-text-psr">{{ question.questionComments.length }} comment(s)</h3>
     <app-question-comment-card
       *ngFor="let questionComment of question.questionComments"
       [questionComment]="questionComment"

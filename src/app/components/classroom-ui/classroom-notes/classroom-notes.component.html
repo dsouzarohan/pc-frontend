@@ -1,19 +1,23 @@
-<ng-container *ngIf="(uploads$ | async) as uploads">
-  <mat-card>
-    <h3 class="card-title">Classroom uploads</h3>
-    <p class="card-subtitle">Classroom name</p>
+<ng-container *ngIf="(classroom$ | async) as classroom">
+  <ng-container *ngIf="(uploads$ | async) as uploads">
+    <mat-card class="upload-card">
+      <h3 class="card-title pc-text-rb pc-text-pink text-center">Classroom uploads</h3>
+      <p class="card-subtitle pc-text-psr text-center">{{classroom.subject}} | {{classroom.name}}</p>
+      <button (click)="onNewUploadClick()" class="upload-button" mat-icon-button><i class="fas fa-file-upload"></i>
+      </button>
+      <ng-container *ngIf="uploads.length === 0">
+        <br>
+        <p class="card-subtitle pc-text-li text-center">There are no uploads in this classroom</p>
+      </ng-container>
+    </mat-card>
+
     <br>
-    <button (click)="onNewUploadClick()" mat-button>UPLOAD FILES</button>
-    <br><br>
-  </mat-card>
 
-  <br>
-
-  <mat-accordion>
-    <app-upload-card
-      *ngFor="let upload of uploads"
-      [upload]="upload"
-    ></app-upload-card>
-  </mat-accordion>
-
+    <mat-accordion>
+      <app-upload-card
+        *ngFor="let upload of uploads"
+        [upload]="upload"
+      ></app-upload-card>
+    </mat-accordion>
+  </ng-container>
 </ng-container>

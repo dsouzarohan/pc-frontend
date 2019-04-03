@@ -1,6 +1,6 @@
 <div class="discussion-comment">
-  <p class="card-lt-text comment-body">{{ discussionPostComment.body }}</p>
-  <p class="comment-author">Commented by {{discussionPostComment.commenter.personalDetails | userFullName }}
+  <p class="card-lt-text comment-body pc-text-psr">{{ discussionPostComment.body }}</p>
+  <p class="comment-author pc-text-li">Commented by {{discussionPostComment.commenter.personalDetails | userFullName }}
     on {{ discussionPostComment.createdAt | date:'MMMM, d, y, hh:mm a'}}</p>
   <mat-divider class="card-divider comment-divider"></mat-divider>
 </div>

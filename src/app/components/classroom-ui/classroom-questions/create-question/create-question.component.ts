@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionsFacade} from '../../../../states/questions/questions.facade';
 import {ActivatedRoute} from '@angular/router';
+import {ClassroomsFacade} from '../../../../states/classroom/classrooms.facade';
+import {Observable} from 'rxjs';
+import {Classroom} from '../../../../models/classroom.models';
 
 @Component({
   selector: 'app-create-question',
@@ -10,11 +13,14 @@ import {ActivatedRoute} from '@angular/router';
 export class CreateQuestionComponent implements OnInit {
   public questionName: string = '';
   public questionBody: string = '';
+  private currentClassroom$: Observable<Classroom> = null;
 
   constructor(
     private questionsFacade: QuestionsFacade,
+    private classroomsFacade: ClassroomsFacade,
     private activatedRoute: ActivatedRoute
   ) {
+    this.currentClassroom$ = this.classroomsFacade.classroomDetails$;
   }
 
   onQuestionSubmitClick() {

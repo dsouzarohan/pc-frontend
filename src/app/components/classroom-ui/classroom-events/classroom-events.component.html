@@ -2,17 +2,22 @@
   *ngIf="(eventsObs$ | async) as eventsObs; else loading"
 >
   <mat-card>
-    <h3 class="card-title text-center">
+    <h3 class="card-title text-center pc-text-rb pc-text-pink">
       Classroom calendar
     </h3>
-    <p class="card-subtitle text-center">{{eventsObs.classroomDetails.subject}}
+    <p class="card-subtitle text-center pc-text-psr">{{eventsObs.classroomDetails.subject}}
       | {{eventsObs.classroomDetails.name}}</p>
     <br>
     <mat-divider></mat-divider>
     <br>
-    <p class="card-subtitle text-center">
+    <p *ngIf="!canUserSelect; else studentMessage" class="card-subtitle text-center pc-text-li">
       Click on a date or select multiple dates to add an event
     </p>
+    <ng-template #studentMessage>
+      <p class="card-subtitle text-center pc-text-li">
+        Click on an event to see more details
+      </p>
+    </ng-template>
   </mat-card>
   <br>
   <div class="mat-elevation-z5 calendar-container">

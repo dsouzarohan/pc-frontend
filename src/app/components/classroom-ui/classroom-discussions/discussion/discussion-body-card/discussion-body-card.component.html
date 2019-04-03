@@ -1,11 +1,11 @@
 <mat-card>
 
-  <h3 class="card-title">{{ discussion.topic }}</h3>
-  <p [innerHTML]="discussion.body" class="card-subtitle"></p>
+  <h3 class="card-title pc-text-psb">{{ discussion.topic }}</h3>
+  <p [innerHTML]="discussion.body" class="card-subtitle pc-text-lr"></p>
   <br>
   <mat-divider></mat-divider>
 
-  <p class="card-lt-text">Started by {{discussion.author.personalDetails | userFullName }}
+  <p class="card-lt-text pc-text-li">Started by {{discussion.author.personalDetails | userFullName }}
     on {{ discussion.createdAt | date:'MMMM d, y, h:mm:ss a'}}</p>
 </mat-card>
 
@@ -17,7 +17,8 @@
   ></app-discussion-posts-card>
 </div>
 <ng-template #zeroPostsMessage>
-  <p class="card-subtitle zero-posts-message">There are no posts in this discussion yet. Be the first one!</p>
+  <p class="card-subtitle pc-text-li zero-posts-message">There are no posts in this discussion yet. Be the first
+    one!</p>
 </ng-template>
 
 

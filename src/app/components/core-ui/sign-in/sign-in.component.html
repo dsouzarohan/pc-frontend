@@ -1,57 +1,54 @@
-<div class="flex-container">
-  <mat-card>
+<div class="flex-container pc-lin-grad-vert">
+  <div class="content-container">
+    <div class="logo-container">
+      <img class="pc-logo" src="assets/logos/pc-logo-white-full.png">
+    </div>
+    <mat-card class="pc-card-border-lg">
 
-    <mat-card-title>Welcome to PocketClass</mat-card-title>
-    <mat-card-subtitle>Login</mat-card-subtitle>
+      <mat-card-title class="pc-text-rb pc-text-pink">The future of learning
+        is here.
+      </mat-card-title>
 
-    <form (ngSubmit)="onLoginSubmit()"
-          [formGroup]="credentials"
-          class="form-group">
-
-
-      <mat-form-field>
-
-        <input
-          matInput
-          #email
-          formControlName="email"
-          placeholder="Email"
-          email>
-
-      </mat-form-field>
-
-      <mat-form-field>
-
-        <input
-          matInput
-          #password
-          formControlName="password"
-          placeholder="Password"
-          type="password">
-
-      </mat-form-field>
-
-      <button
-        [disabled]="!credentials.valid"
-        mat-button>
-        LOGIN
-      </button>
-
-    </form>
+      <form (ngSubmit)="onLoginSubmit()"
+            [formGroup]="credentials"
+            class="form-group">
 
 
-    <mat-card-subtitle>
-      Not registered? Sign up now!
-    </mat-card-subtitle>
+        <mat-form-field>
 
-    <button
-      mat-button
-      type="button"
-      (click)="goToSignUp()"
-    >
-      SIGN UP
-    </button>
+          <input
+            #email
+            email
+            formControlName="email"
+            matInput
+            placeholder="Email">
+
+        </mat-form-field>
+
+        <mat-form-field>
+
+          <input
+            #password
+            formControlName="password"
+            matInput
+            placeholder="Password"
+            type="password">
+
+        </mat-form-field>
+
+        <button [disabled]="!credentials.valid"
+                class="pc-btn">
+          Login
+        </button>
+
+      </form>
 
 
-  </mat-card>
+      <mat-card-subtitle class="pc-text-rr pc-text-pink not-registered-message">
+        Not registered? <a class="pc-text-rb pc-text-pink" routerLink="/signup">Sign up</a> now
+      </mat-card-subtitle>
+
+
+    </mat-card>
+  </div>
 </div>

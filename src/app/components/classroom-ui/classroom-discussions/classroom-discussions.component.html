@@ -1,31 +1,33 @@
-<mat-card class="discussions-card">
-  <button class="new-discussion-button" mat-icon-button routerLink="new">
-    <mat-icon>library_add</mat-icon>
-  </button>
-  <div *ngIf="(classroom$ | async) as classroom; else discussionsLoading">
-    <div *ngIf="(discussions$ | async) as discussions; else discussionsLoading">
-      <h3 class="card-title">
+<ng-container *ngIf="(classroom$ | async) as classroom; else discussionsLoading">
+  <ng-container *ngIf="(discussions$ | async) as discussions; else discussionsLoading">
+    <mat-card class="discussions-card">
+      <button class="new-discussion-button" mat-icon-button routerLink="new">
+        <mat-icon>library_add</mat-icon>
+      </button>
+
+      <h3 class="card-title pc-text-rb pc-text-pink text-center">
         Discussions
       </h3>
-      <p class="card-subtitle">{{classroom.name}}</p>
-      <br>
+      <p class="card-subtitle pc-text-psr text-center">{{classroom.subject}} | {{classroom.name}}</p>
 
-      <div *ngIf="discussions.length !== 0; else noDiscussionsMessage">
+      <ng-container *ngIf="discussions.length === 0">
+        <br>
+        <p class="card-subtitle pc-text-li text-center">There are no discussions in this classroom</p>
+      </ng-container>
 
-        <app-discussion-card
-          *ngFor="let discussion of discussions"
-          [discussion]="discussion"
-          [routerLink]="discussion.id"
-          class="discussion-card"
-        ></app-discussion-card>
+    </mat-card>
+    <br>
+    <app-discussion-card
+      *ngFor="let discussion of discussions"
+      [discussion]="discussion"
+      [routerLink]="[discussion.id]"
+      class="discussion-card"
+    ></app-discussion-card>
+  </ng-container>
+</ng-container>
 
-      </div>
-      <ng-template #noDiscussionsMessage>
-        <p class="card-subtitle">There are no discussions in this classroom</p>
-      </ng-template>
-    </div>
-  </div>
-  <ng-template #discussionsLoading>
-    Loading... haha
-  </ng-template>
-</mat-card>
+<ng-template #discussionsLoading>
+  <p class="card-subtitle pc-text-li">
+    Loading...
+  </p>
+</ng-template>

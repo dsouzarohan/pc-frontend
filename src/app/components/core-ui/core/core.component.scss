@@ -23,6 +23,8 @@ mat-sidenav-content {
   padding: 35px;
   height: inherit;
   overflow: auto;
+  background-image: url("/assets/logos/pc-backdrop.png");
+  background-size: contain;
 }
 
 @media (max-width: 600px) {

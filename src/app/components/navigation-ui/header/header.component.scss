@@ -15,6 +15,12 @@ mat-toolbar {
 
 .mat-toolbar-row,
 .mat-toolbar-single-row {
-  height: 64px;
+  height: 75px;
   justify-content: center;
+}
+
+.pc-logo {
+  height: 70px;
+  width: auto;
+  margin-top: 8px;
 }

@@ -2,20 +2,21 @@
 
   <div *ngIf="profile$ | async as profile; else profileLoading">
     <mat-card class="flex-column profile-main">
-      <mat-card-title>{{ profile.personalDetails | userFullName }}</mat-card-title>
+      <mat-card-title class="pc-text-rb pc-text-pink">{{ profile.personalDetails | userFullName }}</mat-card-title>
 
-      <mat-card-subtitle>{{ profile.typeOfUser }}</mat-card-subtitle>
+      <mat-card-subtitle class="pc-text-li">{{ profile.typeOfUser }}</mat-card-subtitle>
     </mat-card>
-    <div class="flex-row profile-details">
+    <div class="flex-column profile-details">
       <mat-card class="profile-personal">
-        <p> {{ profile.personalDetails.dateOfBirth | date:'longDate'}}</p>
-        <p> {{ profile.personalDetails.gender }}</p>
+        <p><i class="fas fa-birthday-cake"></i> &nbsp; {{ profile.personalDetails.dateOfBirth | date:'longDate'}}</p>
+        <p><i class="fas fa-genderless"></i> &nbsp; {{ profile.personalDetails.gender }}</p>
       </mat-card>
       <mat-card class="profile-contact">
-        <p> {{ profile.contactDetails.phoneNumber }}</p>
-        <p> {{ profile.contactDetails.alternateNumber }}</p>
-        <p> {{ profile.contactDetails.address }}</p>
-        <p> {{ profile.contactDetails.email }}</p>
+        <p><i class="fas fa-mobile-alt"></i> &nbsp; {{ profile.contactDetails.phoneNumber }}</p>
+        <p *ngIf="profile.contactDetails.alternateNumber"><i class="fas fa-mobile"></i>
+          &nbsp; {{ profile.contactDetails.alternateNumber }}</p>
+        <p><i class="fas fa-map-marker-alt"></i> &nbsp; {{ profile.contactDetails.address }}</p>
+        <p><i class="fas fa-at"></i> &nbsp; {{ profile.contactDetails.email }}</p>
       </mat-card>
     </div>
   </div>

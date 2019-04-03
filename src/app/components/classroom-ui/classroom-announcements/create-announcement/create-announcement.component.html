@@ -3,8 +3,8 @@
   <ng-container
     *ngIf="(currentClassroomDetails$ | async) as currentClassroomDetails; else loadingCurrentClassroomDetails">
 
-    <h3 class="card-title">Make an announcement</h3>
-    <p class="card-subtitle">{{ currentClassroomDetails.name }}</p>
+    <h3 class="card-title pc-text-rb">Make an announcement</h3>
+    <p class="card-subtitle pc-text-psr">{{ currentClassroomDetails.subject }} | {{currentClassroomDetails.name}}</p>
     <br>
 
     <p-editor [(ngModel)]="announcement" [style]="{'height':'320px'}" styleClass="mat-elevation-z5">
@@ -44,7 +44,7 @@
     <br>
     <button (click)="onAnnouncementSubmit(currentClassroomDetails.id)"
             [disabled]="announcement === null"
-            mat-button>SUBMIT
+            class="pc-btn">SUBMIT
     </button>
 
   </ng-container>

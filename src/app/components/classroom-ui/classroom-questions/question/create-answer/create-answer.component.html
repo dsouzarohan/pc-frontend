@@ -1,7 +1,7 @@
 <mat-card>
   <ng-container *ngIf="(question$ | async) as question">
-    <h3 class="card-title">{{ question.name }}</h3>
-    <p class="card-subtitle">Add a post</p>
+    <h3 class="card-title pc-text-rb">{{ question.name }}</h3>
+    <p class="card-subtitle pc-text-psr add-answer-message">Add an answer*</p>
     <br>
     <p-editor [(ngModel)]="answer" [style]="{'height':'320px'}" styleClass="mat-elevation-z5">
       <p-header>
@@ -38,11 +38,12 @@
       </p-header>
     </p-editor>
     <mat-card class="answer-preview-container">
-      <h5 class="card-title">
+      <h5 class="card-title pc-text-psr">
         Your post preview:
       </h5>
-      <p [innerHTML]="answer"></p>
+      <p [innerHTML]="answer" class="pc-text-psr"></p>
     </mat-card>
-    <button (click)="onPostButtonClick(question.id)" mat-button>Post</button>
+    <button (click)="onPostButtonClick(question.id)" [disabled]="!answer || answer.length === 0" class="pc-btn">Post
+    </button>
   </ng-container>
 </mat-card>

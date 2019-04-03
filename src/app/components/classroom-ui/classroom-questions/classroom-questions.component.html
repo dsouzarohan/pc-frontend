@@ -7,15 +7,15 @@
       >
         <mat-icon>library_add</mat-icon>
       </button>
-      <h3 class="card-title">Questions</h3>
-      <p class="card-subtitle">{{classroom.name}}</p>
-      <br>
-      <app-classroom-questions-card
-        *ngFor="let question of questions"
-        [question]="question"
-        [routerLink]="question.id"
-        class="classroom-question-card"
-      ></app-classroom-questions-card>
+      <h3 class="card-title pc-text-rb pc-text-pink text-center">Questions</h3>
+      <p class="card-subtitle pc-text-psr text-center">{{classroom.subject}} | {{classroom.name}}</p>
     </mat-card>
+    <br>
+    <app-classroom-questions-card
+      *ngFor="let question of questions"
+      [question]="question"
+      [routerLink]="question.id"
+      class="classroom-question-card"
+    ></app-classroom-questions-card>
   </div>
 </ng-container>

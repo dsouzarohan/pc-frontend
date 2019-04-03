@@ -1,244 +1,253 @@
-<div class="container">
-  <form (ngSubmit)="onSubmit(finalSubmit)">
+<div class="flex-container">
+  <div class="content-container">
+    <div class="logo-container">
+      <img class="pc-logo" src="assets/logos/pc-logo-white-full.png">
+    </div>
+    <mat-card>
+      <div class="form-container">
+        <form (ngSubmit)="onSubmit(finalSubmit)">
 
-    <!--todo: rewrite all validator using the rxweb form validation library-->
+          <!--todo: rewrite all validator using the rxweb form validation library-->
 
-    <mat-vertical-stepper
-      linear=false>
+          <mat-horizontal-stepper
+            linear=false>
 
-      <!--todo: change linear to true after completion-->
+            <!--todo: change linear to true after completion-->
 
-      <!--The whole sign up form-->
+            <!--The whole sign up form-->
 
-      <mat-step [stepControl]="typeFormGroup" label="Who are you?">
+            <mat-step [stepControl]="typeFormGroup" label="Who are you?">
 
-        <!--The type step-->
+              <!--The type step-->
 
-        <form
-          [formGroup]="typeFormGroup">
-          <!--The type form in the step-->
+              <form
+                [formGroup]="typeFormGroup">
+                <!--The type form in the step-->
 
-          <mat-radio-group
-            matInput
-            formControlName="type"
-            #typeGroup
-            class="pc-radio-group"
-            required
-            (change)="onUserTypeChange()">
+                <mat-radio-group
+                  #typeGroup
+                  (change)="onUserTypeChange()"
+                  class="pc-radio-group"
+                  formControlName="type"
+                  matInput
+                  required>
 
-            <mat-radio-button
-              *ngFor="let type of types"
-              [value]="type"
-              class="pc-radio-button">
-              {{ type }}
-            </mat-radio-button>
+                  <mat-radio-button
+                    *ngFor="let type of types"
+                    [value]="type"
+                    class="pc-radio-button">
+                    {{ type }}
+                  </mat-radio-button>
 
-            <mat-error *ngIf="!typeFormGroup.get('type').valid">Please select a type</mat-error>
+                  <mat-error *ngIf="!typeFormGroup.get('type').valid">Please select a type</mat-error>
 
-          </mat-radio-group>
+                </mat-radio-group>
 
-          <mat-form-field>
+                <mat-form-field>
 
-            <input
-              matInput
-              formControlName="uid"
-              #uid
-              type="number"
-              placeholder="UID"
-              required>
+                  <input
+                    #uid
+                    formControlName="uid"
+                    matInput
+                    placeholder="UID"
+                    required
+                    type="number">
 
-            <mat-hint>Enter the unique identification number provided by your college</mat-hint>
+                  <mat-hint>Enter the unique identification number provided by your college</mat-hint>
 
-            <mat-error *ngIf="!uid.valid">UID is required</mat-error>
+                  <mat-error *ngIf="!uid.valid">UID exists</mat-error>
 
-          </mat-form-field>
+                </mat-form-field>
 
-          <mat-form-field *ngIf="typeFormGroup.get('type').value === 'Student'">
+                <mat-form-field *ngIf="typeFormGroup.get('type').value === 'Student'">
 
-            <input
-              matInput
-              formControlName="stream"
-              #stream
-              placeholder="Stream"
-              required>
+                  <input
+                    #stream
+                    formControlName="stream"
+                    matInput
+                    placeholder="Stream"
+                    required>
 
-            <mat-hint>Enter the stream</mat-hint>
+                  <mat-hint>Enter the stream</mat-hint>
 
-            <mat-error *ngIf="!stream.valid">Stream is required</mat-error>
+                  <mat-error *ngIf="!stream.valid">Stream is required</mat-error>
 
-          </mat-form-field>
+                </mat-form-field>
 
-          <div class="pc-stepper-buttons">
-            <button mat-button matStepperNext>NEXT</button>
-          </div>
+                <div class="pc-stepper-buttons">
+                  <button class="pc-btn" matStepperNext>Next</button>
+                </div>
 
-        </form>
-      </mat-step>
+              </form>
+            </mat-step>
 
-      <mat-step [stepControl]="personalFormGroup" label="Personal">
-        <!--This is the personal details step-->
+            <mat-step [stepControl]="personalFormGroup" label="Personal">
+              <!--This is the personal details step-->
 
-        <form
-          [formGroup]="personalFormGroup"
-        >
-          <!--This is the personal detail form in the step-->
+              <form
+                [formGroup]="personalFormGroup"
+              >
+                <!--This is the personal detail form in the step-->
 
-          <mat-form-field>
+                <mat-form-field>
 
-            <input
-              matInput
-              placeholder="First Name"
-              formControlName="firstName"
-              #firstName
-              required>
+                  <input
+                    #firstName
+                    formControlName="firstName"
+                    matInput
+                    placeholder="First Name"
+                    required>
 
-            <mat-error
-              *ngIf="!firstName.valid">
-              Incorrect name
-            </mat-error>
+                  <mat-error
+                    *ngIf="!firstName.valid">
+                    Incorrect name
+                  </mat-error>
 
 
-          </mat-form-field>
+                </mat-form-field>
 
-          <mat-form-field>
+                <mat-form-field>
 
-            <input
-              matInput
-              formControlName="lastName"
-              placeholder="Last Name"
-              #lastName
-              required>
+                  <input
+                    #lastName
+                    formControlName="lastName"
+                    matInput
+                    placeholder="Last Name"
+                    required>
 
-            <mat-error *ngIf="!lastName.valid">
-              Incorrect name
-            </mat-error>
+                  <mat-error *ngIf="!lastName.valid">
+                    Incorrect name
+                  </mat-error>
 
-          </mat-form-field>
+                </mat-form-field>
 
-          <mat-form-field>
+                <mat-form-field>
 
-            <input
-              matInput
-              placeholder="Middle name"
-              #middleName
-              formControlName="middleName">
+                  <input
+                    #middleName
+                    formControlName="middleName"
+                    matInput
+                    placeholder="Middle name">
 
-            <mat-error *ngIf="!middleName.valid">Incorrect name</mat-error>
+                  <mat-error *ngIf="!middleName.valid">Incorrect name</mat-error>
 
-          </mat-form-field>
+                </mat-form-field>
 
-          <mat-form-field>
-            <input
-              matInput
-              #dateOfBirth
-              formControlName="dateOfBirth"
-              [matDatepicker]="picker"
-              [max]="maxDate"
-              required
-              placeholder="Date of birth">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="!dateOfBirth.valid">Required</mat-error>
-          </mat-form-field>
+                <mat-form-field>
+                  <input
+                    #dateOfBirth
+                    [matDatepicker]="picker"
+                    [max]="maxDate"
+                    formControlName="dateOfBirth"
+                    matInput
+                    placeholder="Date of birth"
+                    required>
+                  <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="!dateOfBirth.valid">Required</mat-error>
+                </mat-form-field>
 
-          <mat-radio-group
-            matInput
-            placeHolder="Gender"
-            formControlName="gender"
-            class="pc-radio-group"
-            required
-          >
+                <mat-radio-group
+                  class="pc-radio-group"
+                  formControlName="gender"
+                  matInput
+                  placeHolder="Gender"
+                  required
+                >
 
-            <mat-label>
-              Gender
-            </mat-label>
+                  <mat-label>
+                    Gender
+                  </mat-label>
 
-            <mat-radio-button
-              *ngFor="let gender of genders"
-              class="pc-radio-button"
-              [value]="gender"
-              required
-            >
-              {{ gender }}
-            </mat-radio-button>
+                  <mat-radio-button
+                    *ngFor="let gender of genders"
+                    [value]="gender"
+                    class="pc-radio-button"
+                    required
+                  >
+                    {{ gender }}
+                  </mat-radio-button>
 
-            <mat-error *ngIf="!personalFormGroup.get('gender').valid &&
+                  <mat-error *ngIf="!personalFormGroup.get('gender').valid &&
             personalFormGroup.get('gender').touched">Please select a value
-            </mat-error>
+                  </mat-error>
 
-          </mat-radio-group>
+                </mat-radio-group>
 
-          <div class="pc-stepper-buttons">
-            <button
-              mat-button
-              matStepperPrevious>
-              PREVIOUS
-            </button>
+                <div class="pc-stepper-buttons">
+                  <button
+                    class="pc-btn"
+                    matStepperPrevious>
+                    Previous
+                  </button>
 
-            <button
-              mat-button
-              matStepperNext>
-              NEXT
-            </button>
-          </div>
+                  <button
+                    class="pc-btn"
+                    matStepperNext>
+                    Next
+                  </button>
+                </div>
 
-        </form>
+              </form>
 
-      </mat-step>
+            </mat-step>
 
-      <mat-step [stepControl]="contactFormGroup" label="Contact">
-        <!--Contact form step-->
-        <form [formGroup]="contactFormGroup">
-          <!--Contact form-->
+            <mat-step [stepControl]="contactFormGroup" label="Contact">
+              <!--Contact form step-->
+              <form [formGroup]="contactFormGroup">
+                <!--Contact form-->
 
-          <mat-form-field>
+                <mat-form-field>
 
-            <input
-              matInput
-              #mobileNumber
-              formControlName="mobileNumber"
-              placeholder="Mobile Number"
-              required>
+                  <input
+                    #mobileNumber
+                    formControlName="mobileNumber"
+                    matInput
+                    placeholder="Mobile Number"
+                    required>
 
-            <mat-error *ngIf="contactFormGroup.get('mobileNumber').hasError('pattern')">Incorrect mobile number
-            </mat-error>
-            <mat-error *ngIf="contactFormGroup.get('mobileNumber').hasError('Number exists')">Mobile number already
-              exists
-            </mat-error>
+                  <mat-error *ngIf="contactFormGroup.get('mobileNumber').hasError('pattern')">Incorrect mobile number
+                  </mat-error>
+                  <mat-error *ngIf="contactFormGroup.get('mobileNumber').hasError('Number exists')">Mobile number
+                    already
+                    exists
+                  </mat-error>
 
-          </mat-form-field>
+                </mat-form-field>
 
-          <mat-form-field>
+                <mat-form-field>
 
-            <input
-              matInput
-              #alternateNumber
-              formControlName="alternateNumber"
-              placeholder="Alternate mobile number">
+                  <input
+                    #alternateNumber
+                    formControlName="alternateNumber"
+                    matInput
+                    placeholder="Alternate mobile number">
 
-            <mat-error *ngIf="contactFormGroup.get('alternateNumber').hasError('pattern')">Incorrect mobile number
-            </mat-error>
-            <mat-error *ngIf="contactFormGroup.get('alternateNumber').hasError('Number exists')">Mobile number already
-              exists
-            </mat-error>
+                  <mat-error *ngIf="contactFormGroup.get('alternateNumber').hasError('pattern')">Incorrect mobile number
+                  </mat-error>
+                  <mat-error *ngIf="contactFormGroup.get('alternateNumber').hasError('Number exists')">Mobile number
+                    already
+                    exists
+                  </mat-error>
 
-          </mat-form-field>
+                </mat-form-field>
 
-          <mat-form-field>
+                <mat-form-field>
 
-            <input
-              matInput
-              #email
-              formControlName="email"
-              placeholder="Email"
-              required>
+                  <input
+                    #email
+                    formControlName="email"
+                    matInput
+                    placeholder="Email"
+                    required>
 
-            <mat-error *ngIf="contactFormGroup.get('email').hasError('email')">Invalid email address</mat-error>
-            <mat-error *ngIf="contactFormGroup.get('email').hasError('Email exists')">Email already exists</mat-error>
+                  <mat-error *ngIf="contactFormGroup.get('email').hasError('email')">Invalid email address</mat-error>
+                  <mat-error *ngIf="contactFormGroup.get('email').hasError('Email exists')">Email already exists
+                  </mat-error>
 
-          </mat-form-field>
+                </mat-form-field>
 
-          <mat-form-field>
+                <mat-form-field>
 
             <textarea
               matInput
@@ -248,110 +257,119 @@
               maxlength="250"
             ></textarea>
 
-            <mat-error *ngIf="!address.valid">Required</mat-error>
+                  <mat-error *ngIf="!address.valid">Required</mat-error>
 
-            <!--todo: change the layout to another form group with fields-->
+                  <!--todo: change the layout to another form group with fields-->
 
-          </mat-form-field>
+                </mat-form-field>
 
-          <div class="pc-stepper-buttons">
-            <button
-              mat-button
-              matStepperPrevious
-            >PREVIOUS
-            </button>
+                <div class="pc-stepper-buttons">
+                  <button
+                    class="pc-btn"
+                    matStepperPrevious
+                  >Previous
+                  </button>
 
-            <button
-              mat-button
-              matStepperNext>NEXT
-            </button>
-          </div>
+                  <button
+                    class="pc-btn"
+                    matStepperNext>Next
+                  </button>
+                </div>
 
+              </form>
+
+            </mat-step>
+
+            <mat-step [stepControl]="credentialFormGroup" label="Credentials">
+              <!--Credential form step, here the form will also be submitted to the server-->
+
+              <form [formGroup]="credentialFormGroup">
+                <!--Credential form, here, the whole form i.e the sign up form will be submitted-->
+
+                <mat-form-field>
+
+                  <input
+                    [value]="contactFormGroup.get('email').value"
+                    formControlName="email"
+                    matInput
+                    placeholder="Email"
+                    readonly>
+
+                  <mat-hint>
+                    The email you chose in the previous step will be your login credential.
+                  </mat-hint>
+
+                </mat-form-field>
+
+                <mat-form-field>
+
+                  <input
+                    #password
+                    formControlName="password"
+                    matInput
+                    placeholder="Password"
+                    required
+                    type="password">
+
+                  <mat-hint>Your password should be alphanumeric and of length 8-15 characters. It should consist of at
+                    least
+                    one number and uppercase character
+                  </mat-hint>
+                  <!--todo: Shorten the input hint-->
+
+                  <mat-error *ngIf="!password.valid">Incorrect password</mat-error>
+
+                </mat-form-field>
+
+                <mat-form-field>
+
+                  <input
+                    #confirmPassword
+                    formControlName="confirmPassword"
+                    matInput
+                    placeholder="Confirm Password"
+                    required
+                    type="password"
+                  >
+
+                  <mat-error *ngIf="credentialFormGroup.hasError('Passwords do not match')">The passwords do not match
+                  </mat-error>
+
+                  <!--todo: passwords do not match error not triggered by error in the main password box-->
+
+                </mat-form-field>
+
+              </form>
+
+              <div class="pc-stepper-buttons">
+
+                <button
+                  class="pc-btn"
+                  matStepperPrevious>
+                  Previous
+                </button>
+
+                <button
+                  #finalSubmit
+                  (click)="onSubmit(finalSubmit)"
+                  [disabled]="!signUpForm.valid"
+                  class="pc-btn">
+
+                  Join
+                </button>
+
+              </div>
+
+            </mat-step>
+
+          </mat-horizontal-stepper>
         </form>
+      </div>
 
-      </mat-step>
+    </mat-card>
+    <p class="pc-text-rr pc-text-white login-message">
+      Already a member? <a class="pc-text-white" routerLink="/signin"><b>Sign in</b></a>
+    </p>
 
-      <mat-step [stepControl]="credentialFormGroup" label="Credentials">
-        <!--Credential form step, here the form will also be submitted to the server-->
-
-        <form [formGroup]="credentialFormGroup">
-          <!--Credential form, here, the whole form i.e the sign up form will be submitted-->
-
-          <mat-form-field>
-
-            <input
-              matInput
-              readonly
-              [value]="contactFormGroup.get('email').value"
-              formControlName="email"
-              placeholder="Email">
-
-            <mat-hint>
-              The email you chose in the previous step will be your login credential.
-            </mat-hint>
-
-          </mat-form-field>
-
-          <mat-form-field>
-
-            <input
-              matInput
-              type="password"
-              #password
-              formControlName="password"
-              placeholder="Password"
-              required>
-
-            <mat-hint>Your password should be alphanumeric and of length 8-15 characters. It should consist of at least
-              one number and uppercase character
-            </mat-hint>
-            <!--todo: Shorten the input hint-->
-
-            <mat-error *ngIf="!password.valid">Incorrect password</mat-error>
-
-          </mat-form-field>
-
-          <mat-form-field>
-
-            <input
-              matInput
-              type="password"
-              formControlName="confirmPassword"
-              #confirmPassword
-              placeholder="Confirm Password"
-              required
-            >
-
-            <mat-error *ngIf="credentialFormGroup.hasError('Passwords do not match')">The passwords do not match
-            </mat-error>
-
-            <!--todo: passwords do not match error not triggered by error in the main password box-->
-
-          </mat-form-field>
-
-        </form>
-
-        <div class="pc-stepper-buttons">
-
-          <button
-            mat-button
-            matStepperNext>
-            PREVIOUS
-          </button>
-
-          <button
-            mat-button
-            #finalSubmit>
-
-            <!--[disabled]="!signUpForm.valid"-->
-
-            JOIN
-          </button>
-
-        </div>
-
-      </mat-step>
-
-    </mat-vertical-stepper>
-  </form>
+  </div>
 </div>

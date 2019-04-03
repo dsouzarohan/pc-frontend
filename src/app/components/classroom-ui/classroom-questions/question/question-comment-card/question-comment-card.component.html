@@ -1,8 +1,8 @@
 <div class="question-comment">
-  <p class="card-lt-text comment-body">
+  <p class="card-lt-text comment-body pc-text-psr">
     {{questionComment.comment}}
   </p>
-  <p class="comment-author">
+  <p class="comment-author pc-text-li">
     Commented by {{ questionComment.questionCommenter.personalDetails | userFullName }}
     on {{ questionComment.createdAt | date:'MMMM, d, y, hh:mm a' }}
   </p>
@@ -10,11 +10,13 @@
     <span><button
       (click)="onVoteClick('U')"
       [ngClass]="{'vote-button-selected': userVote === 'U'}" class="comment-up-vote" mat-icon-button><mat-icon>keyboard_arrow_up</mat-icon></button><span
-      (click)="onCountClick()"> Upvote ({{votes.upVotes.length}})</span></span>
+      (click)="onCountClick()"
+      class="pc-text-psr">{{votes.upVotes.length}}</span></span>
     <span><button
       (click)="onVoteClick('D')"
       [ngClass]="{'vote-button-selected': userVote === 'D'}" class="comment-down-vote" mat-icon-button><mat-icon>keyboard_arrow_down</mat-icon></button><span
-      (click)="onCountClick()"> Downvote ({{votes.downVotes.length}})</span></span>
+      (click)="onCountClick()"
+      class="pc-text-psr">{{votes.downVotes.length}}</span></span>
 
   </div>
   <mat-divider class="card-divider comment-divider"></mat-divider>

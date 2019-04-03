@@ -93,8 +93,7 @@ export class ClassroomEventsComponent implements OnInit {
       data: {
         selectionInfo: this.selectionInfo,
         classroomId: this.activatedRoute.snapshot.params.classroomId
-      },
-      height: '600px'
+      }
     });
   }
 

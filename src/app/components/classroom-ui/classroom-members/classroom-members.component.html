@@ -2,22 +2,22 @@
 
   <div *ngIf="classroomDetails$ | async as classroomDetails; else classroomDetailsLoading">
 
-    <h3 class="card-title">Members</h3>
-    <p class="card-subtitle">{{ classroomDetails.name }}</p>
+    <h3 class="card-title pc-text-rb pc-text-pink text-center">Members</h3>
+    <p class="card-subtitle pc-text-psr text-center">{{ classroomDetails.subject }} | {{ classroomDetails.name }}</p>
     <br>
 
     <div *ngIf="classroomDetails.students.length !== 0; else noStudentsMessage">
       <mat-table [dataSource]="classroomDetails.students" class="mat-elevation-z8">
 
         <ng-container matColumnDef="masterUserID">
-          <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-          <mat-cell
+          <mat-header-cell *matHeaderCellDef class="pc-text-psb">Name</mat-header-cell>
+          <mat-cell class="pc-text-psr"
             *matCellDef="let student;"> {{ student.masterUserDetails.personalDetails | userFullName }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="uid">
-          <mat-header-cell *matHeaderCellDef>UID</mat-header-cell>
-          <mat-cell *matCellDef="let student;">{{ student.uid }}</mat-cell>
+          <mat-header-cell *matHeaderCellDef class="pc-text-psb">UID</mat-header-cell>
+          <mat-cell *matCellDef="let student;" class="pc-text-psr">{{ student.uid }}</mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -1,0 +1,335 @@
+//font definitions
+
+//rawson
+
+@font-face {
+  src: url("assets/fonts/rawson-regular.otf") format("opentype");
+  font-family: "Rawson Regular";
+}
+
+@font-face {
+  src: url("assets/fonts/rawson-semibold.otf") format("opentype");
+  font-family: "Rawson SemiBold";
+}
+
+@font-face {
+  src: url("assets/fonts/rawson-bold.otf") format("opentype");
+  font-family: "Rawson Bold";
+}
+
+@font-face {
+  src: url("assets/fonts/rawson-extrabold.otf") format("opentype");
+  font-family: "Rawson ExtraBold";
+}
+
+@font-face {
+  src: url("assets/fonts/rawson-black.otf") format("opentype");
+  font-family: "Rawson Black";
+}
+
+
+//product sans
+
+@font-face {
+  src: url("assets/fonts/product-sans-bold.ttf") format("opentype");
+  font-family: "Product Sans Bold";
+}
+
+@font-face {
+  src: url("assets/fonts/product-sans-bold-italic.ttf") format("opentype");
+  font-family: "Product Sans Bold Italic";
+}
+
+@font-face {
+  src: url("assets/fonts/product-sans-italic.ttf") format("opentype");
+  font-family: "Product Sans Italic";
+}
+
+@font-face {
+  src: url("assets/fonts/product-sans-regular.ttf") format("opentype");
+  font-family: "Product Sans Regular";
+}
+
+
+//Lato
+
+@font-face {
+  src: url("assets/fonts/lato-regular.ttf") format("opentype");
+  font-family: "Lato Regular";
+}
+
+@font-face {
+  src: url("assets/fonts/lato-italic.ttf") format("opentype");
+  font-family: "Lato Italic";
+}
+
+@font-face {
+  src: url("assets/fonts/lato-hairline.ttf") format("opentype");
+  font-family: "Lato Hairline";
+}
+
+@font-face {
+  src: url("assets/fonts/lato-light.ttf") format("opentype");
+  font-family: "Lato Light";
+}
+
+@font-face {
+  src: url("assets/fonts/lato-bold.ttf") format("opentype");
+  font-family: "Lato Bold";
+}
+
+@font-face {
+  src: url("assets/fonts/lato-bold-italic.ttf") format("opentype");
+  font-family: "Lato Bold Italic";
+}
+
+@font-face {
+  src: url("assets/fonts/lato-medium.ttf") format("opentype");
+  font-family: "Lato Medium";
+}
+
+
+//pocket class styles
+
+.pc-lin-grad-horiz {
+  background: rgb(255, 78, 113);
+  background: linear-gradient(90deg, rgba(255, 78, 113, 1) 0%, rgba(170, 40, 142, 1) 100%);
+  background-repeat: no-repeat;
+}
+
+.pc-lin-grad-vert {
+  background: rgb(255, 78, 113);
+  background: linear-gradient(180deg, rgba(255, 78, 113, 1) 0%, rgba(170, 40, 142, 1) 100%);
+  background-repeat: no-repeat;
+}
+
+.pc-pink {
+  background: #FF4E71;
+}
+
+//pocket class text colors
+
+.pc-text-white {
+  color: #FFFFFF;
+}
+
+.pc-text-pink {
+  color: #FF5A7B;
+}
+
+
+//pocket class typography
+
+.pc-text-rr {
+  font-family: "Rawson Regular", SansSerif, serif;
+}
+
+.pc-text-rxb {
+  font-family: "Rawson ExtraBold", SansSerif, serif;
+}
+
+.pc-text-rsb {
+  font-family: "Rawson SemiBold", SansSerif, serif;
+}
+
+.pc-text-rbl {
+  font-family: "Rawson Black", SansSerif, serif;
+}
+
+.pc-text-rb {
+  font-family: "Rawson Bold", SansSerif, serif;
+}
+
+
+.pc-text-psr {
+  font-family: "Product Sans Regular", SansSerif, serif;
+}
+
+.pc-text-psl {
+  font-family: "Product Sans Regular", SansSerif, serif;
+  font-weight: lighter;
+}
+
+.pc-text-psb {
+  font-family: "Product Sans Bold", SansSerif, serif;
+}
+
+.pc-text-psi {
+  font-family: "Product Sans Italic", SansSerif, serif;
+}
+
+.pc-text-psbi {
+  font-family: "Product Sans Bold Italic", SansSerif, serif;
+}
+
+.pc-text-lr {
+  font-family: "Lato Regular", serif;
+}
+
+.pc-text-lm {
+  font-family: "Lato Medium", serif;
+}
+
+.pc-text-lb {
+  font-family: "Lato Bold", serif;
+}
+
+.pc-text-lbi {
+  font-family: "Lato Bold Italic", serif;
+}
+
+.pc-text-lh {
+  font-family: "Lato Hairline", serif;
+}
+
+.pc-text-li {
+  font-family: "Lato Italic", serif;
+}
+
+.pc-text-ll {
+  font-family: "Lato Light", serif;
+}
+
+//pocket class widget and other UI styles
+
+.ui-button {
+  background: none !important;
+}
+
+.pc-btn {
+  flex: 1 1 auto;
+  margin: 10px;
+  padding: 10px 20px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 28px;
+  border: none;
+  cursor: pointer;
+  background-image: linear-gradient(to right, rgba(255, 78, 113, 1) 0%, rgba(170, 40, 142, 1) 100%);
+  font-family: "Product Sans Regular", SansSerif, serif;
+  font-weight: 600;
+}
+
+.pc-btn:hover:enabled {
+  background-position: right center;
+}
+
+.pc-btn:disabled {
+  opacity: 0.35;
+}
+
+.pc-card-border-sm {
+  -webkit-border-radius: 20px !important;
+  -moz-border-radius: 20px !important;
+  border-radius: 20px !important;
+}
+
+.pc-card-border-lg {
+  -webkit-border-radius: 35px !important;
+  -moz-border-radius: 35px !important;
+  border-radius: 35px !important;
+}
+
+/*overridden styles*/
+
+//stepper
+
+mat-form-field * {
+  font-family: "Product Sans Regular", serif;
+}
+
+.mat-step-header {
+  font-family: "Product Sans Bold", serif !important;
+}
+
+.mat-horizontal-stepper-content * {
+  font-family: "Product Sans Regular", serif !important;
+}
+
+mat-hint.mat-hint, mat-error.mat-error {
+  font-family: "Lato Italic", serif !important;
+}
+
+mat-dialog-container.mat-dialog-container {
+  border-radius: 20px;
+}
+
+//calendar styles
+
+button.fc-button {
+  font-family: "Product Sans Regular", serif !important;
+}
+
+
+button.fc-month-button, button.fc-prev-button {
+  border-top-left-radius: 25px !important;
+  border-bottom-left-radius: 25px !important;
+}
+
+button.fc-listMonth-button, button.fc-today-button {
+  border-top-right-radius: 25px !important;
+  border-bottom-right-radius: 25px !important;
+}
+
+.fc-button-group {
+  border-radius: 15px !important;
+}
+
+td.fc-today {
+  background: #ffebef !important;
+}
+
+.fc-highlight {
+  background: #ffdfd2 !important;
+}
+
+.fc-event-dot, .fc-event, .fc-content {
+  background: #FF5A7B !important;
+}
+
+.fc-event {
+  border: 1px solid #FF5A7B !important;
+}
+
+//file upload styles
+
+.ui-button {
+  flex: 1 1 auto;
+  padding: 3px 3px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 100% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 28px;
+  border: none;
+  cursor: pointer;
+  background: #FF5A7B !important;
+  font-family: "Product Sans Regular", SansSerif, serif;
+  font-weight: bold;
+}
+
+.ui-button:hover:enabled {
+  background-position: right center !important;
+}
+
+.ui-button:disabled {
+  opacity: 0.35;
+}
+
+.ui-fileupload-row, .ui-messages-error {
+  font-size: 0.9rem;
+}
+
+.ui-fileupload-row > div:nth-child(2),
+.ui-button-text {
+  text-overflow: clip;
+  font-family: "Product Sans Regular", serif;
+}
+
+.ui-fileupload-row > div:nth-child(3), .ui-messages-error {
+  font-family: "Product Sans Italic", serif;
+}

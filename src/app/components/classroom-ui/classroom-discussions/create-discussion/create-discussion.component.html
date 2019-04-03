@@ -1,43 +1,48 @@
-<mat-card>
+<ng-container *ngIf="(currentClassroom$ | async) as currentClassroom">
+  <mat-card>
 
-  <h3 class="card-title">
-    Start a discussion
-  </h3>
+    <h3 class="card-title pc-text-rb">
+      Start a discussion
+    </h3>
+    <p class="card-subtitle pc-text-psr">{{currentClassroom.subject }} | {{currentClassroom.name }}</p>
 
-  <!--todo: fix form appearance with proper validity messages-->
+    <!--todo: fix form appearance with proper validity messages-->
 
-  <br>
+    <br>
 
-  <mat-form-field appearance="fill">
-    <mat-label>The discussion topic</mat-label>
-    <input
-      [(ngModel)]="discussionTopic"
-      matInput
-      placeholder="Type here">
+    <mat-form-field appearance="fill">
+      <mat-label>The discussion topic</mat-label>
+      <input
+        [(ngModel)]="discussionTopic"
+        matInput
+        placeholder="Type here"
+        required>
 
-  </mat-form-field>
+      <mat-hint>Enter a title for the discussion</mat-hint>
+      <mat-error>This field is required</mat-error>
 
-  <p class="card-subtitle">Enter a body</p>
-  <br>
-  <p-editor #editor [(ngModel)]="discussionBody" [style]="{'height':'320px'}" styleClass="mat-elevation-z5">
-    <p-header>
+    </mat-form-field>
+
+    <p class="card-subtitle pc-text-psr enter-body-message">Enter a body*</p>
+    <p-editor #editor [(ngModel)]="discussionBody" [style]="{'height':'320px'}" styleClass="mat-elevation-z5">
+      <p-header>
         <span class="ql-formats">
             <button aria-label="Bold" class="ql-bold"></button>
             <button aria-label="Italic" class="ql-italic"></button>
             <button aria-label="Underline" class="ql-underline"></button>
         </span>
-      <span class="ql-formats">
+        <span class="ql-formats">
           <select class="ql-size">
           <option value="small"></option><option selected="selected"></option>
           <option value="large"></option>
           <option value="huge"></option>
         </select>
         </span>
-      <span class="ql-formats">
+        <span class="ql-formats">
           <select class="ql-color"></select>
           <select class="ql-background"></select>
         </span>
-      <span class="ql-formats">
+        <span class="ql-formats">
           <button class="ql-list" value="ordered"></button>
           <button class="ql-list" value="bullet"></button>
           <select class="ql-align">
@@ -47,14 +52,15 @@
             <option value="justify"></option>
           </select>
         </span>
-      <span class="ql-formats">
+        <span class="ql-formats">
           <button class="ql-link"></button>
           <button class="ql-code"></button>
         </span>
-    </p-header>
-  </p-editor>
-  <br>
+      </p-header>
+    </p-editor>
+    <br>
 
-  <button (click)="onDiscussionSubmitClick()" [disabled]="!discussionFormIsValid()" mat-button>Post</button>
+    <button (click)="onDiscussionSubmitClick()" [disabled]="!discussionFormIsValid()" class="pc-btn">Post</button>
 
-</mat-card>
+  </mat-card>
+</ng-container>

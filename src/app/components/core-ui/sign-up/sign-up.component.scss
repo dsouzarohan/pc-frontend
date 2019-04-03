@@ -5,6 +5,27 @@
 
 //todo: add all styles that are global to global stylings
 
+.flex-container {
+  display: flex;
+  height: 100%;
+}
+
+.logo-container {
+  text-align: center;
+  margin: 40px;
+}
+
+.pc-logo {
+  width: 300px;
+  height: auto;
+}
+
+.content-container {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+}
+
 .pc-radio-group {
   display: inline-flex;
   flex-direction: column;
@@ -31,4 +52,16 @@ mat-form-field {
 
 mat-label {
   margin: 10px 0px;
+}
+
+mat-card {
+  margin-bottom: 20px;
+  overflow-y: scroll;
+}
+
+p.login-message {
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 50px;
 }

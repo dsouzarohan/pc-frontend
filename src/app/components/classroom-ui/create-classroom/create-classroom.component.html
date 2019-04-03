@@ -1,9 +1,9 @@
 <div class="create-classroom-container">
 
-  <mat-card class="create-classroom-card">
+  <mat-card class="create-classroom-card pc-card-border-sm">
 
-    <mat-card-title>Create a classroom</mat-card-title>
-    <mat-card-subtitle>Fill in the details for the classroom you want to create</mat-card-subtitle>
+    <mat-card-title class="pc-text-rb pc-text-pink">Create a classroom</mat-card-title>
+    <mat-card-subtitle class="pc-text-li">Fill in the details for the classroom you want to create</mat-card-subtitle>
 
     <form [formGroup]="createClassroomForm">
 
@@ -15,7 +15,7 @@
           placeholder="Classroom name"
           required>
 
-        <mat-hint>Some hint here</mat-hint>
+        <mat-hint>Pick something creative!</mat-hint>
         <mat-error>This field is required</mat-error>
 
       </mat-form-field>
@@ -28,7 +28,9 @@
           placeholder="Classroom subject"
           required>
 
-        <mat-hint>Some hint here</mat-hint>
+        <mat-hint>A short description of what
+          your class is all about.
+        </mat-hint>
         <mat-error>This field is required</mat-error>
 
       </mat-form-field>
@@ -36,7 +38,7 @@
       <button
         (click)="onCreateClassroomClick()"
         [disabled]="!createClassroomForm.valid"
-        mat-button>Create
+        class="pc-btn">Create
       </button>
 
     </form>

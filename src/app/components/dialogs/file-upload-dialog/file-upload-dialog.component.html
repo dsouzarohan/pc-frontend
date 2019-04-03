@@ -1,4 +1,4 @@
-<h3 class="card-title">Upload</h3>
+<h3 class="card-title pc-text-rb pc-text-pink">Upload</h3>
 <div class="upload-description-container flex-column">
   <mat-form-field>
     <input
@@ -6,19 +6,25 @@
       [(ngModel)]="uploadTitle"
       required
       placeholder="Title">
+    <mat-hint>Enter a title for your upload</mat-hint>
+    <mat-error>This field is required</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input
       matInput
+      required
       [(ngModel)]="uploadBody"
       placeholder="Body">
+    <mat-hint>A short description of the files you wish to upload</mat-hint>
+    <mat-error>This field is required</mat-error>
   </mat-form-field>
 </div>
-<p class="card-subtitle">Click on choose to select the files</p>
+<p class="card-subtitle pc-text-li choose-files-message text-center">Click on choose to select the files<br>(The upload
+  button will be visible once all required fields are filled)</p>
 <div class="mat-elevation-z4">
   <p-fileUpload #fileUpload name="files[]" customUpload="true"
                 (uploadHandler)="onUploadClick($event)"
-                multiple="multiple" maxFileSize="1000000"
+                maxFileSize="10000000" multiple="multiple"
                 [showUploadButton]="isUploadDetailsValid()">
   </p-fileUpload>
 

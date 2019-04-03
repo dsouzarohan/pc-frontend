@@ -1,5 +1,4 @@
-<h3 class="card-title">Add an event</h3>
-<br>
+<h3 class="card-title pc-text-rb pc-text-pink text-center">Add an event</h3>
 <form [formGroup]="createEventForm" class="flex-column">
   <mat-form-field>
     <input
@@ -7,6 +6,8 @@
       formControlName="title"
       placeholder="Title"
       required>
+    <mat-hint>A title for the event</mat-hint>
+    <mat-error>This field is required</mat-error>
   </mat-form-field>
 
   <mat-form-field>
@@ -18,6 +19,8 @@
       required>
     <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
     <mat-datepicker #startDatePicker></mat-datepicker>
+    <mat-hint>The start date of the event</mat-hint>
+    <mat-error>This field is required</mat-error>
   </mat-form-field>
 
   <mat-form-field>
@@ -25,6 +28,8 @@
            required [ngxTimepicker]="toggleStartTimepicker" [disableClick]="true" placeholder="Start time" readonly>
     <ngx-material-timepicker-toggle matSuffix [for]="toggleStartTimepicker"></ngx-material-timepicker-toggle>
     <ngx-material-timepicker #toggleStartTimepicker></ngx-material-timepicker>
+    <mat-hint>What time does it start?</mat-hint>
+    <mat-error>This field is required</mat-error>
   </mat-form-field>
 
   <mat-form-field>
@@ -35,6 +40,8 @@
       formControlName="end">
     <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
     <mat-datepicker #endDatePicker></mat-datepicker>
+    <mat-hint>The start date of the event</mat-hint>
+    <mat-error>This field is required</mat-error>
   </mat-form-field>
 
   <mat-form-field>
@@ -42,14 +49,17 @@
            formControlName="endTime" readonly>
     <ngx-material-timepicker-toggle matSuffix [for]="toggleEndTimepicker"></ngx-material-timepicker-toggle>
     <ngx-material-timepicker #toggleEndTimepicker></ngx-material-timepicker>
+    <mat-hint>What time does it end?</mat-hint>
+    <mat-error>This field is required</mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <textarea formControlName="body" placeholder="Body (optional)" matInput></textarea>
+    <mat-hint>A short description of the event</mat-hint>
   </mat-form-field>
 
-  <button mat-button [disabled]="!createEventForm.valid" (click)="onEventSubmit()">
-    CREATE
+  <button (click)="onEventSubmit()" [disabled]="!createEventForm.valid" class="pc-btn">
+    Create
   </button>
 
 </form>

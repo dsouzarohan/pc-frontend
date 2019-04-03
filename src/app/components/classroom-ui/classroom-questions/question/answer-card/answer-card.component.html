@@ -1,12 +1,12 @@
 <mat-card class="answer-container">
-  <p [innerHTML]="answer.body" class="card-dk-text"></p>
+  <p [innerHTML]="answer.body" class="card-dk-text pc-text-psr"></p>
   <span *ngIf="answer.isSelectedAnswer"
         class="is-answered-star">
     <mat-icon>
       star
     </mat-icon>
   </span>
-  <p class="card-lt-text answerer">
+  <p class="card-lt-text answerer pc-text-li">
     Answered by {{ answer.answerer.personalDetails | userFullName }}
     on {{ answer.createdAt |date:'MMMM d, y, h:mm:ss a' }}
   </p>
@@ -17,13 +17,14 @@
       (click)="onVoteClick('U')"
       [ngClass]="{'vote-button-selected': userVote === 'U'}" class="comment-up-vote" mat-icon-button><mat-icon>keyboard_arrow_up</mat-icon>
     </button>
-      <span
-      (click)="onCountClick()"> Upvote ({{votes.upVotes.length}})</span></span>
+      <span (click)="onCountClick()"
+            class="pc-text-psr">{{votes.upVotes.length}}</span></span>
     <span><button
       (click)="onVoteClick('D')"
       [ngClass]="{'vote-button-selected': userVote === 'D'}" class="comment-down-vote" mat-icon-button><mat-icon>keyboard_arrow_down</mat-icon></button><span
-      (click)="onCountClick()"> Downvote ({{votes.downVotes.length}})</span></span>
-    <span *ngIf="isQuestionAuthor">
+      (click)="onCountClick()"
+      class="pc-text-psr">{{votes.downVotes.length}}</span></span>
+    <span *ngIf="isQuestionAuthor" class="pc-text-psr">
       <button
         (click)="onSelectAnswerClick()"
         [ngClass]="{'vote-button-selected': answer.isSelectedAnswer}"
@@ -35,9 +36,8 @@
     </span>
   </div>
 
-  <mat-divider class="card-divider answer-divider"></mat-divider>
-
   <div class="answer-comments-container">
+    <h3 class="card-lt-text pc-text-psr">{{answer.answerComments.length}} comment(s)</h3>
     <app-answer-comment-card
       *ngFor="let answerComment of answer.answerComments"
       [answerComment]="answerComment"

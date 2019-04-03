@@ -3,10 +3,24 @@
   height: 100%;
 }
 
-mat-card {
+.logo-container {
+  text-align: center;
+  margin: 40px;
+}
+
+.pc-logo {
+  width: 300px;
+  height: auto;
+}
+
+.content-container {
   display: flex;
-  margin: auto;
+  margin: 0 auto;
   flex-direction: column;
+}
+
+mat-card {
+  padding: 70px 40px;
 }
 
 mat-card > button {
@@ -19,6 +33,10 @@ mat-card-subtitle {
   text-align: center;
 }
 
+mat-card-subtitle {
+  margin-top: 20px !important;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -26,4 +44,16 @@ form {
 
 form > * {
   margin: 0px 20px;
+}
+
+.not-registered-message {
+  font-size: 1.1rem;
+}
+
+//media queries
+
+@media screen and (max-width: 420px) {
+  mat-card {
+    padding: 35px 20px;
+  }
 }

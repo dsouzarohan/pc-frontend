@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {DiscussionsFacade} from '../../../../states/discussions/discussions.facade';
 import {ActivatedRoute} from '@angular/router';
+import {ClassroomsFacade} from '../../../../states/classroom/classrooms.facade';
+import {Classroom} from '../../../../models/classroom.models';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-create-discussion',
@@ -11,11 +14,14 @@ export class CreateDiscussionComponent implements OnInit {
 
   public discussionBody: string = '';
   public discussionTopic: string = '';
+  public currentClassroom$: Observable<Classroom>;
 
   constructor(
     private discussionsFacade: DiscussionsFacade,
-    private routeSnapshot: ActivatedRoute
+    private routeSnapshot: ActivatedRoute,
+    private classroomsFacade: ClassroomsFacade
   ) {
+    this.currentClassroom$ = this.classroomsFacade.classroomDetails$;
   }
 
   ngOnInit() {

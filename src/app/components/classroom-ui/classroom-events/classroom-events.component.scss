@@ -1,3 +1,12 @@
 .calendar-container {
   padding: 50px;
+  background: white;
+}
+
+.calendar-container * {
+  font-family: "Product Sans Regular", serif !important;
+}
+
+p.card-subtitle.text-center.pc-text-li {
+  margin: 0 !important;
 }

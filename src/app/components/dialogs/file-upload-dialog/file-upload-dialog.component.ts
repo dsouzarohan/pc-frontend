@@ -42,7 +42,7 @@ export class FileUploadDialogComponent implements OnInit, AfterViewInit {
   }
 
   isUploadDetailsValid() {
-    return !!this.uploadTitle;
+    return !!this.uploadTitle && !!this.uploadBody;
   }
 
   ngAfterViewInit(): void {
